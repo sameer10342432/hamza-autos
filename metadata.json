@@ -1,0 +1,6 @@
+{
+  "name": "Hamza Autos - Bike Mechanic & Motorcycle Repair Badami Bagh Lahore",
+  "description": "Professional motorcycle repair workshop in Badami Bagh, Lahore. Specializing in bike engine repair, tuning, oil change, electrical wiring, brakes, clutch, and maintenance.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
