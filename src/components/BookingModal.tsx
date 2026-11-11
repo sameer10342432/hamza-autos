@@ -10,6 +10,7 @@ import {
   Clock, 
   ShieldCheck 
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { BUSINESS_INFO } from '../data/businessData';
 import { getStoredServices, buildWhatsAppLink, trackEvent } from '../utils/businessLogic';
 import { 
@@ -118,15 +119,36 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, initialServi
   };
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="relative bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 animate-in fade-in zoom-in-95 duration-150 max-h-[92vh] overflow-y-auto">
-        <button
-          onClick={onClose}
-          className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
-          aria-label="Close modal"
-        >
-          <X className="w-5 h-5" />
-        </button>
+    <AnimatePresence>
+      {isOpen && (
+        <div className="fixed inset-0 z-50 overflow-y-auto flex items-center justify-center p-4">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={onClose}
+            className="fixed inset-0 bg-slate-950/70 backdrop-blur-xs"
+            aria-hidden="true"
+          />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.95, y: 15 }}
+            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
+            className="relative bg-white rounded-3xl max-w-xl w-full p-6 sm:p-8 shadow-2xl border border-slate-200 max-h-[92vh] overflow-y-auto z-10"
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Book Workshop Appointment"
+          >
+            <button
+              onClick={onClose}
+              className="absolute top-5 right-5 text-slate-400 hover:text-slate-600 p-1.5 rounded-lg hover:bg-slate-100 transition-colors cursor-pointer"
+              aria-label="Close modal"
+            >
+              <X className="w-5 h-5" />
+            </button>
 
         {!isSubmitted ? (
           <div>
@@ -395,7 +417,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, initialServi
             </p>
           </div>
         )}
-      </div>
+      </motion.div>
     </div>
+  )}
+</AnimatePresence>
   );
 };

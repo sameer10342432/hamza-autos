@@ -1,11 +1,21 @@
 import React from 'react';
 import { Phone, MessageCircle, MapPin, Clock, Wrench, Shield, ChevronRight } from 'lucide-react';
+import { motion, type Variants } from 'motion/react';
 import { BUSINESS_INFO, SERVICES_LIST, AREAS_LIST, BRANDS_LIST } from '../data/businessData';
 import { trackEvent, buildWhatsAppLink } from '../utils/businessLogic';
 
 interface FooterProps {
   onNavigate: (view: string, slug?: string) => void;
 }
+
+const footerVariants: Variants = {
+  hidden: { opacity: 0, y: 25 },
+  visible: { 
+    opacity: 1, 
+    y: 0, 
+    transition: { duration: 0.5, ease: 'easeOut' } 
+  }
+};
 
 export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   const handleNav = (view: string, slug?: string) => {
@@ -14,25 +24,31 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
   };
 
   return (
-    <footer className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800">
+    <motion.footer 
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: "-40px" }}
+      variants={footerVariants}
+      className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800"
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main 4-column footer grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
           {/* Column 1: Business Identity & Address */}
           <div>
-            <div className="flex items-center gap-2.5 mb-4">
-              <div className="w-9 h-9 rounded-lg bg-red-600 text-white flex items-center justify-center font-bold">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-red-700 text-white flex items-center justify-center font-bold shadow-md shadow-red-950/50">
                 <Wrench className="w-5 h-5" />
               </div>
               <div>
-                <span className="text-xl font-bold tracking-tight text-white block">
+                <span className="text-xl font-black tracking-tight text-white block font-heading">
                   HAMZA AUTOS
                 </span>
-                <span className="text-xs text-red-500 font-medium">Motorcycle Repair Workshop</span>
+                <span className="text-xs text-red-500 font-bold uppercase tracking-wider">Motorcycle Repair Workshop</span>
               </div>
             </div>
 
-            <p className="text-xs text-slate-400 leading-relaxed mb-6">
+            <p className="text-xs text-slate-400 leading-relaxed mb-6 font-normal">
               Professional motorcycle repair and maintenance workshop in Badami Bagh, Lahore. Dedicated to honest engine overhauls, fuel economy tuning, electrical repairs, and genuine servicing for Pakistani riders.
             </p>
 
@@ -66,7 +82,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 2: Motorcycle Services */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-heading">
               Repair Services
             </h3>
             <ul className="space-y-2 text-xs">
@@ -74,19 +90,19 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <li key={service.id}>
                   <button
                     onClick={() => handleNav('service-detail', service.slug)}
-                    className="hover:text-white text-slate-400 flex items-center gap-1.5 transition-colors cursor-pointer text-left"
+                    className="hover:text-white text-slate-400 flex items-center gap-1.5 transition-colors cursor-pointer text-left group"
                   >
-                    <ChevronRight className="w-3 h-3 text-red-500 shrink-0" />
-                    <span>{service.title}</span>
+                    <ChevronRight className="w-3.5 h-3.5 text-red-500 shrink-0 transform group-hover:translate-x-1 transition-transform" />
+                    <span className="group-hover:text-red-400 transition-colors">{service.title}</span>
                   </button>
                 </li>
               ))}
               <li>
                 <button
                   onClick={() => handleNav('services')}
-                  className="text-red-400 hover:text-red-300 font-medium mt-2 inline-block cursor-pointer"
+                  className="text-red-400 hover:text-red-300 font-bold mt-2 inline-flex items-center gap-1 cursor-pointer transition-colors"
                 >
-                  View All 13 Services →
+                  <span>View All 13 Services →</span>
                 </button>
               </li>
             </ul>
@@ -94,30 +110,30 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 3: Areas We Serve */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-heading">
               Areas We Serve
             </h3>
             <p className="text-xs text-slate-400 mb-3">
-              Physical workshop in Badami Bagh, welcoming riders from across North & Central Lahore:
+              Physical workshop in Badami Bagh, welcoming riders from across North &amp; Central Lahore:
             </p>
             <ul className="space-y-2 text-xs">
               {AREAS_LIST.slice(0, 7).map((area) => (
                 <li key={area.id}>
                   <button
                     onClick={() => handleNav('area-detail', area.slug)}
-                    className="hover:text-white text-slate-400 flex items-center gap-1.5 transition-colors cursor-pointer text-left"
+                    className="hover:text-white text-slate-400 flex items-center gap-1.5 transition-colors cursor-pointer text-left group"
                   >
-                    <ChevronRight className="w-3 h-3 text-red-500 shrink-0" />
-                    <span>{area.name}</span>
+                    <ChevronRight className="w-3.5 h-3.5 text-red-500 shrink-0 transform group-hover:translate-x-1 transition-transform" />
+                    <span className="group-hover:text-red-400 transition-colors">{area.name}</span>
                   </button>
                 </li>
               ))}
               <li>
                 <button
                   onClick={() => handleNav('areas')}
-                  className="text-red-400 hover:text-red-300 font-medium mt-2 inline-block cursor-pointer"
+                  className="text-red-400 hover:text-red-300 font-bold mt-2 inline-flex items-center gap-1 cursor-pointer transition-colors"
                 >
-                  Check Route From Your Area →
+                  <span>Check Route From Your Area →</span>
                 </button>
               </li>
             </ul>
@@ -125,42 +141,48 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
 
           {/* Column 4: Quick Actions & Brands */}
           <div>
-            <h3 className="text-sm font-semibold uppercase tracking-wider text-white mb-4">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-white mb-4 font-heading">
               Instant Contact
             </h3>
             <div className="space-y-3 mb-6">
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href={buildWhatsAppLink()}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('whatsappClicks')}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-semibold shadow-xs transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-bold shadow-sm transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
-                Message on WhatsApp
-              </a>
+                <span>Message on WhatsApp</span>
+              </motion.a>
 
-              <a
+              <motion.a
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 href={BUSINESS_INFO.googleMapsDirectionsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => trackEvent('mapDirectionsClicks')}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-800 hover:bg-slate-700 text-slate-200 rounded-lg text-xs font-medium border border-slate-700 transition-colors"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-slate-200 rounded-xl text-xs font-semibold border border-slate-700 transition-all"
               >
                 <MapPin className="w-4 h-4 text-red-400" />
-                Open in Google Maps
-              </a>
+                <span>Open in Google Maps</span>
+              </motion.a>
 
-              <button
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
                 onClick={() => handleNav('track-repair')}
-                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-lg text-xs font-medium border border-slate-700 transition-colors cursor-pointer"
+                className="w-full flex items-center justify-center gap-2 py-2.5 px-4 bg-slate-900 hover:bg-slate-800 text-slate-300 hover:text-white rounded-xl text-xs font-medium border border-slate-700 transition-all cursor-pointer"
               >
                 <Wrench className="w-3.5 h-3.5 text-red-500" />
-                Track Repair Status (Job Card)
-              </button>
+                <span>Track Repair Status (Job Card)</span>
+              </motion.button>
             </div>
 
-            <h4 className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">
+            <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 font-heading">
               Bikes We Service:
             </h4>
             <div className="flex flex-wrap gap-1.5 text-xs text-slate-400">
@@ -168,7 +190,7 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                 <button
                   key={b.id}
                   onClick={() => handleNav('brand-detail', b.slug)}
-                  className="hover:text-white cursor-pointer"
+                  className="hover:text-red-400 transition-colors cursor-pointer"
                 >
                   {b.name}{i < BRANDS_LIST.length - 1 ? ' ·' : ''}
                 </button>
@@ -185,21 +207,21 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           <div className="flex items-center gap-6">
             <button
               onClick={() => handleNav('privacy')}
-              className="hover:text-slate-400 transition-colors cursor-pointer"
+              className="hover:text-slate-300 transition-colors cursor-pointer"
             >
               Privacy Policy
             </button>
             <button
               onClick={() => handleNav('terms')}
-              className="hover:text-slate-400 transition-colors cursor-pointer"
+              className="hover:text-slate-300 transition-colors cursor-pointer"
             >
-              Terms & Conditions
+              Terms &amp; Conditions
             </button>
             <button
               onClick={() => handleNav('sitemap')}
-              className="hover:text-slate-400 transition-colors cursor-pointer"
+              className="hover:text-slate-300 transition-colors cursor-pointer"
             >
-              HTML Sitemap & SEO
+              HTML Sitemap &amp; SEO
             </button>
             <button
               onClick={() => handleNav('admin')}
@@ -210,6 +232,6 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
           </div>
         </div>
       </div>
-    </footer>
+    </motion.footer>
   );
 };
