@@ -22,6 +22,8 @@ export interface BrandItem {
   overview: string;
   commonServices: string[];
   maintenanceTips: string[];
+  image?: string;
+  imageAlt?: string;
 }
 
 export interface AreaItem {
@@ -34,6 +36,8 @@ export interface AreaItem {
   localIntro: string;
   commuterContext: string;
   landmarks: string[];
+  image?: string;
+  imageAlt?: string;
 }
 
 export interface BlogPost {

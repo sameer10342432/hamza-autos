@@ -125,8 +125,8 @@ export const JobCardsTab: React.FC<JobCardsTabProps> = ({
       assignedMechanicName: assignedStaff ? assignedStaff.name : 'Hamza Mechanics',
       expectedCompletionDate,
       repairStatus,
-      photosBefore: editingCard?.photosBefore || ['/src/assets/images/motorcycle_engine_repair_1794329002524.jpg'],
-      photosAfter: editingCard?.photosAfter || ['/src/assets/images/workshop_front_hero_1794328983946.jpg']
+      photosBefore: editingCard?.photosBefore || ['/assets/images/services/motorcycle-engine-repair.jpg'],
+      photosAfter: editingCard?.photosAfter || ['/assets/images/home/motorcycle-service-bay-presence.jpg']
     });
 
     setShowModal(false);

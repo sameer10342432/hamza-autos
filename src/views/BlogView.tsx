@@ -44,6 +44,17 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
           </div>
         </div>
 
+        {/* Featured Image */}
+        {selectedPost.image && (
+          <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-sm aspect-video sm:aspect-21/9 bg-slate-950">
+            <img
+              src={selectedPost.image}
+              alt={selectedPost.imageAlt || selectedPost.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+        )}
+
         {/* Article Body */}
         <div className="bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6 text-sm text-slate-700 leading-relaxed">
           <div className="whitespace-pre-line">
@@ -116,9 +127,20 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
           <div
             key={post.id}
             onClick={() => setActivePostSlug(post.slug)}
-            className="group bg-white rounded-3xl border border-slate-200 p-6 sm:p-8 shadow-xs hover:shadow-md transition-all cursor-pointer flex flex-col justify-between"
+            className="group bg-white rounded-3xl border border-slate-200 p-5 sm:p-7 shadow-xs hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between overflow-hidden"
           >
-            <div className="space-y-3">
+            <div className="space-y-4">
+              {post.image && (
+                <div className="rounded-2xl overflow-hidden aspect-video bg-slate-100 border border-slate-100">
+                  <img
+                    src={post.image}
+                    alt={post.imageAlt || post.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                </div>
+              )}
+
               <div className="flex items-center gap-2 text-xs text-slate-500">
                 <span className="text-red-600 font-bold uppercase">{post.category}</span>
                 <span>·</span>

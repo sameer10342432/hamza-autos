@@ -312,7 +312,15 @@ export function saveStoredSettings(settings: SiteSettings): void {
 export function getStoredServices(): ServiceItem[] {
   try {
     const raw = localStorage.getItem(SERVICES_STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed: ServiceItem[] = JSON.parse(raw);
+      // Auto-migrate if stale AI images or old structure is stored
+      if (parsed.some(s => s.image && (s.image.includes('179432') || s.image.startsWith('/src/assets')))) {
+        saveStoredServices(SERVICES_LIST);
+        return SERVICES_LIST;
+      }
+      return parsed;
+    }
   } catch (e) {
     // fallback
   }
@@ -331,7 +339,15 @@ export function saveStoredServices(services: ServiceItem[]): void {
 export function getStoredBlogs(): BlogPost[] {
   try {
     const raw = localStorage.getItem(BLOGS_STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed: BlogPost[] = JSON.parse(raw);
+      // Auto-migrate if missing modern featured photos or referencing legacy assets
+      if (parsed.some(post => !post.image || post.image.includes('179432') || post.image.startsWith('/src/assets'))) {
+        saveStoredBlogs(BLOG_POSTS);
+        return BLOG_POSTS;
+      }
+      return parsed;
+    }
   } catch (e) {
     // fallback
   }
@@ -350,7 +366,15 @@ export function saveStoredBlogs(blogs: BlogPost[]): void {
 export function getStoredGallery(): GalleryItem[] {
   try {
     const raw = localStorage.getItem(GALLERY_STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
+    if (raw) {
+      const parsed: GalleryItem[] = JSON.parse(raw);
+      // Auto-migrate if legacy AI images are detected in gallery
+      if (parsed.some(item => item.image && (item.image.includes('179432') || item.image.startsWith('/src/assets')))) {
+        saveStoredGallery(GALLERY_ITEMS);
+        return GALLERY_ITEMS;
+      }
+      return parsed;
+    }
   } catch (e) {
     // fallback
   }

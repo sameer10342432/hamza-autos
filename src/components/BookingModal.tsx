@@ -19,6 +19,7 @@ import {
   createAppointmentBooking 
 } from '../utils/workshopLogic';
 import { ServiceItem, AppointmentBooking } from '../types';
+import { BrandLogo } from './BrandLogo';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -153,11 +154,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, initialServi
         {!isSubmitted ? (
           <div>
             <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-red-100 text-red-600 flex items-center justify-center shrink-0 font-bold">
-                <Wrench className="w-5 h-5" />
-              </div>
+              <BrandLogo variant="icon" className="shrink-0" />
               <div>
-                <h3 className="text-lg font-bold text-slate-900 leading-tight">
+                <h3 className="text-lg font-bold text-slate-900 leading-tight font-heading">
                   Book Workshop Appointment
                 </h3>
                 <p className="text-xs text-slate-500">

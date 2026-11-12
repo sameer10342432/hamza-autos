@@ -29,15 +29,15 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
 
   return (
     <>
-      {/* WhatsApp Quick Message Creator Modal Popup with AnimatePresence */}
+      {/* WhatsApp Quick Message Creator Modal Popup */}
       <AnimatePresence>
         {showWhatsAppPopup && (
           <motion.div
             initial={{ opacity: 0, scale: 0.95, y: 15 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 15 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="fixed bottom-20 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm bg-white rounded-2xl shadow-2xl border border-slate-200 p-5"
+            transition={{ type: 'spring', damping: 25, stiffness: 320 }}
+            className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] max-w-sm bg-white rounded-2xl shadow-2xl border border-slate-200 p-5 backdrop-blur-md"
           >
             <div className="flex items-center justify-between pb-3 border-b border-slate-100 mb-4">
               <div className="flex items-center gap-2.5">
@@ -45,8 +45,11 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
                   <MessageCircle className="w-4 h-4" />
                 </div>
                 <div>
-                  <h4 className="text-sm font-bold text-slate-900 leading-tight">Chat with Hamza Autos</h4>
-                  <p className="text-xs text-emerald-600 font-medium">Badami Bagh Workshop · Online</p>
+                  <h4 className="text-sm font-bold text-slate-900 leading-tight font-heading">Chat with Hamza Autos</h4>
+                  <p className="text-[11px] text-emerald-600 font-semibold flex items-center gap-1">
+                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+                    Badami Bagh Workshop · Online
+                  </p>
                 </div>
               </div>
               <button
@@ -58,19 +61,19 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
               </button>
             </div>
 
-            <p className="text-xs text-slate-600 mb-3">
-              Select your bike &amp; service to prefill a quick WhatsApp enquiry directly with our workshop technician:
+            <p className="text-xs text-slate-600 mb-3 leading-relaxed">
+              Select your bike &amp; service to prefill a quick WhatsApp enquiry directly with our workshop technician (+92 325 1814548):
             </p>
 
             <div className="space-y-2.5 mb-4">
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 uppercase mb-1">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
                   Motorcycle Brand
                 </label>
                 <select
                   value={selectedBrand}
                   onChange={(e) => setSelectedBrand(e.target.value)}
-                  className="w-full text-xs py-2 px-2.5 rounded-lg border border-slate-300 bg-slate-50 focus:bg-white focus:border-red-500 focus:outline-hidden cursor-pointer"
+                  className="w-full text-xs py-2 px-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-[#E50914] focus:outline-hidden cursor-pointer"
                 >
                   {BRANDS_LIST.map((b) => (
                     <option key={b.id} value={b.name}>{b.name}</option>
@@ -79,7 +82,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 uppercase mb-1">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
                   Model (e.g. CD 70, CG 125, YBR)
                 </label>
                 <input
@@ -87,18 +90,18 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
                   value={bikeModel}
                   onChange={(e) => setBikeModel(e.target.value)}
                   placeholder="e.g. CD 70 / CG 125"
-                  className="w-full text-xs py-2 px-2.5 rounded-lg border border-slate-300 bg-slate-50 focus:bg-white focus:border-red-500 focus:outline-hidden"
+                  className="w-full text-xs py-2 px-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-[#E50914] focus:outline-hidden"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 uppercase mb-1">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
                   Service Needed
                 </label>
                 <select
                   value={selectedService}
                   onChange={(e) => setSelectedService(e.target.value)}
-                  className="w-full text-xs py-2 px-2.5 rounded-lg border border-slate-300 bg-slate-50 focus:bg-white focus:border-red-500 focus:outline-hidden cursor-pointer"
+                  className="w-full text-xs py-2 px-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-[#E50914] focus:outline-hidden cursor-pointer"
                 >
                   {SERVICES_LIST.map((s) => (
                     <option key={s.id} value={s.title}>{s.title}</option>
@@ -107,7 +110,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
               </div>
 
               <div>
-                <label className="block text-[11px] font-semibold text-slate-700 uppercase mb-1">
+                <label className="block text-[11px] font-bold text-slate-700 uppercase mb-1">
                   Problem Description (Optional)
                 </label>
                 <input
@@ -115,7 +118,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
                   value={issueSummary}
                   onChange={(e) => setIssueSummary(e.target.value)}
                   placeholder="e.g. Starting issue, white smoke, tuning"
-                  className="w-full text-xs py-2 px-2.5 rounded-lg border border-slate-300 bg-slate-50 focus:bg-white focus:border-red-500 focus:outline-hidden"
+                  className="w-full text-xs py-2 px-2.5 rounded-xl border border-slate-300 bg-slate-50 focus:bg-white focus:border-[#E50914] focus:outline-hidden"
                 />
               </div>
             </div>
@@ -124,7 +127,7 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleLaunchWhatsApp}
-              className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
+              className="w-full py-2.5 px-4 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
             >
               <MessageCircle className="w-4 h-4" />
               <span>Send WhatsApp Message</span>
@@ -135,34 +138,39 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
       </AnimatePresence>
 
       {/* Floating WhatsApp Action Button (Desktop & Tablet) */}
-      <div className="fixed bottom-6 right-6 z-40 hidden sm:flex flex-col items-end gap-2">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.85, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        className="fixed bottom-6 right-6 z-40 hidden sm:flex flex-col items-end gap-2"
+      >
         <motion.button
-          whileHover={{ scale: 1.05, y: -2 }}
-          whileTap={{ scale: 0.95 }}
+          whileHover={{ scale: 1.04, y: -2 }}
+          whileTap={{ scale: 0.96 }}
           onClick={() => setShowWhatsAppPopup(!showWhatsAppPopup)}
-          className="group flex items-center gap-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-700 text-white pl-4 pr-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:shadow-emerald-950/20 transition-all duration-200 cursor-pointer"
+          className="group flex items-center gap-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white pl-4 pr-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:shadow-emerald-950/20 transition-all duration-200 cursor-pointer border border-emerald-500/30"
           aria-label="Chat with Hamza Autos on WhatsApp"
         >
           <div className="relative">
             <MessageCircle className="w-6 h-6" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-red-500 border-2 border-white rounded-full"></span>
+            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#E50914] border-2 border-white rounded-full"></span>
           </div>
           <div className="text-left">
             <span className="block text-xs font-bold leading-none font-heading">WhatsApp Us</span>
-            <span className="block text-[10px] text-emerald-100 font-medium">Quick Reply · Badami Bagh</span>
+            <span className="block text-[10px] text-emerald-100 font-medium mt-0.5">Quick Reply · Badami Bagh</span>
           </div>
         </motion.button>
-      </div>
+      </motion.div>
 
-      {/* Sticky Mobile Quick Action Bar (Strictly <= 15% Mobile Viewport Height Cap: 56px) */}
-      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-2 shadow-lg flex items-center justify-around h-14">
+      {/* Sticky Mobile Quick Action Bar (Strictly capped at 56px height) */}
+      <div className="sm:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur-md border-t border-slate-200 px-3 py-1.5 shadow-lg flex items-center justify-around h-14">
         <a
           href={`tel:${BUSINESS_INFO.phoneRaw}`}
           onClick={() => trackEvent('phoneCallClicks')}
-          className="flex flex-col items-center justify-center text-slate-700 hover:text-red-600 py-1 px-2"
+          className="flex flex-col items-center justify-center text-slate-700 hover:text-[#E50914] py-1 px-2 active:scale-95 transition-transform"
         >
-          <Phone className="w-4 h-4 text-red-600 mb-0.5" />
-          <span className="text-[10px] font-semibold">Call Now</span>
+          <Phone className="w-4 h-4 text-[#E50914] mb-0.5" />
+          <span className="text-[10px] font-bold">Call Now</span>
         </a>
 
         <a
@@ -170,10 +178,10 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent('whatsappClicks')}
-          className="flex flex-col items-center justify-center text-slate-700 hover:text-emerald-600 py-1 px-2"
+          className="flex flex-col items-center justify-center text-slate-700 hover:text-emerald-600 py-1 px-2 active:scale-95 transition-transform"
         >
           <MessageCircle className="w-4 h-4 text-emerald-600 mb-0.5" />
-          <span className="text-[10px] font-semibold">WhatsApp</span>
+          <span className="text-[10px] font-bold">WhatsApp</span>
         </a>
 
         <a
@@ -181,15 +189,15 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
           target="_blank"
           rel="noopener noreferrer"
           onClick={() => trackEvent('mapDirectionsClicks')}
-          className="flex flex-col items-center justify-center text-slate-700 hover:text-blue-600 py-1 px-2"
+          className="flex flex-col items-center justify-center text-slate-700 hover:text-blue-600 py-1 px-2 active:scale-95 transition-transform"
         >
           <MapPin className="w-4 h-4 text-blue-600 mb-0.5" />
-          <span className="text-[10px] font-semibold">Directions</span>
+          <span className="text-[10px] font-bold">Directions</span>
         </a>
 
         <button
           onClick={() => onOpenBooking()}
-          className="flex flex-col items-center justify-center bg-red-600 text-white rounded-md py-1 px-3 shadow-xs"
+          className="flex flex-col items-center justify-center bg-[#E50914] active:bg-red-700 text-white rounded-lg py-1 px-3.5 shadow-2xs cursor-pointer active:scale-95 transition-transform"
         >
           <Calendar className="w-4 h-4 mb-0.5" />
           <span className="text-[10px] font-bold">Book</span>

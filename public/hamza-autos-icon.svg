@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="100%" height="100%" fill="none">
+  <defs>
+    <linearGradient id="ha-red-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FF1E28" />
+      <stop offset="50%" stop-color="#E50914" />
+      <stop offset="100%" stop-color="#B20710" />
+    </linearGradient>
+    <linearGradient id="ha-charcoal-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1E293B" />
+      <stop offset="100%" stop-color="#0F172A" />
+    </linearGradient>
+    <filter id="ha-shadow" x="-10%" y="-10%" width="120%" height="120%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="3" stdDeviation="3" flood-color="#000000" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Outer Motorcycle Sprocket Gear Ring with 12 Precision Teeth -->
+  <g id="sprocket-ring" filter="url(#ha-shadow)">
+    <!-- 12 sprocket teeth -->
+    <path d="
+      M 56 6 L 64 6 L 65 14 L 55 14 Z
+      M 80 12 L 87 18 L 82 25 L 75 20 Z
+      M 98 32 L 102 40 L 93 44 L 90 36 Z
+      M 106 56 L 106 64 L 98 65 L 98 55 Z
+      M 102 80 L 98 88 L 90 82 L 93 75 Z
+      M 87 102 L 80 108 L 75 100 L 82 95 Z
+      M 64 114 L 56 114 L 55 106 L 65 106 Z
+      M 40 108 L 33 102 L 38 95 L 45 100 Z
+      M 22 88 L 18 80 L 27 75 L 30 82 Z
+      M 14 64 L 14 56 L 22 55 L 22 65 Z
+      M 18 40 L 22 32 L 30 36 L 27 44 Z
+      M 33 18 L 40 12 L 45 20 L 38 25 Z
+    " fill="url(#ha-red-grad)" />
+    
+    <!-- Outer rim circle -->
+    <circle cx="60" cy="60" r="48" fill="url(#ha-charcoal-grad)" stroke="url(#ha-red-grad)" stroke-width="3" />
+    
+    <!-- Inner mechanical border with precision tick marks -->
+    <circle cx="60" cy="60" r="43" fill="#0B1120" stroke="#334155" stroke-width="1.2" stroke-dasharray="3 3" />
+  </g>
+
+  <!-- Weight Reduction Engineering Holes (Motorcycle Sprocket detail) -->
+  <circle cx="60" cy="24" r="3.2" fill="#E50914" opacity="0.8" />
+  <circle cx="60" cy="96" r="3.2" fill="#E50914" opacity="0.8" />
+  <circle cx="24" cy="60" r="3.2" fill="#E50914" opacity="0.8" />
+  <circle cx="96" cy="60" r="3.2" fill="#E50914" opacity="0.8" />
+
+  <!-- Center Monogram 'H' – Dynamic Precision Mechanical Construction -->
+  <g id="monogram-h" id="brand-h">
+    <!-- Left Pillar (Clean Precision Silver-White with Speed Chamfers) -->
+    <path d="M 37 32 L 47 32 L 47 88 L 37 88 L 37 32 Z" fill="#FFFFFF" />
+    <!-- Left Pillar Bevel Accent -->
+    <path d="M 37 32 L 42 32 L 42 88 L 37 83 Z" fill="#E2E8F0" opacity="0.6" />
+
+    <!-- Right Pillar (Racing Red Power Stroke with Dynamic Cut) -->
+    <path d="M 73 32 L 83 32 L 83 88 L 73 88 L 73 32 Z" fill="url(#ha-red-grad)" />
+    <!-- Right Pillar Inner Shadow Bevel -->
+    <path d="M 73 32 L 77 32 L 77 88 L 73 88 Z" fill="#991B1B" opacity="0.4" />
+
+    <!-- Center Bridge (Mechanical Connector with Hex Drive Core) -->
+    <path d="M 47 54 L 73 54 L 73 66 L 47 66 Z" fill="url(#ha-red-grad)" />
+    <path d="M 47 54 L 60 54 L 60 66 L 47 66 Z" fill="#FFFFFF" />
+
+    <!-- Precision Mechanical Notch / Hex Bolt Centerpiece -->
+    <circle cx="60" cy="60" r="5.5" fill="#0F172A" stroke="#FFFFFF" stroke-width="1.8" />
+    <circle cx="60" cy="60" r="2.2" fill="#E50914" />
+  </g>
+</svg>
+

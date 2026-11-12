@@ -14,7 +14,8 @@ import {
   ChevronDown, 
   Navigation, 
   ExternalLink,
-  ChevronRight
+  ChevronRight,
+  Shield
 } from 'lucide-react';
 import { motion, AnimatePresence, type Variants } from 'motion/react';
 import { 
@@ -38,24 +39,24 @@ interface HomeViewProps {
   onOpenBooking: (serviceName?: string) => void;
 }
 
-// Stagger animation container variants
+// Unified cinematic motion design variants
 const containerVariants: Variants = {
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
       staggerChildren: 0.08,
-      delayChildren: 0.05
+      delayChildren: 0.06
     }
   }
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
+  hidden: { opacity: 0, y: 22 },
   visible: { 
     opacity: 1, 
     y: 0, 
-    transition: { duration: 0.45, ease: 'easeOut' } 
+    transition: { duration: 0.5, ease: [0.16, 1, 0.3, 1] } 
   }
 };
 
@@ -90,70 +91,83 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
 
   return (
     <div className="space-y-16 sm:space-y-24 overflow-hidden">
-      {/* 1. HERO SECTION */}
-      <section className="relative bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-white overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 border-b border-slate-800/80">
-        {/* Subtle background workshop texture */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none">
+      {/* 1. CINEMATIC HERO SECTION */}
+      <section className="relative bg-gradient-to-b from-[#0F172A] via-[#0B0F17] to-[#111827] text-white overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 border-b border-slate-800/80">
+        {/* Subtle decorative background workshop texture */}
+        <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-luminosity">
           <img
-            src="/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
-            alt="Hamza Autos Workshop"
-            className="w-full h-full object-cover scale-105"
+            src="/assets/images/home/motorcycle-workshop-hero.jpg"
+            alt="Real Motorcycle Repair Workshop - Hamza Autos Badami Bagh Lahore"
+            className="w-full h-full object-cover scale-105 filter blur-[0.5px]"
           />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-slate-950/40"></div>
+        {/* Carbon mechanical grid pattern overlay */}
+        <div className="absolute inset-0 bg-dark-grid opacity-40 pointer-events-none" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A] via-[#0F172A]/90 to-[#0F172A]/50 pointer-events-none" />
+
+        {/* Slow rotating ambient sprocket watermark in background */}
+        <div className="absolute -right-24 -top-24 w-96 h-96 opacity-5 pointer-events-none animate-[spin_60s_linear_infinite]">
+          <svg viewBox="0 0 120 120" fill="currentColor" className="text-white w-full h-full">
+            <circle cx="60" cy="60" r="48" stroke="currentColor" strokeWidth="8" fill="none" strokeDasharray="12 6" />
+            <circle cx="60" cy="60" r="28" stroke="currentColor" strokeWidth="4" fill="none" />
+          </svg>
+        </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             {/* Left Column: Heading, Value Proposition & Conversion CTAs */}
             <motion.div 
-              initial={{ opacity: 0, y: 24 }}
+              initial={{ opacity: 0, y: 28 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-7 space-y-6"
             >
-              {/* Animated Hero Badge */}
+              {/* Animated Hero Brand Badge */}
               <motion.div 
-                initial={{ opacity: 0, scale: 0.95 }}
+                initial={{ opacity: 0, scale: 0.92 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.4, delay: 0.1 }}
-                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-600/20 border border-red-500/30 text-red-400 text-xs font-bold uppercase tracking-wider shadow-sm"
+                transition={{ duration: 0.5, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-red-950/80 border border-red-600/40 text-red-400 text-xs font-bold uppercase tracking-wider shadow-sm backdrop-blur-md"
               >
-                <Wrench className="w-3.5 h-3.5 text-red-500" />
-                <span>Badami Bagh's Trusted Motorcycle Workshop</span>
+                <span className="flex h-2 w-2 relative">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E50914]"></span>
+                </span>
+                <span className="tracking-[0.14em]">Badami Bagh's Trusted Motorcycle Workshop</span>
               </motion.div>
 
-              {/* Exact H1 requested by user */}
+              {/* Exact H1 Title preserved */}
               <motion.h1 
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.15 }}
-                className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-[1.15] font-heading"
+                transition={{ duration: 0.7, delay: 0.18, ease: [0.16, 1, 0.3, 1] }}
+                className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-[1.12] font-heading"
               >
                 Trusted Bike Mechanic &amp; Motorcycle Repair Shop in Badami Bagh, Lahore
               </motion.h1>
 
-              {/* Exact Subheading requested */}
+              {/* Exact Subheading preserved */}
               <motion.p 
-                initial={{ opacity: 0, y: 14 }}
+                initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.25 }}
+                transition={{ duration: 0.7, delay: 0.28, ease: [0.16, 1, 0.3, 1] }}
                 className="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl font-normal"
               >
                 Looking for reliable motorcycle repair and maintenance in Badami Bagh, Lahore? Visit Hamza Autos for bike engine repairs, tuning, oil changes, electrical work and general motorcycle maintenance.
               </motion.p>
 
-              {/* 3 Primary CTA Buttons requested */}
+              {/* 3 Primary CTA Buttons */}
               <motion.div 
-                initial={{ opacity: 0, y: 16 }}
+                initial={{ opacity: 0, y: 18 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.35 }}
+                transition={{ duration: 0.7, delay: 0.38, ease: [0.16, 1, 0.3, 1] }}
                 className="pt-2 flex flex-wrap gap-3"
               >
                 <motion.button
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleCall}
-                  className="px-5 py-3 rounded-xl bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-700 text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-red-950/40 hover:shadow-red-600/30 transition-all cursor-pointer"
+                  className="px-5 py-3 rounded-xl bg-gradient-to-r from-[#E50914] to-[#B20710] hover:from-[#FF1E28] hover:to-[#CC0812] text-white font-bold text-xs sm:text-sm flex items-center gap-2 shadow-lg shadow-red-950/50 hover:shadow-red-600/30 transition-all cursor-pointer"
                 >
                   <Phone className="w-4 h-4" />
                   <span>Call Hamza Autos ({BUSINESS_INFO.phone})</span>
@@ -173,7 +187,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   whileHover={{ y: -2, scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleDirections}
-                  className="px-5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer"
+                  className="px-5 py-3 rounded-xl bg-slate-900/90 hover:bg-slate-800 text-slate-200 border border-slate-700/90 font-semibold text-xs sm:text-sm flex items-center gap-2 transition-all cursor-pointer"
                 >
                   <Navigation className="w-4 h-4 text-red-400" />
                   <span>Get Directions</span>
@@ -184,18 +198,18 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               <motion.div 
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.45 }}
-                className="pt-4 border-t border-slate-800/90 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs text-slate-300"
+                transition={{ duration: 0.7, delay: 0.48 }}
+                className="pt-4 border-t border-slate-800/90 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-slate-300"
               >
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-slate-900/40 px-2.5 py-1.5 rounded-lg border border-slate-800/60">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>Transparent Quotes First</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-slate-900/40 px-2.5 py-1.5 rounded-lg border border-slate-800/60">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>Same-Day Turnaround</span>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 bg-slate-900/40 px-2.5 py-1.5 rounded-lg border border-slate-800/60 col-span-2 sm:col-span-1">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                   <span>All 70cc to 150cc Bikes</span>
                 </div>
@@ -204,37 +218,37 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
 
             {/* Right Column: Workshop Presence Card */}
             <motion.div 
-              initial={{ opacity: 0, scale: 0.96 }}
+              initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
               className="lg:col-span-5"
             >
-              <div className="bg-slate-900/90 backdrop-blur-md rounded-2xl p-6 border border-slate-800 shadow-2xl space-y-5">
+              <div className="bg-slate-900/95 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-2xl space-y-4 sm:space-y-5">
                 <div className="group relative rounded-xl overflow-hidden aspect-video border border-slate-700/80 shadow-inner">
                   <img
-                    src="/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
-                    alt="Hamza Autos Motorcycle Workshop"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    src="/assets/images/home/motorcycle-service-bay-presence.jpg"
+                    alt="Hamza Autos Motorcycle Workshop Abu Bakar Road Badami Bagh Lahore"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent"></div>
-                  <div className="absolute bottom-2 left-2 px-2.5 py-1 bg-slate-900/95 text-white rounded text-[11px] font-medium backdrop-blur-xs border border-slate-800 flex items-center gap-1.5">
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+                  <div className="absolute bottom-2.5 left-2.5 px-2.5 py-1 bg-slate-950/90 text-white rounded text-[11px] font-medium backdrop-blur-xs border border-slate-800 flex items-center gap-1.5">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>Abu Bakar Road Service Bay</span>
+                    <span>Abu Bakar Road Service Bay · Open</span>
                   </div>
                 </div>
 
-                <div className="space-y-3 text-xs">
-                  <div className="flex items-start gap-3 bg-slate-950/70 p-3.5 rounded-xl border border-slate-800/80">
-                    <MapPin className="w-4 h-4 text-red-500 shrink-0 mt-0.5" />
+                <div className="space-y-2.5 text-xs">
+                  <div className="flex items-start gap-3 bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80">
+                    <MapPin className="w-4 h-4 text-[#E50914] shrink-0 mt-0.5" />
                     <div>
                       <span className="font-bold text-white block">Official Workshop Address</span>
                       <span className="text-slate-300 leading-relaxed">{BUSINESS_INFO.fullAddress}</span>
                     </div>
                   </div>
 
-                  <div className="flex items-center justify-between bg-slate-950/70 p-3.5 rounded-xl border border-slate-800/80">
+                  <div className="flex items-center justify-between bg-slate-950/80 p-3.5 rounded-xl border border-slate-800/80">
                     <div className="flex items-center gap-2.5">
-                      <Clock className="w-4 h-4 text-red-500 shrink-0" />
+                      <Clock className="w-4 h-4 text-[#E50914] shrink-0" />
                       <span className="text-slate-300 font-medium">Daily Operating Hours</span>
                     </div>
                     <span className="font-bold text-white bg-slate-800/90 border border-slate-700 px-2.5 py-1 rounded">
@@ -247,7 +261,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => onOpenBooking()}
-                  className="w-full py-3 bg-gradient-to-r from-red-600 to-red-700 hover:from-red-500 hover:to-red-700 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-red-950/50 transition-all cursor-pointer"
+                  className="w-full py-3 bg-gradient-to-r from-[#E50914] to-[#B20710] hover:from-[#FF1E28] hover:to-[#CC0812] text-white text-xs font-bold rounded-xl flex items-center justify-center gap-2 shadow-md shadow-red-950/50 hover:shadow-red-600/30 transition-all cursor-pointer"
                 >
                   <Wrench className="w-4 h-4" />
                   <span>Reserve a Repair Slot Online</span>
@@ -266,55 +280,57 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
         variants={itemVariants}
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200 shadow-sm">
+        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-automotive hover:shadow-automotive-hover transition-all duration-300">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-red-600 block">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block">
                 About Hamza Autos
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight font-heading">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight font-heading">
                 Honest Mechanics, High Standards &amp; Genuine Care in Badami Bagh
               </h2>
               <p className="text-sm text-slate-600 leading-relaxed">
-                Founded to give Lahore motorcycle riders a straightforward, dependable alternative to guesswork mechanics, <strong className="text-slate-900 font-semibold">Hamza Autos</strong> is located directly on Abu Bakar Road, Badami Bagh (near Ali Hajvery Marriage Hall).
+                Founded to give Lahore motorcycle riders a straightforward, dependable alternative to guesswork mechanics, <strong className="text-slate-900 font-bold">Hamza Autos</strong> is located directly on Abu Bakar Road, Badami Bagh (near Ali Hajvery Marriage Hall).
               </p>
               <p className="text-sm text-slate-600 leading-relaxed">
                 We believe in complete transparency: before taking apart any engine, transmission, or wiring harness, we inspect your bike, diagnose the real root cause, and explain the required repairs and parts cost upfront. Whether you need a 15-minute engine oil change or a full cylinder engine overhaul, you receive honest craftsmanship.
               </p>
 
               <div className="pt-2 grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs font-medium text-slate-700">
-                <div className="flex items-center gap-2.5 p-2 rounded-lg bg-slate-50">
-                  <ShieldCheck className="w-4 h-4 text-red-600 shrink-0" />
+                <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <ShieldCheck className="w-4 h-4 text-[#E50914] shrink-0" />
                   <span>No hidden charges or fabricated defects</span>
                 </div>
-                <div className="flex items-center gap-2.5 p-2 rounded-lg bg-slate-50">
-                  <ShieldCheck className="w-4 h-4 text-red-600 shrink-0" />
+                <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <ShieldCheck className="w-4 h-4 text-[#E50914] shrink-0" />
                   <span>Authentic 4T motorcycle lubricants</span>
                 </div>
-                <div className="flex items-center gap-2.5 p-2 rounded-lg bg-slate-50">
-                  <ShieldCheck className="w-4 h-4 text-red-600 shrink-0" />
+                <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <ShieldCheck className="w-4 h-4 text-[#E50914] shrink-0" />
                   <span>Specialized feeler gauges &amp; diagnostic tools</span>
                 </div>
-                <div className="flex items-center gap-2.5 p-2 rounded-lg bg-slate-50">
-                  <ShieldCheck className="w-4 h-4 text-red-600 shrink-0" />
+                <div className="flex items-center gap-2.5 p-2.5 rounded-xl bg-slate-50 border border-slate-100">
+                  <ShieldCheck className="w-4 h-4 text-[#E50914] shrink-0" />
                   <span>Convenient location on Abu Bakar Road</span>
                 </div>
               </div>
             </div>
 
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
-              <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-xs">
+              <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-sm">
                 <img
-                  src="/src/assets/images/motorcycle_engine_repair_1794329002524.jpg"
-                  alt="Precision Engine Repair at Hamza Autos"
+                  src="/assets/images/about/engine-overhaul-workbench.jpg"
+                  alt="Motorcycle Engine Overhaul and Precision Cylinder Head Repair at Hamza Autos"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
               </div>
-              <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-xs">
+              <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-sm">
                 <img
-                  src="/src/assets/images/bike_tuning_service_1794329003495.jpg"
-                  alt="Bike Tuning & Carburetor Service"
+                  src="/assets/images/about/tuning-carburetor-setup.jpg"
+                  alt="Professional Motorcycle Carburetor Tuning and Fuel System Calibration"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
               </div>
             </div>
@@ -326,10 +342,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-red-600 block mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
               Complete Workshop Capabilities
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight font-heading">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight font-heading">
               Our Motorcycle Repair Services in Badami Bagh
             </h2>
             <p className="text-sm text-slate-600 mt-1 max-w-2xl">
@@ -338,7 +354,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
           </div>
           <button
             onClick={() => onNavigate('services')}
-            className="inline-flex items-center gap-2 text-xs font-bold text-red-600 hover:text-red-700 cursor-pointer group"
+            className="inline-flex items-center gap-2 text-xs font-bold text-[#E50914] hover:text-red-700 cursor-pointer group"
           >
             <span>Explore All 13 Services</span>
             <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
@@ -358,7 +374,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               key={service.id}
               variants={itemVariants}
               whileHover={{ y: -6 }}
-              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-xl hover:border-red-200 transition-all duration-300 flex flex-col justify-between"
+              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-automotive hover:shadow-automotive-hover hover:border-red-300 transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="relative aspect-video overflow-hidden bg-slate-100">
@@ -366,14 +382,15 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                     src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
                   />
-                  <div className="absolute top-3 left-3 px-2.5 py-1 bg-slate-950/80 text-white rounded-md text-[11px] font-semibold backdrop-blur-xs border border-slate-800">
+                  <div className="absolute top-3 left-3 px-2.5 py-1 bg-slate-950/85 text-white rounded-md text-[11px] font-semibold backdrop-blur-xs border border-slate-800">
                     {service.category}
                   </div>
                 </div>
 
                 <div className="p-6">
-                  <h3 className="text-base font-bold text-slate-950 group-hover:text-red-600 transition-colors mb-2 font-heading">
+                  <h3 className="text-base font-bold text-slate-950 group-hover:text-[#E50914] transition-colors mb-2 font-heading">
                     {service.title}
                   </h3>
                   <p className="text-xs text-slate-600 leading-relaxed line-clamp-3 mb-4">
@@ -397,7 +414,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               <div className="p-6 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between">
                 <button
                   onClick={() => onNavigate('service-detail', service.slug)}
-                  className="text-xs font-bold text-slate-700 hover:text-red-600 inline-flex items-center gap-1 cursor-pointer transition-colors"
+                  className="text-xs font-bold text-slate-700 hover:text-[#E50914] inline-flex items-center gap-1 cursor-pointer transition-colors"
                 >
                   <span>View Details</span>
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -406,7 +423,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   whileHover={{ scale: 1.04 }}
                   whileTap={{ scale: 0.96 }}
                   onClick={() => onOpenBooking(service.title)}
-                  className="px-3.5 py-1.5 text-xs font-semibold bg-red-50 text-red-700 hover:bg-red-600 hover:text-white rounded-xl transition-all duration-200 cursor-pointer shadow-xs"
+                  className="px-3.5 py-1.5 text-xs font-semibold bg-red-50 text-[#E50914] hover:bg-[#E50914] hover:text-white rounded-xl transition-all duration-200 cursor-pointer shadow-xs"
                 >
                   Book Service
                 </motion.button>
@@ -420,10 +437,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       <section className="bg-slate-100/90 py-16 border-y border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-red-600 block mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
               Broad Brand Expertise
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight font-heading">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight font-heading">
               Motorcycle Brands We Service at Hamza Autos
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-2">
@@ -444,20 +461,20 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                 variants={itemVariants}
                 whileHover={{ y: -4 }}
                 onClick={() => onNavigate('brand-detail', brand.slug)}
-                className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs hover:border-red-400 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
+                className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-[#E50914] hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
               >
                 <div>
-                  <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 group-hover:bg-red-600 group-hover:text-white transition-colors duration-200 flex items-center justify-center font-bold text-sm mb-3">
+                  <div className="w-10 h-10 rounded-xl bg-red-50 text-[#E50914] group-hover:bg-[#E50914] group-hover:text-white transition-colors duration-200 flex items-center justify-center font-bold text-sm mb-3">
                     {brand.name.slice(0, 2).toUpperCase()}
                   </div>
-                  <h3 className="text-sm font-bold text-slate-950 mb-1 group-hover:text-red-600 transition-colors font-heading">
+                  <h3 className="text-sm font-bold text-slate-950 mb-1 group-hover:text-[#E50914] transition-colors font-heading">
                     {brand.name} Repair
                   </h3>
                   <p className="text-xs text-slate-500 mb-3 line-clamp-2">
                     {brand.overview}
                   </p>
                 </div>
-                <div className="border-t border-slate-100 pt-2 flex items-center justify-between text-[11px] text-red-600 font-semibold">
+                <div className="border-t border-slate-100 pt-2 flex items-center justify-between text-[11px] text-[#E50914] font-semibold">
                   <span>View Repair Guide</span>
                   <ArrowRight className="w-3.5 h-3.5 transform group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -468,7 +485,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               variants={itemVariants}
               whileHover={{ y: -4 }}
               onClick={() => onNavigate('brands')}
-              className="bg-gradient-to-br from-red-600 to-red-700 text-white p-5 rounded-2xl shadow-sm flex flex-col justify-between cursor-pointer group"
+              className="bg-gradient-to-br from-[#E50914] to-[#B20710] text-white p-5 rounded-2xl shadow-md flex flex-col justify-between cursor-pointer group"
             >
               <div>
                 <Sparkles className="w-8 h-8 text-red-200 mb-3" />
@@ -492,9 +509,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
           variants={itemVariants}
-          className="bg-slate-950 text-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-800"
+          className="bg-slate-950 text-white rounded-3xl p-6 sm:p-10 shadow-2xl border border-slate-800 relative overflow-hidden"
         >
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          <div className="absolute inset-0 bg-dark-grid opacity-30 pointer-events-none" />
+          <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 space-y-4">
               <span className="text-xs font-bold uppercase tracking-wider text-red-400">
                 Quick Service Planner
@@ -518,7 +536,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                         onClick={() => setEstBrand(b.name)}
                         className={`text-xs py-2 px-2 rounded-xl font-medium transition-all duration-200 cursor-pointer text-center truncate ${
                           estBrand === b.name
-                            ? 'bg-red-600 text-white font-bold shadow-md shadow-red-950/60'
+                            ? 'bg-[#E50914] text-white font-bold shadow-md shadow-red-950/60'
                             : 'bg-slate-900 text-slate-300 hover:bg-slate-800 border border-slate-800'
                         }`}
                       >
@@ -535,7 +553,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   <select
                     value={estServiceSlug}
                     onChange={(e) => setEstServiceSlug(e.target.value)}
-                    className="w-full text-xs py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-white focus:outline-hidden focus:border-red-500 cursor-pointer"
+                    className="w-full text-xs py-2.5 px-3 rounded-xl border border-slate-700 bg-slate-900 text-white focus:outline-hidden focus:border-[#E50914] cursor-pointer"
                   >
                     {services.map((s) => (
                       <option key={s.id} value={s.slug}>{s.title}</option>
@@ -545,7 +563,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               </div>
             </div>
 
-            <div className="lg:col-span-7 bg-slate-900/90 rounded-2xl p-6 border border-slate-800 space-y-4">
+            <div className="lg:col-span-7 bg-slate-900/95 rounded-2xl p-6 border border-slate-800 space-y-4 shadow-xl">
               <div className="flex items-center justify-between border-b border-slate-800 pb-3">
                 <div>
                   <h3 className="text-base font-bold text-white font-heading">{selectedEstService.title}</h3>
@@ -576,7 +594,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={() => onOpenBooking(selectedEstService.title)}
-                  className="flex-1 py-2.5 px-4 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-colors cursor-pointer text-center shadow-md shadow-red-950/50"
+                  className="flex-1 py-2.5 px-4 bg-[#E50914] hover:bg-red-700 text-white text-xs font-bold rounded-xl transition-colors cursor-pointer text-center shadow-md shadow-red-950/50"
                 >
                   Book This Repair Slot
                 </motion.button>
@@ -590,7 +608,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => trackEvent('whatsappClicks')}
-                  className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-md shadow-emerald-950/50"
+                  className="py-2.5 px-4 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-xl flex items-center justify-center gap-1.5 transition-colors shadow-md shadow-emerald-950/50 cursor-pointer"
                 >
                   <MessageCircle className="w-4 h-4" />
                   <span>Ask on WhatsApp</span>
@@ -604,10 +622,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       {/* 6. WHY CHOOSE HAMZA AUTOS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-12">
-          <span className="text-xs font-bold uppercase tracking-wider text-red-600 block mb-1">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
             Built on Integrity
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight font-heading">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight font-heading">
             Why Choose Hamza Autos in Badami Bagh?
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-2">
@@ -622,8 +640,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
           variants={containerVariants}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
         >
-          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition-all">
-            <div className="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mb-4">
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-automotive hover:shadow-automotive-hover transition-all">
+            <div className="w-11 h-11 rounded-xl bg-red-50 text-[#E50914] flex items-center justify-center mb-4">
               <ShieldCheck className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-bold text-slate-950 mb-2 font-heading">Transparent Pricing</h3>
@@ -632,8 +650,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition-all">
-            <div className="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mb-4">
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-automotive hover:shadow-automotive-hover transition-all">
+            <div className="w-11 h-11 rounded-xl bg-red-50 text-[#E50914] flex items-center justify-center mb-4">
               <Wrench className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-bold text-slate-950 mb-2 font-heading">Proper Mechanics</h3>
@@ -642,8 +660,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition-all">
-            <div className="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mb-4">
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-automotive hover:shadow-automotive-hover transition-all">
+            <div className="w-11 h-11 rounded-xl bg-red-50 text-[#E50914] flex items-center justify-center mb-4">
               <Clock className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-bold text-slate-950 mb-2 font-heading">Fast Turnaround</h3>
@@ -652,8 +670,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
             </p>
           </motion.div>
 
-          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition-all">
-            <div className="w-11 h-11 rounded-xl bg-red-50 text-red-600 flex items-center justify-center mb-4">
+          <motion.div variants={itemVariants} whileHover={{ y: -5 }} className="bg-white p-6 rounded-2xl border border-slate-200 shadow-automotive hover:shadow-automotive-hover transition-all">
+            <div className="w-11 h-11 rounded-xl bg-red-50 text-[#E50914] flex items-center justify-center mb-4">
               <Sparkles className="w-5 h-5" />
             </div>
             <h3 className="text-sm font-bold text-slate-950 mb-2 font-heading">Genuine Lubricants</h3>
@@ -669,10 +687,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-red-600 block mb-1">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
                 Local Proximity
               </span>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight font-heading">
+              <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight font-heading">
                 Areas We Serve from Badami Bagh, Lahore
               </h2>
               <p className="text-xs sm:text-sm text-slate-600 mt-1 max-w-2xl">
@@ -681,7 +699,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
             </div>
             <button
               onClick={() => onNavigate('areas')}
-              className="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1 cursor-pointer group"
+              className="text-xs font-bold text-[#E50914] hover:text-red-700 flex items-center gap-1 cursor-pointer group"
             >
               <span>View All Served Localities</span>
               <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
@@ -701,7 +719,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                 variants={itemVariants}
                 whileHover={{ y: -4 }}
                 onClick={() => onNavigate('area-detail', area.slug)}
-                className="bg-white p-5 rounded-2xl border border-slate-200 shadow-xs hover:border-red-500 hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
+                className="bg-white p-5 rounded-2xl border border-slate-200 shadow-sm hover:border-[#E50914] hover:shadow-md transition-all duration-200 cursor-pointer flex flex-col justify-between group"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -714,7 +732,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                     {area.commuterContext}
                   </p>
                 </div>
-                <div className="text-[11px] font-semibold text-red-600 flex items-center gap-1 pt-2 border-t border-slate-100">
+                <div className="text-[11px] font-semibold text-[#E50914] flex items-center gap-1 pt-2 border-t border-slate-100">
                   <span>View Route &amp; Common Issues</span>
                   <ArrowRight className="w-3 h-3 transform group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -728,10 +746,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-red-600 block mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
               Visual Transparency
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight font-heading">
+            <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight font-heading">
               Our Workshop &amp; Repair Work
             </h2>
             <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -740,7 +758,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
           </div>
           <button
             onClick={() => onNavigate('gallery')}
-            className="text-xs font-bold text-red-600 hover:text-red-700 flex items-center gap-1 cursor-pointer group"
+            className="text-xs font-bold text-[#E50914] hover:text-red-700 flex items-center gap-1 cursor-pointer group"
           >
             <span>Explore Workshop Gallery</span>
             <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
@@ -759,17 +777,18 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               key={item.id} 
               variants={itemVariants}
               whileHover={{ y: -4 }}
-              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs hover:shadow-md transition-all duration-300"
+              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300"
             >
               <div className="aspect-4/3 overflow-hidden bg-slate-100">
                 <img
                   src={item.image}
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
                 />
               </div>
               <div className="p-4">
-                <span className="text-[10px] text-red-600 font-bold uppercase tracking-wider block mb-1">
+                <span className="text-[10px] text-[#E50914] font-bold uppercase tracking-wider block mb-1">
                   {item.category}
                 </span>
                 <h4 className="text-xs font-bold text-slate-950 line-clamp-1 font-heading">{item.title}</h4>
@@ -780,13 +799,14 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       </section>
 
       {/* 9. CUSTOMER TESTIMONIALS */}
-      <section className="bg-slate-950 text-white py-16 border-y border-slate-800">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-slate-950 text-white py-16 border-y border-slate-800 relative overflow-hidden">
+        <div className="absolute inset-0 bg-dark-grid opacity-30 pointer-events-none" />
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-wider text-red-400 block mb-1">
               Real Local Feedback
             </span>
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tight font-heading">
               What Badami Bagh Motorcycle Owners Say
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 mt-2">
@@ -827,7 +847,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                       <span className="text-[11px] text-slate-400">{rev.area} · {rev.bikeModel}</span>
                     </div>
                     {rev.isVerifiedCustomer && (
-                      <span className="text-[10px] text-emerald-400 bg-emerald-950/70 border border-emerald-800/60 px-2 py-0.5 rounded-full">
+                      <span className="text-[10px] text-emerald-400 bg-emerald-950/70 border border-emerald-800/60 px-2 py-0.5 rounded-full font-semibold">
                         Verified
                       </span>
                     )}
@@ -851,10 +871,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       {/* 10. FREQUENTLY ASKED QUESTIONS */}
       <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-10">
-          <span className="text-xs font-bold uppercase tracking-wider text-red-600 block mb-1">
+          <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
             Common Inquiries
           </span>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-950 tracking-tight font-heading">
+          <h2 className="text-2xl sm:text-3xl font-black text-slate-950 tracking-tight font-heading">
             Frequently Asked Questions
           </h2>
           <p className="text-xs sm:text-sm text-slate-600 mt-1">
@@ -868,14 +888,14 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
             return (
               <div
                 key={idx}
-                className="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-all shadow-xs"
+                className="border border-slate-200 rounded-2xl bg-white overflow-hidden transition-all shadow-automotive"
               >
                 <button
                   onClick={() => setOpenFaqIndex(isOpen ? null : idx)}
-                  className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 hover:text-red-600 transition-colors cursor-pointer"
+                  className="w-full text-left p-4 sm:p-5 flex items-center justify-between gap-4 font-bold text-xs sm:text-sm text-slate-900 hover:text-[#E50914] transition-colors cursor-pointer"
                 >
                   <span>{faq.question}</span>
-                  <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-red-600' : ''}`} />
+                  <ChevronDown className={`w-4 h-4 text-slate-400 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180 text-[#E50914]' : ''}`} />
                 </button>
                 <AnimatePresence initial={false}>
                   {isOpen && (
@@ -900,10 +920,10 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
 
       {/* 11. LOCATION & GOOGLE MAPS SECTION */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm">
+        <div className="bg-white rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-automotive">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-5 space-y-4">
-              <span className="text-xs font-bold uppercase tracking-wider text-red-600">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#E50914]">
                 Physical Workshop
               </span>
               <h2 className="text-2xl font-bold text-slate-950 tracking-tight font-heading">
@@ -915,7 +935,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
 
               <div className="space-y-3 text-xs text-slate-700 pt-2">
                 <div className="flex items-start gap-2.5">
-                  <MapPin className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+                  <MapPin className="w-4 h-4 text-[#E50914] shrink-0 mt-0.5" />
                   <div>
                     <span className="font-bold text-slate-900 block">Exact Address:</span>
                     <span>{BUSINESS_INFO.fullAddress}</span>
@@ -923,17 +943,17 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                 </div>
 
                 <div className="flex items-center gap-2.5">
-                  <Phone className="w-4 h-4 text-red-600 shrink-0" />
+                  <Phone className="w-4 h-4 text-[#E50914] shrink-0" />
                   <div>
                     <span className="font-bold text-slate-900 block">Phone &amp; WhatsApp:</span>
-                    <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="text-red-600 font-semibold hover:underline">
+                    <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="text-[#E50914] font-semibold hover:underline">
                       {BUSINESS_INFO.phone}
                     </a>
                   </div>
                 </div>
 
                 <div className="flex items-center gap-2.5">
-                  <Clock className="w-4 h-4 text-red-600 shrink-0" />
+                  <Clock className="w-4 h-4 text-[#E50914] shrink-0" />
                   <div>
                     <span className="font-bold text-slate-900 block">Working Hours:</span>
                     <span>{BUSINESS_INFO.operatingHours}</span>
@@ -946,7 +966,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                   onClick={handleDirections}
-                  className="px-4 py-2.5 bg-red-600 hover:bg-red-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
+                  className="px-4 py-2.5 bg-[#E50914] hover:bg-red-700 text-white text-xs font-bold rounded-xl flex items-center gap-1.5 shadow-sm transition-colors cursor-pointer"
                 >
                   <Navigation className="w-4 h-4" />
                   <span>Get Google Maps Directions</span>
@@ -986,24 +1006,25 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
           variants={itemVariants}
-          className="bg-gradient-to-r from-red-600 via-red-700 to-slate-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 border border-red-500/20"
+          className="bg-gradient-to-r from-[#E50914] via-[#B20710] to-slate-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 border border-red-500/20 relative overflow-hidden"
         >
-          <div className="space-y-2 max-w-xl text-center md:text-left">
-            <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight font-heading">
+          <div className="absolute inset-0 bg-dark-grid opacity-20 pointer-events-none" />
+          <div className="relative space-y-2 max-w-xl text-center md:text-left">
+            <h2 className="text-2xl sm:text-3xl font-black tracking-tight font-heading">
               Ready for a Smooth, Reliable Ride?
             </h2>
             <p className="text-xs sm:text-sm text-red-100 leading-relaxed">
               Visit Hamza Autos today on Abu Bakar Road, Badami Bagh, or send a quick WhatsApp enquiry. Our mechanics are ready to assist you.
             </p>
           </div>
-          <div className="flex flex-wrap gap-3 shrink-0">
+          <div className="relative flex flex-wrap gap-3 shrink-0">
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
               onClick={handleCall}
               className="px-5 py-3 rounded-xl bg-white text-slate-950 hover:bg-slate-100 font-bold text-xs sm:text-sm flex items-center gap-2 shadow-md transition-all cursor-pointer"
             >
-              <Phone className="w-4 h-4 text-red-600" />
+              <Phone className="w-4 h-4 text-[#E50914]" />
               <span>Call +92 325 1814548</span>
             </motion.button>
             <motion.button

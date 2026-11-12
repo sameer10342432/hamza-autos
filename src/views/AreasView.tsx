@@ -97,6 +97,36 @@ export const AreasView: React.FC<AreasViewProps> = ({ selectedSlug, onNavigate, 
           </div>
         </div>
 
+        {/* Local Area Photography & Commuter Scene */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div className="relative rounded-2xl overflow-hidden border border-slate-200 aspect-16/9 group shadow-xs">
+            <img
+              src="/assets/images/locations/lahore-badami-bagh-traffic.jpg"
+              alt="Lahore Badami Bagh and Circular Road Commuter Traffic Scene"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-3.5">
+              <span className="text-white text-xs font-semibold drop-shadow-sm">
+                Badami Bagh &amp; Abu Bakar Road Commuter Corridor
+              </span>
+            </div>
+          </div>
+          <div className="relative rounded-2xl overflow-hidden border border-slate-200 aspect-16/9 group shadow-xs">
+            <img
+              src="/assets/images/locations/lahore-commuter-road.jpg"
+              alt="Lahore Urban Commuter Road and Connecting Transit Routes"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent flex items-end p-3.5">
+              <span className="text-white text-xs font-semibold drop-shadow-sm">
+                Lahore Northern Arterial &amp; Feeder Routes
+              </span>
+            </div>
+          </div>
+        </div>
+
         {/* Driving Route & Commuter Context */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="bg-slate-50 p-6 rounded-2xl border border-slate-200 space-y-3">

@@ -54,7 +54,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["Honda CD 70", "Honda CG 125", "Yamaha YBR 125", "Suzuki GS 150", "United 70", "Road Prince 70", "Chinese 70cc/100cc/125cc"],
     estimatedTime: "4 to 8 Hours (Same-day turnaround for standard 70cc/125cc jobs)",
-    image: "/src/assets/images/motorcycle_engine_repair_1794329002524.jpg"
+    image: "/assets/images/services/motorcycle-engine-repair.jpg"
   },
   {
     id: "bike-tuning",
@@ -86,7 +86,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["Honda CD 70", "Honda CG 125", "Yamaha YBR 125", "Suzuki GD 110", "United 70", "All commuter bikes"],
     estimatedTime: "45 to 60 Minutes",
-    image: "/src/assets/images/bike_tuning_service_1794329003495.jpg"
+    image: "/assets/images/services/bike-tuning.jpg"
   },
   {
     id: "oil-change",
@@ -118,7 +118,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["All Honda, Yamaha, Suzuki, United, Road Prince, and Chinese 70cc-150cc motorcycles"],
     estimatedTime: "15 to 25 Minutes",
-    image: "/src/assets/images/motorcycle_oil_service_1794329003135.jpg"
+    image: "/assets/images/services/motorcycle-oil-change.jpg"
   },
   {
     id: "general-repair",
@@ -150,7 +150,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["All motorcycle makes & models"],
     estimatedTime: "1 to 3 Hours",
-    image: "/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
+    image: "/assets/images/services/general-bike-repair.jpg"
   },
   {
     id: "electrical-repair",
@@ -182,7 +182,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["Yamaha YBR 125", "Suzuki GS 150", "Honda CG 125 Special Edition", "United 100/125", "Chinese Self-Start Bikes"],
     estimatedTime: "1 to 2 Hours",
-    image: "/src/assets/images/bike_tuning_service_1794329003495.jpg"
+    image: "/assets/images/services/motorcycle-electrical-repair.jpg"
   },
   {
     id: "wiring-repair",
@@ -214,7 +214,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["All Honda, Yamaha, Suzuki, United, and Chinese motorcycles"],
     estimatedTime: "1 to 3 Hours",
-    image: "/src/assets/images/bike_tuning_service_1794329003495.jpg"
+    image: "/assets/images/services/bike-wiring-repair.jpg"
   },
   {
     id: "brake-repair",
@@ -246,7 +246,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["Honda CG 125", "Yamaha YBR 125 (Disc)", "Suzuki GS 150", "Honda CD 70", "United 70"],
     estimatedTime: "30 to 50 Minutes",
-    image: "/src/assets/images/motorcycle_engine_repair_1794329002524.jpg"
+    image: "/assets/images/services/motorcycle-brake-repair.jpg"
   },
   {
     id: "clutch-repair",
@@ -278,7 +278,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["Honda CG 125", "Honda CD 70", "Yamaha YBR 125", "Suzuki GS 150", "United / Road Prince"],
     estimatedTime: "1 to 2 Hours",
-    image: "/src/assets/images/motorcycle_engine_repair_1794329002524.jpg"
+    image: "/assets/images/services/bike-clutch-repair.jpg"
   },
   {
     id: "tyre-repair",
@@ -310,7 +310,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["All 17-inch, 18-inch commuter and utility motorcycle wheels"],
     estimatedTime: "30 to 45 Minutes",
-    image: "/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
+    image: "/assets/images/services/motorcycle-tyre-repair.jpg"
   },
   {
     id: "puncture-repair",
@@ -342,7 +342,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["All motorcycle makes & models"],
     estimatedTime: "15 to 20 Minutes",
-    image: "/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
+    image: "/assets/images/services/bike-puncture-repair.jpg"
   },
   {
     id: "spare-parts",
@@ -374,7 +374,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["Honda CD 70, CG 125", "Yamaha YBR", "Suzuki GS 150", "United", "Road Prince"],
     estimatedTime: "30 to 60 Minutes",
-    image: "/src/assets/images/motorcycle_engine_repair_1794329002524.jpg"
+    image: "/assets/images/services/motorcycle-spare-parts.jpg"
   },
   {
     id: "bike-modification",
@@ -406,7 +406,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["Honda CG 125", "Yamaha YBR 125G", "Suzuki GS 150", "Honda CD 70", "United 70"],
     estimatedTime: "1 to 2 Hours",
-    image: "/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
+    image: "/assets/images/services/bike-modification.jpg"
   },
   {
     id: "general-maintenance",
@@ -439,7 +439,7 @@ export const SERVICES_LIST: ServiceItem[] = [
     ],
     supportedBikes: ["All motorcycle makes and models"],
     estimatedTime: "1 to 1.5 Hours",
-    image: "/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
+    image: "/assets/images/services/motorcycle-general-maintenance.jpg"
   }
 ];
 
@@ -448,6 +448,8 @@ export const BRANDS_LIST: BrandItem[] = [
     id: "honda",
     slug: "honda-motorcycle-repair",
     name: "Honda",
+    image: "/assets/images/brands/honda-motorcycle.jpg",
+    imageAlt: "Honda CD 70 and CG 125 Motorcycle Repair in Badami Bagh Lahore",
     popularModels: ["CD 70", "CD 70 Dream", "Pridor 100", "CG 125", "CG 125 Special Edition", "CB 150F"],
     overview: "Honda is the most popular motorcycle brand in Pakistan, renowned for bulletproof engine reliability and easy parts availability. At Hamza Autos Badami Bagh, we provide specialized repairs for both the overhead camshaft (OHC) CD 70 series and the pushrod OHV CG 125 engines.",
     commonServices: [
@@ -467,6 +469,8 @@ export const BRANDS_LIST: BrandItem[] = [
     id: "yamaha",
     slug: "yamaha-motorcycle-repair",
     name: "Yamaha",
+    image: "/assets/images/brands/yamaha-motorcycle.jpg",
+    imageAlt: "Yamaha YBR 125 Service and Maintenance in Badami Bagh Lahore",
     popularModels: ["YBR 125", "YBR 125G", "YB 125Z", "YB 125Z-DX"],
     overview: "Yamaha YBR series motorcycles feature modern single-cylinder SOHC engines, electric start, front hydraulic disc brakes, and comfortable suspension. We carry out precision repairs, disc brake bleeding, self-starter servicing, and carburetor tuning for all Yamaha models.",
     commonServices: [
@@ -486,6 +490,8 @@ export const BRANDS_LIST: BrandItem[] = [
     id: "suzuki",
     slug: "suzuki-motorcycle-repair",
     name: "Suzuki",
+    image: "/assets/images/brands/suzuki-motorcycle.jpg",
+    imageAlt: "Suzuki GS 150 and GD 110S Motorcycle Workshop Lahore",
     popularModels: ["GS 150", "GS 150 SE", "GD 110S", "GR 150"],
     overview: "Suzuki motorcycles are favored for their powerful 150cc engines and smooth highway cruising. Hamza Autos provides expert engine overhaul, 5-speed transmission repair, electrical stator replacement, and tuning for Suzuki GS 150 and GD 110S models.",
     commonServices: [
@@ -505,6 +511,8 @@ export const BRANDS_LIST: BrandItem[] = [
     id: "united",
     slug: "united-bike-repair",
     name: "United",
+    image: "/assets/images/brands/united-chinese-bike.jpg",
+    imageAlt: "United 70cc and 125cc Motorcycle Repair in Badami Bagh",
     popularModels: ["US 70", "US 100", "US 125", "United Alpha 100"],
     overview: "United Auto Industries is one of Pakistan's highest-volume motorcycle manufacturers. Hamza Autos provides cost-effective, durable mechanical and electrical repairs for all United 70cc, 100cc, and 125cc motorcycles.",
     commonServices: [
@@ -524,6 +532,8 @@ export const BRANDS_LIST: BrandItem[] = [
     id: "road-prince",
     slug: "road-prince-bike-repair",
     name: "Road Prince",
+    image: "/assets/images/brands/united-chinese-bike.jpg",
+    imageAlt: "Road Prince Commuter Motorcycle Maintenance Badami Bagh",
     popularModels: ["RP 70 Passion", "RP 70 Passion Plus", "RP 110", "Robinson 150", "Wego 150"],
     overview: "Road Prince offers affordable commuter and sporty bikes across Punjab. Our Badami Bagh workshop services all Road Prince models with quality replacement parts, clutch repairs, and suspension tuning.",
     commonServices: [
@@ -543,6 +553,8 @@ export const BRANDS_LIST: BrandItem[] = [
     id: "super-power",
     slug: "super-power-motorcycle-repair",
     name: "Super Power",
+    image: "/assets/images/brands/united-chinese-bike.jpg",
+    imageAlt: "Super Power 70cc Motorcycle Workshop Badami Bagh",
     popularModels: ["SP 70", "SP 100", "SP 125", "Leo 200", "Archi 150"],
     overview: "Super Power motorcycles are popular commuter vehicles across Pakistan. Hamza Autos handles all mechanical tuning, brake servicing, engine overhauls, and general maintenance for Super Power bikes.",
     commonServices: [
@@ -562,6 +574,8 @@ export const BRANDS_LIST: BrandItem[] = [
     id: "chinese-bikes",
     slug: "chinese-bike-repair",
     name: "Chinese Motorcycles",
+    image: "/assets/images/brands/united-chinese-bike.jpg",
+    imageAlt: "Chinese 70cc and 100cc Commuter Motorcycle Servicing Badami Bagh",
     popularModels: ["Crown 70", "Metro 70", "Unique 70", "Super Star 70", "Hi-Speed 70", "Ravi 70", "Eagle 70"],
     overview: "Hundreds of thousands of riders in Lahore rely on 70cc and 100cc Chinese-platform motorcycles for daily work. Hamza Autos understands these engines inside out, delivering fast, affordable, and durable repairs without high dealer markups.",
     commonServices: [
@@ -667,6 +681,28 @@ export const AREAS_LIST: AreaItem[] = [
     localIntro: "Riders working near Lahore Railway Station and Garhi Shahu visit Hamza Autos for comprehensive weekend maintenance and transparent mechanical repair.",
     commuterContext: "Dense railway colony traffic and daily commuting make regular oil changes and brake checks necessary.",
     landmarks: ["Lahore Junction Railway Station", "Garhi Shahu Chowk", "Allama Iqbal Road"]
+  },
+  {
+    id: "bhatti-gate",
+    slug: "bike-mechanic-near-bhatti-gate",
+    name: "Bhatti Gate & Walled City",
+    distanceFromBadamiBagh: "Approx. 3.0 km",
+    estimatedDriveTime: "8-12 Minutes",
+    bestRouteDescription: "Exit Bhatti Gate onto Circular Road heading northeast towards Badami Bagh Lorry Adda and connect directly to Abu Bakar Road.",
+    localIntro: "Riders commuting from inside the historic Walled City and Bhatti Gate trust Hamza Autos for reliable 70cc and 125cc motorcycle maintenance and rapid repairs.",
+    commuterContext: "Tight, congested walled-city street riding demands responsive brakes, smooth clutch engagement, and dependable cooling.",
+    landmarks: ["Bhatti Gate Chowk", "Circular Road Walled City Loop", "Data Darbar Approach"]
+  },
+  {
+    id: "shahdara",
+    slug: "motorcycle-repair-near-shahdara-lahore",
+    name: "Shahdara & Ravi Bridge",
+    distanceFromBadamiBagh: "Approx. 4.8 km",
+    estimatedDriveTime: "12-16 Minutes",
+    bestRouteDescription: "Cross Old Ravi Bridge / New Ravi Bridge coming directly into Badami Bagh Abu Bakar Road near Ali Hajvery Marriage Hall.",
+    localIntro: "Commuters traveling daily between Shahdara and central Lahore rely on Hamza Autos for timely motorcycle tune-ups, oil servicing, and roadworthiness checks.",
+    commuterContext: "Crossing the Ravi Bridge corridor exposes bikes to open-throttle high speed and river dust; regular oil and chain checks ensure reliability.",
+    landmarks: ["Ravi Toll Plaza", "Shahdara Chowk", "Old Ravi Bridge", "Baradari Link"]
   }
 ];
 
@@ -709,7 +745,9 @@ If your motorcycle bogs down or feels like it is gasping for air when you twist 
         answer: "Standard 70cc and 125cc engine repairs are completed within 4 to 8 hours with same-day turnaround."
       }
     ],
-    tags: ["Engine Overhaul", "Honda CD 70", "White Smoke", "Motorcycle Repair Badami Bagh"]
+    tags: ["Engine Overhaul", "Honda CD 70", "White Smoke", "Motorcycle Repair Badami Bagh"],
+    image: "/assets/images/blog/blog-engine-problems.jpg",
+    imageAlt: "Motorcycle mechanic inspecting cylinder head and engine components"
   },
   {
     id: "engine-oil-change-frequency",
@@ -745,7 +783,9 @@ Under these conditions, engine oil temperatures can exceed 120°C, causing conve
         answer: "Sludge builds up, oil seals harden, and metal-to-metal wear increases significantly, leading to premature piston and valve wear."
       }
     ],
-    tags: ["Engine Oil", "Oil Change Interval", "20W-50", "Bike Maintenance Lahore"]
+    tags: ["Engine Oil", "Oil Change Interval", "20W-50", "Bike Maintenance Lahore"],
+    image: "/assets/images/blog/blog-oil-change-guide.jpg",
+    imageAlt: "Mechanic servicing motorcycle engine oil and checking drain plug"
   },
   {
     id: "improve-fuel-average",
@@ -785,7 +825,9 @@ Under-inflated tyres increase rolling resistance by up to 25%.
         answer: "No. Lugging the engine in 4th gear at 20 km/h stresses the crankshaft and burns extra fuel. Shift gears smoothly to match engine speed."
       }
     ],
-    tags: ["Fuel Average", "Carburetor Tuning", "Petrol Mileage", "Honda CD 70"]
+    tags: ["Fuel Average", "Carburetor Tuning", "Petrol Mileage", "Honda CD 70"],
+    image: "/assets/images/blog/blog-fuel-economy-tuning.jpg",
+    imageAlt: "Motorcycle carburetor tuning and spark plug calibration for fuel economy"
   },
   {
     id: "clutch-plate-slipping",
@@ -814,7 +856,9 @@ Riding with slipping clutch plates overheats the engine oil and sheds abrasive f
         answer: "Typically 15,000 km to 25,000 km depending on riding style, pillion weight, and whether clutch lever free-play is kept adjusted."
       }
     ],
-    tags: ["Clutch Plate", "Gear Shifting", "Engine Pickup", "CG 125 Clutch"]
+    tags: ["Clutch Plate", "Gear Shifting", "Engine Pickup", "CG 125 Clutch"],
+    image: "/assets/images/blog/blog-clutch-plate-guide.jpg",
+    imageAlt: "Motorcycle clutch plates and pressure springs assembly inspection"
   }
 ];
 
@@ -876,34 +920,54 @@ export const CUSTOMER_REVIEWS: CustomerReview[] = [
   }
 ];
 
-export const GALLERY_ITEMS = [
+export const GALLERY_ITEMS: GalleryItem[] = [
   {
     id: "gal-1",
     title: "Workshop Service Bay & Motorcycle Lift",
     category: "Workshop Environment",
     description: "Equipped with professional hydraulic motorcycle lift bench and dedicated tool racks for systematic diagnostics.",
-    image: "/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
+    image: "/assets/images/gallery/gallery-service-bay.jpg",
+    imageAlt: "Motorcycle workshop service bay with bikes on stands and tools"
   },
   {
     id: "gal-2",
     title: "Precision Engine Overhaul & Cylinder Work",
     category: "Engine Rebuild",
     description: "4-stroke cylinder block assembly with torque-calibrated bolts, new piston rings, and honed sleeve.",
-    image: "/src/assets/images/motorcycle_engine_repair_1794329002524.jpg"
+    image: "/assets/images/gallery/gallery-engine-rebuild.jpg",
+    imageAlt: "Motorcycle engine block disassembly and cylinder overhaul on workbench"
   },
   {
     id: "gal-3",
     title: "Carburetor Diagnostic & Ignition Testing",
     category: "Tuning & Electrical",
     description: "Bench testing spark plug ignition health, voltage coil resistance, and air-fuel balancing.",
-    image: "/src/assets/images/bike_tuning_service_1794329003495.jpg"
+    image: "/assets/images/gallery/gallery-carburetor-tuning.jpg",
+    imageAlt: "Mechanic tuning motorcycle carburetor and checking fuel-air mixture"
   },
   {
     id: "gal-4",
     title: "Clean Oil Draining & Lubricant Servicing",
     category: "Maintenance",
     description: "Genuine 4T engine lubricant refilling with magnetic drain plug decontamination and crush washer renewal.",
-    image: "/src/assets/images/motorcycle_oil_service_1794329003135.jpg"
+    image: "/assets/images/gallery/gallery-oil-servicing.jpg",
+    imageAlt: "Mechanic changing motorcycle engine oil and pouring fresh 4T lubricant"
+  },
+  {
+    id: "gal-5",
+    title: "Drive Chain & Sprocket Replacement",
+    category: "Transmission & Drive",
+    description: "Heavy-duty 428H roller chain fitting, sprocket alignment, and high-temperature chain lubrication.",
+    image: "/assets/images/gallery/gallery-chain-sprocket.jpg",
+    imageAlt: "Motorcycle drive chain and rear sprocket teeth servicing"
+  },
+  {
+    id: "gal-6",
+    title: "Rear Suspension & Shock Absorber Servicing",
+    category: "Suspension",
+    description: "Hydraulic shock absorber inspection, spring preload setting, and swingarm pivot bushing rebuild.",
+    image: "/assets/images/gallery/gallery-suspension-shocks.jpg",
+    imageAlt: "Motorcycle rear shock absorber spring and suspension components"
   }
 ];
 

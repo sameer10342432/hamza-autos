@@ -90,6 +90,23 @@ export const BrandsView: React.FC<BrandsViewProps> = ({ selectedSlug, onNavigate
           </div>
         </div>
 
+        {/* Brand Real Visual Showcase */}
+        {activeBrand.image && (
+          <div className="rounded-2xl overflow-hidden aspect-21/9 sm:aspect-3/1 bg-slate-900 border border-slate-200 shadow-xs relative">
+            <img
+              src={activeBrand.image}
+              alt={activeBrand.imageAlt || `${activeBrand.name} Motorcycle Repair Lahore`}
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/75 via-transparent to-transparent flex items-end p-4">
+              <span className="text-white text-xs font-semibold">
+                Genuine repair techniques and authentic maintenance procedures for {activeBrand.name} motorcycles
+              </span>
+            </div>
+          </div>
+        )}
+
         {/* Popular Models Grid */}
         <div className="space-y-3">
           <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wider text-xs">

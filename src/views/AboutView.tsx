@@ -83,8 +83,8 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenBooking 
         >
           <div className="group rounded-2xl overflow-hidden border border-slate-200 shadow-md aspect-4/3 bg-slate-100">
             <img
-              src="/src/assets/images/hero_motorcycle_workshop_1794329001886.jpg"
-              alt="Hamza Autos Badami Bagh Workshop Bay"
+              src="/assets/images/about/workshop-mechanic-philosophy.jpg"
+              alt="Hamza Autos Badami Bagh Professional Motorcycle Mechanic Inspecting Engine"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
           </div>

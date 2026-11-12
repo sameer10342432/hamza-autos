@@ -195,7 +195,7 @@ export const AdminView: React.FC = () => {
   const [showGalleryModal, setShowGalleryModal] = useState(false);
   const [newGalleryTitle, setNewGalleryTitle] = useState('');
   const [newGalleryCategory, setNewGalleryCategory] = useState('Workshop Bay');
-  const [newGalleryImage, setNewGalleryImage] = useState('/src/assets/images/workshop_front_hero_1794328983946.jpg');
+  const [newGalleryImage, setNewGalleryImage] = useState('/assets/images/gallery/gallery-service-bay.jpg');
 
   // FAQ Edit/Add Modal
   const [editingFaq, setEditingFaq] = useState<FAQItem | null>(null);
@@ -336,7 +336,7 @@ export const AdminView: React.FC = () => {
       finalCost: 1500,
       expectedCompletionDate: b.appointmentDate,
       repairStatus: 'Received',
-      photosBefore: ['/src/assets/images/motorcycle_engine_repair_1794329002524.jpg'],
+      photosBefore: ['/assets/images/services/motorcycle-engine-repair.jpg'],
       photosAfter: []
     });
     updateBookingStatus(b.id, 'In Progress', 'Converted to Job Card');
@@ -591,7 +591,7 @@ export const AdminView: React.FC = () => {
       title: newGalleryTitle,
       category: newGalleryCategory,
       description: 'Original photograph from Hamza Autos workshop in Badami Bagh',
-      image: newGalleryImage || '/src/assets/images/workshop_front_hero_1794328983946.jpg'
+      image: newGalleryImage || '/assets/images/gallery/gallery-service-bay.jpg'
     };
 
     const updated = [newItem, ...gallery];
@@ -1123,7 +1123,7 @@ export const AdminView: React.FC = () => {
                     processSteps: ['1. Initial inspection', '2. Precision repair', '3. Road testing'],
                     supportedBikes: ['Honda', 'Yamaha', 'Suzuki', 'United', 'Chinese Bikes'],
                     estimatedTime: '1 to 2 Hours',
-                    image: '/src/assets/images/motorcycle_engine_repair_1794329002524.jpg'
+                    image: '/assets/images/services/motorcycle-engine-repair.jpg'
                   });
                   setShowServiceModal(true);
                 }}
@@ -1188,7 +1188,7 @@ export const AdminView: React.FC = () => {
                   author: 'Hamza Autos Technical Team',
                   publishedDate: new Date().toISOString().split('T')[0],
                   readTime: '4 min read',
-                  image: '/src/assets/images/workshop_front_hero_1794328983946.jpg',
+                  image: '/assets/images/blog/blog-engine-problems.jpg',
                   faqs: [],
                   tags: ['Motorcycle Maintenance', 'Badami Bagh']
                 });
