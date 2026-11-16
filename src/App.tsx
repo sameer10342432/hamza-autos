@@ -18,6 +18,7 @@ import { BlogView } from './views/BlogView';
 import { ContactView } from './views/ContactView';
 import { LegalView } from './views/LegalView';
 import { AdminView } from './views/AdminView';
+import { CustomerDashboardView } from './views/CustomerDashboardView';
 import { NotFoundView } from './views/NotFoundView';
 import { TrackRepairView } from './views/TrackRepairView';
 import { SearchModal } from './components/SearchModal';
@@ -95,7 +96,9 @@ export default function App() {
         'terms', 
         'sitemap', 
         'admin',
-        'track-repair'
+        'track-repair',
+        'customer-dashboard',
+        'customer-portal'
       ];
 
       if (validViews.includes(view)) {
@@ -145,6 +148,8 @@ export default function App() {
       document.title = "Contact Hamza Autos – Phone, WhatsApp & Map Directions Badami Bagh";
     } else if (currentView === 'admin') {
       document.title = "Owner Dashboard – Hamza Autos Portal";
+    } else if (currentView === 'customer-dashboard' || currentView === 'customer-portal') {
+      document.title = "Customer Portal & Bike Health Diagnostic – Hamza Autos Badami Bagh";
     } else if (currentView === 'privacy') {
       document.title = "Privacy Policy – Hamza Autos Badami Bagh";
     } else if (currentView === 'terms') {
@@ -270,6 +275,13 @@ export default function App() {
 
             {(currentView === 'privacy' || currentView === 'terms' || currentView === 'sitemap') && (
               <LegalView type={currentView as 'privacy' | 'terms' | 'sitemap'} />
+            )}
+
+            {(currentView === 'customer-dashboard' || currentView === 'customer-portal') && (
+              <CustomerDashboardView
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
             )}
 
             {currentView === 'admin' && (

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Star, CheckCircle2, MessageSquare, Send, ExternalLink, ThumbsUp } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BUSINESS_INFO } from '../data/businessData';
 import { CustomerReview } from '../types';
 import { getStoredReviews, saveStoredReviews, getStoredSettings } from '../utils/businessLogic';
+import { feedbackService } from '../services';
 import { staggerContainerVariants, staggerItemVariants, buttonPressProps } from '../utils/motion';
 import { SectionBackground } from '../components/backgrounds';
 
@@ -17,6 +18,31 @@ export const ReviewsView: React.FC = () => {
   const [rating, setRating] = useState(5);
   const [comment, setComment] = useState('');
   const [submittedFeedback, setSubmittedFeedback] = useState(false);
+
+  useEffect(() => {
+    // Load approved feedback from IndexedDB local storage
+    feedbackService.getPublicApproved().then(approvedItems => {
+      if (approvedItems && approvedItems.length > 0) {
+        setReviews(prev => {
+          const existingIds = new Set(prev.map(r => r.id));
+          const converted: CustomerReview[] = approvedItems
+            .filter(item => !existingIds.has(item.id))
+            .map(item => ({
+              id: item.id,
+              authorName: item.customerName,
+              area: 'Badami Bagh',
+              bikeModel: item.bikeModel,
+              rating: item.overallRating,
+              date: item.submittedAt.slice(0, 10),
+              serviceReceived: 'Workshop Service & Repair',
+              comment: item.comments,
+              isVerifiedCustomer: true
+            }));
+          return [...converted, ...prev];
+        });
+      }
+    }).catch(err => console.warn('Could not load IndexedDB feedback:', err));
+  }, []);
 
   const handleSubmitReview = (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,6 +63,19 @@ export const ReviewsView: React.FC = () => {
     const updated = [newRev, ...reviews];
     setReviews(updated);
     saveStoredReviews(updated);
+
+    // Save to IndexedDB feedback store
+    feedbackService.submit({
+      customerName: authorName.trim(),
+      customerPhone: '0300 0000000',
+      bikeModel: bikeModel.trim() || 'Motorcycle',
+      overallRating: rating,
+      serviceQualityRating: rating,
+      staffBehaviorRating: 5,
+      pricingRating: 5,
+      comments: comment.trim()
+    }).catch(err => console.warn('Feedback submit error:', err));
+
     setSubmittedFeedback(true);
     setAuthorName('');
     setComment('');

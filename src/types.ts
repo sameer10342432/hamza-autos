@@ -306,3 +306,230 @@ export interface SearchResultItem {
   view: string;
   slug?: string;
 }
+
+// ==========================================
+// 16 INDEXEDDB OBJECT STORE INTERFACES
+// ==========================================
+
+export interface MotorcycleProfile {
+  id: string;
+  customerId: string;
+  customerName: string;
+  customerPhone: string;
+  brand: string;
+  model: string;
+  registrationNumber: string;
+  engineCapacity?: string;
+  mileage?: number;
+  chassisNumber?: string;
+  color?: string;
+  year?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export type InspectionComponentStatus = 
+  | 'Good' 
+  | 'Needs Attention' 
+  | 'Requires Repair' 
+  | 'Not Inspected' 
+  | 'Not Applicable';
+
+export interface InspectionItem {
+  category?: string;
+  componentName?: string;
+  status: InspectionComponentStatus;
+  notes: string;
+  recommendation?: string;
+}
+
+export interface BikeInspectionReport {
+  id: string;
+  inspectionNumber: string;
+  jobCardId?: string;
+  jobCardNumber?: string;
+  motorcycleId?: string;
+  customerId?: string;
+  customerName: string;
+  customerPhone: string;
+  bikeBrand: string;
+  bikeModel: string;
+  registrationNumber?: string;
+  mileage?: number;
+  inspectorName: string;
+  inspectionDate: string;
+  overallCondition: 'Excellent' | 'Good' | 'Fair' | 'Critical / Needs Immediate Attention';
+  items: InspectionItem[];
+  mechanicObservations: string;
+  recommendedRepairs: string[];
+  priority: 'Low' | 'Medium' | 'High' | 'Immediate Safety Risk';
+  createdAt: string;
+}
+
+export type QuotationStatus = 
+  | 'Draft' 
+  | 'Sent' 
+  | 'Viewed' 
+  | 'Approved' 
+  | 'Rejected' 
+  | 'Expired' 
+  | 'Converted to Invoice';
+
+export interface Quotation {
+  id: string;
+  quotationNumber: string;
+  jobCardId?: string;
+  jobCardNumber?: string;
+  customerId?: string;
+  customerName: string;
+  customerPhone: string;
+  bikeBrand: string;
+  bikeModel: string;
+  registrationNumber?: string;
+  labourItems: InvoiceLabourItem[];
+  partsItems: InvoicePartItem[];
+  labourTotal: number;
+  partsTotal: number;
+  discount: number;
+  additionalCharges: number;
+  additionalChargesDescription?: string;
+  taxPercentage: number;
+  taxAmount: number;
+  totalAmount: number;
+  status: QuotationStatus;
+  validUntil: string;
+  notes?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface PaymentRecord {
+  id: string;
+  invoiceId: string;
+  invoiceNumber: string;
+  customerId?: string;
+  customerName: string;
+  amount: number;
+  paymentDate: string;
+  method: 'Cash' | 'Bank Transfer' | 'Easypaisa' | 'JazzCash' | 'Other';
+  transactionReference?: string;
+  receivedBy: string;
+  notes?: string;
+  createdAt: string;
+}
+
+export interface InventoryMovementRecord {
+  id: string;
+  partId: string;
+  partName: string;
+  sku: string;
+  type: 'purchase' | 'consumed_job' | 'consumed_invoice' | 'adjustment' | 'damaged' | 'reversal';
+  quantity: number;
+  previousStock: number;
+  newStock: number;
+  unitCost: number;
+  referenceType?: 'jobCard' | 'invoice' | 'manual' | 'purchase';
+  referenceId?: string;
+  reason: string;
+  date: string;
+  recordedBy: string;
+}
+
+export interface MaintenanceReminderRecord {
+  id: string;
+  motorcycleId?: string;
+  customerId?: string;
+  customerName: string;
+  phoneNumber: string;
+  bikeBrand: string;
+  bikeModel: string;
+  registrationNumber?: string;
+  reminderType: 
+    | 'Engine Oil Change' 
+    | 'General Service' 
+    | 'Brake Inspection' 
+    | 'Tyre Inspection' 
+    | 'Chain Lubrication' 
+    | 'Chain Adjustment' 
+    | 'Battery Inspection' 
+    | 'Air Filter Cleaning' 
+    | 'Spark Plug Inspection' 
+    | 'Other';
+  lastServiceDate: string;
+  lastMileage?: number;
+  nextDueDate: string;
+  nextDueMileage?: number;
+  reminderNotes: string;
+  status: 'Upcoming' | 'Due Today' | 'Overdue' | 'Completed' | 'Cancelled';
+  sentViaWhatsApp?: boolean;
+  lastNotificationDate?: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CustomerFeedbackRecord {
+  id: string;
+  customerName: string;
+  phoneNumber?: string;
+  bookingOrJobCardRef?: string;
+  overallRating: number;
+  serviceQualityRating: number;
+  staffBehaviourRating: number;
+  workQualityRating: number;
+  comment: string;
+  photoUrl?: string;
+  status: 'Pending Approval' | 'Approved' | 'Rejected' | 'Hidden';
+  isFeatured: boolean;
+  createdAt: string;
+  approvedAt?: string;
+  approvedBy?: string;
+}
+
+export interface AppNotification {
+  id: string;
+  title: string;
+  message: string;
+  type: 'low_stock' | 'overdue_reminder' | 'new_booking' | 'job_status' | 'backup_reminder' | 'system';
+  link?: string;
+  read: boolean;
+  createdAt: string;
+}
+
+export interface WhatsAppTemplate {
+  id: string;
+  key: 'new_booking' | 'booking_confirmation' | 'repair_status' | 'quotation' | 'invoice' | 'ready_for_collection' | 'maintenance_reminder';
+  name: string;
+  template: string;
+  description: string;
+  updatedAt: string;
+}
+
+export interface ApplicationSettingRecord {
+  id: 'main_settings';
+  businessName: string;
+  phone: string;
+  phoneRaw: string;
+  whatsappNumber: string;
+  operatingHours: string;
+  operatingDays: string;
+  fullAddress: string;
+  taxPercentage: number;
+  slotCapacityPerHour: number;
+  autoBackupReminderDays: number;
+  lastBackupDate?: string;
+  lastRestoreDate?: string;
+  currency: 'PKR';
+  customerPortalPinRequired: boolean;
+  seoTitle: string;
+  seoMetaDescription: string;
+}
+
+export interface AuditLogRecord {
+  id: string;
+  action: string;
+  entity: string;
+  entityId: string;
+  details: string;
+  timestamp: string;
+  user: string;
+}

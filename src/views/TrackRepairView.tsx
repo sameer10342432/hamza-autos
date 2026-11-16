@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { 
-  Wrench, 
-  Search, 
-  CheckCircle2, 
-  Clock, 
-  AlertCircle, 
-  Phone, 
-  MessageCircle, 
-  Calendar, 
-  FileText, 
-  ShieldCheck, 
+import {
+  Wrench,
+  Search,
+  CheckCircle2,
+  Clock,
+  AlertCircle,
+  Phone,
+  MessageCircle,
+  Calendar,
+  FileText,
+  ShieldCheck,
   ChevronRight,
   ArrowRight,
   Lock,
@@ -73,73 +73,73 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
     <div className="relative overflow-hidden">
       <SectionBackground variant="light-generic" opacity={0.3} />
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      {/* Page Header */}
-      <motion.div 
-        initial={{ opacity: 0, y: 16 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="text-center max-w-2xl mx-auto space-y-3"
-      >
-        <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block">
-          Live Workshop Status Portal
-        </span>
-        <h1 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight font-heading">
-          Track Your Motorcycle Repair
-        </h1>
-        <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
-          Enter your unique Job Card Number and registered mobile number to check the real-time diagnosis, assembly progress, estimated turnaround, and bill for your bike.
-        </p>
-      </motion.div>
+        {/* Page Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="text-center max-w-2xl mx-auto space-y-3"
+        >
+          <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block">
+            Live Workshop Status Portal
+          </span>
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight font-heading">
+            Track Your Motorcycle Repair
+          </h1>
+          <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Enter your unique Job Card Number and registered mobile number to check the real-time diagnosis, assembly progress, estimated turnaround, and bill for your bike.
+          </p>
+        </motion.div>
 
-      {/* Lookup Card */}
-      <motion.div 
-        initial={{ opacity: 0, y: 14 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5, delay: 0.1 }}
-        className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-automotive space-y-6"
-      >
-        <form onSubmit={handleSearch} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5 font-heading">
-                Job Card Number *
-              </label>
-              <div className="relative">
-                <FileText className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="text"
-                  required
-                  value={jobCardNumber}
-                  onChange={(e) => setJobCardNumber(e.target.value.toUpperCase())}
-                  placeholder="e.g. HA-JC-2026-001"
-                  className="w-full text-xs font-mono uppercase pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-[#E50914] focus:ring-2 focus:ring-red-100 focus:outline-hidden transition-all"
-                />
+        {/* Lookup Card */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.1 }}
+          className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-automotive space-y-6"
+        >
+          <form onSubmit={handleSearch} className="space-y-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5 font-heading">
+                  Job Card Number *
+                </label>
+                <div className="relative">
+                  <FileText className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    required
+                    value={jobCardNumber}
+                    onChange={(e) => setJobCardNumber(e.target.value.toUpperCase())}
+                    placeholder="e.g. HA-JC-2026-001"
+                    className="w-full text-xs font-mono uppercase pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-[#E50914] focus:ring-2 focus:ring-red-100 focus:outline-hidden transition-all"
+                  />
+                </div>
+                <span className="text-[11px] text-slate-500 block mt-1">
+                  Printed on your paper slip or sent via WhatsApp
+                </span>
               </div>
-              <span className="text-[11px] text-slate-500 block mt-1">
-                Printed on your paper slip or sent via WhatsApp
-              </span>
-            </div>
 
-            <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1.5 font-heading">
-                Registered Mobile Number *
-              </label>
-              <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
-                <input
-                  type="tel"
-                  required
-                  value={phoneNumber}
-                  onChange={(e) => setPhoneNumber(e.target.value)}
-                  placeholder="e.g. 0300 7654321"
-                  className="w-full text-xs pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-[#E50914] focus:ring-2 focus:ring-red-100 focus:outline-hidden transition-all"
-                />
+              <div>
+                <label className="block text-xs font-bold text-slate-700 mb-1.5 font-heading">
+                  Registered Mobile Number *
+                </label>
+                <div className="relative">
+                  <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="tel"
+                    required
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
+                    placeholder="e.g. 0300 7654321"
+                    className="w-full text-xs pl-10 pr-4 py-3 rounded-xl border border-slate-300 focus:border-[#E50914] focus:ring-2 focus:ring-red-100 focus:outline-hidden transition-all"
+                  />
+                </div>
+                <span className="text-[11px] text-slate-500 block mt-1">
+                  Security verification prevents unauthorized access
+                </span>
               </div>
-              <span className="text-[11px] text-slate-500 block mt-1">
-                Security verification prevents unauthorized access
-              </span>
             </div>
-          </div>
 
           <div className="flex flex-wrap items-center gap-3">
             <motion.button
@@ -182,51 +182,51 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
           </div>
         </form>
 
-        <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2.5 text-xs text-slate-600">
-          <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-          <span>
-            <strong>Customer Privacy Protected:</strong> Only the owner with the registered phone number can view job details. Confidential mechanic notes are never displayed.
-          </span>
-        </div>
-      </motion.div>
+          <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2.5 text-xs text-slate-600">
+            <ShieldCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+            <span>
+              <strong>Customer Privacy Protected:</strong> Only the owner with the registered phone number can view job details. Confidential mechanic notes are never displayed.
+            </span>
+          </div>
+        </motion.div>
 
-      {/* Search Result Display */}
-      <AnimatePresence mode="wait">
-        {hasSearched && (
-          <motion.div
-            key={result?.found ? 'found' : 'not-found'}
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.4 }}
-          >
-            {result?.found ? (
-              <div className="space-y-8">
-                {/* Status Banner */}
-                <div className="bg-slate-950 text-white p-6 sm:p-8 rounded-3xl space-y-6 border border-slate-800 shadow-2xl relative overflow-hidden">
-                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
-                    <div>
-                      <span className="text-xs text-red-400 font-mono font-bold block uppercase tracking-wider">
-                        Job Card #{result.jobCardNumber}
-                      </span>
-                      <h2 className="text-2xl font-bold text-white mt-1 font-heading">
-                        {result.bikeBrand} {result.bikeModel}
-                      </h2>
-                      {result.registrationNumber && (
-                        <span className="inline-block mt-1 px-2.5 py-0.5 bg-slate-800 text-slate-300 rounded font-mono text-xs">
-                          Reg: {result.registrationNumber}
+        {/* Search Result Display */}
+        <AnimatePresence mode="wait">
+          {hasSearched && (
+            <motion.div
+              key={result?.found ? 'found' : 'not-found'}
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -10 }}
+              transition={{ duration: 0.4 }}
+            >
+              {result?.found ? (
+                <div className="space-y-8">
+                  {/* Status Banner */}
+                  <div className="bg-slate-950 text-white p-6 sm:p-8 rounded-3xl space-y-6 border border-slate-800 shadow-2xl relative overflow-hidden">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-800 pb-6">
+                      <div>
+                        <span className="text-xs text-red-400 font-mono font-bold block uppercase tracking-wider">
+                          Job Card #{result.jobCardNumber}
                         </span>
-                      )}
-                    </div>
+                        <h2 className="text-2xl font-bold text-white mt-1 font-heading">
+                          {result.bikeBrand} {result.bikeModel}
+                        </h2>
+                        {result.registrationNumber && (
+                          <span className="inline-block mt-1 px-2.5 py-0.5 bg-slate-800 text-slate-300 rounded font-mono text-xs">
+                            Reg: {result.registrationNumber}
+                          </span>
+                        )}
+                      </div>
 
-                    <div className="sm:text-right">
-                      <span className="text-xs text-slate-400 block mb-1">Current Repair Status:</span>
-                      <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#E50914] text-white font-bold rounded-xl text-xs tracking-wide shadow-sm">
-                        <Clock className="w-3.5 h-3.5" />
-                        {result.repairStatus}
-                      </span>
+                      <div className="sm:text-right">
+                        <span className="text-xs text-slate-400 block mb-1">Current Repair Status:</span>
+                        <span className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-[#E50914] text-white font-bold rounded-xl text-xs tracking-wide shadow-sm">
+                          <Clock className="w-3.5 h-3.5" />
+                          {result.repairStatus}
+                        </span>
+                      </div>
                     </div>
-                  </div>
 
                   {/* Interactive Multi-Step Timeline (Feature 4) */}
                   <div className="pt-2 space-y-4">
@@ -304,167 +304,167 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
                   </div>
                 </div>
 
-                {/* Job Details Grid */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {/* Left Card: Customer Request & Diagnostics */}
-                  <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-automotive space-y-4">
-                    <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 font-heading">
-                      Repair Request &amp; Diagnostics
-                    </h3>
+                  {/* Job Details Grid */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* Left Card: Customer Request & Diagnostics */}
+                    <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-automotive space-y-4">
+                      <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 font-heading">
+                        Repair Request &amp; Diagnostics
+                      </h3>
 
-                    <div className="space-y-3 text-xs">
-                      <div>
-                        <span className="font-semibold text-slate-500 block mb-0.5">Reported Complaint:</span>
-                        <p className="text-slate-800 bg-slate-50 p-3 rounded-xl border border-slate-200 leading-relaxed">
-                          {result.customerComplaint || 'Standard periodic servicing and inspection requested.'}
-                        </p>
-                      </div>
-
-                      <div>
-                        <span className="font-semibold text-slate-500 block mb-1">Approved Repair Services:</span>
-                        <ul className="space-y-1.5">
-                          {result.requiredServices?.map((service, i) => (
-                            <li key={i} className="flex items-center gap-2 text-slate-800">
-                              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                              <span>{service}</span>
-                            </li>
-                          ))}
-                        </ul>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4 pt-2">
+                      <div className="space-y-3 text-xs">
                         <div>
-                          <span className="font-semibold text-slate-500 block">Check-in Date:</span>
-                          <span className="font-bold text-slate-800 mt-0.5 block">{result.createdDate}</span>
+                          <span className="font-semibold text-slate-500 block mb-0.5">Reported Complaint:</span>
+                          <p className="text-slate-800 bg-slate-50 p-3 rounded-xl border border-slate-200 leading-relaxed">
+                            {result.customerComplaint || 'Standard periodic servicing and inspection requested.'}
+                          </p>
                         </div>
+
                         <div>
-                          <span className="font-semibold text-slate-500 block">Est. Completion:</span>
-                          <span className="font-bold text-[#E50914] mt-0.5 block">
-                            {result.expectedCompletionDate || 'Same-day completion'}
+                          <span className="font-semibold text-slate-500 block mb-1">Approved Repair Services:</span>
+                          <ul className="space-y-1.5">
+                            {result.requiredServices?.map((service, i) => (
+                              <li key={i} className="flex items-center gap-2 text-slate-800">
+                                <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                                <span>{service}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 pt-2">
+                          <div>
+                            <span className="font-semibold text-slate-500 block">Check-in Date:</span>
+                            <span className="font-bold text-slate-800 mt-0.5 block">{result.createdDate}</span>
+                          </div>
+                          <div>
+                            <span className="font-semibold text-slate-500 block">Est. Completion:</span>
+                            <span className="font-bold text-[#E50914] mt-0.5 block">
+                              {result.expectedCompletionDate || 'Same-day completion'}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Right Card: Cost Estimate & Workshop Communication */}
+                    <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-automotive space-y-4">
+                      <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 font-heading">
+                        Cost Quotation &amp; Workshop Contact
+                      </h3>
+
+                      <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
+                        <div className="flex items-center justify-between text-xs">
+                          <span className="text-slate-600">Approved Estimate / Bill:</span>
+                          <span className="text-lg font-black text-slate-900 font-mono">
+                            PKR {(result.finalCost || result.estimatedCost || 0).toLocaleString()}
                           </span>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Right Card: Cost Estimate & Workshop Communication */}
-                  <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-automotive space-y-4">
-                    <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 font-heading">
-                      Cost Quotation &amp; Workshop Contact
-                    </h3>
-
-                    <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200 space-y-2">
-                      <div className="flex items-center justify-between text-xs">
-                        <span className="text-slate-600">Approved Estimate / Bill:</span>
-                        <span className="text-lg font-black text-slate-900 font-mono">
-                          PKR {(result.finalCost || result.estimatedCost || 0).toLocaleString()}
+                        <span className="text-[11px] text-slate-500 block">
+                          Includes diagnostic testing, labour charges, and replacement 4T lubricants.
                         </span>
                       </div>
-                      <span className="text-[11px] text-slate-500 block">
-                        Includes diagnostic testing, labour charges, and replacement 4T lubricants.
-                      </span>
-                    </div>
 
-                    <div className="space-y-3 pt-2">
-                      <motion.a
-                        {...buttonPressProps}
-                        href={`https://wa.me/923251814548?text=${encodeURIComponent(
-                          `Salam Hamza Autos, I am inquiring about my Job Card #${result.jobCardNumber} (${result.bikeBrand} ${result.bikeModel}). Please share the latest update.`
-                        )}`}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors"
-                      >
-                        <MessageCircle className="w-4 h-4" />
-                        <span>Chat with Mechanic on WhatsApp</span>
-                      </motion.a>
+                      <div className="space-y-3 pt-2">
+                        <motion.a
+                          {...buttonPressProps}
+                          href={`https://wa.me/923251814548?text=${encodeURIComponent(
+                            `Salam Hamza Autos, I am inquiring about my Job Card #${result.jobCardNumber} (${result.bikeBrand} ${result.bikeModel}). Please share the latest update.`
+                          )}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors"
+                        >
+                          <MessageCircle className="w-4 h-4" />
+                          <span>Chat with Mechanic on WhatsApp</span>
+                        </motion.a>
 
-                      <motion.a
-                        {...buttonPressProps}
-                        href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                        className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors"
-                      >
-                        <Phone className="w-4 h-4" />
-                        <span>Call Workshop: {BUSINESS_INFO.phone}</span>
-                      </motion.a>
+                        <motion.a
+                          {...buttonPressProps}
+                          href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                          className="w-full py-3 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl flex items-center justify-center gap-2 shadow-sm transition-colors"
+                        >
+                          <Phone className="w-4 h-4" />
+                          <span>Call Workshop: {BUSINESS_INFO.phone}</span>
+                        </motion.a>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-                {/* Photos Before / After (if available) */}
-                {((result.photosBefore && result.photosBefore.length > 0) || (result.photosAfter && result.photosAfter.length > 0)) && (
-                  <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-automotive space-y-4">
-                    <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 font-heading">
-                      Workshop Inspection Photography
-                    </h3>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      {result.photosBefore && result.photosBefore.length > 0 && (
-                        <div>
-                          <span className="text-xs font-semibold text-slate-600 block mb-2">Check-in Condition:</span>
-                          <img 
-                            src={result.photosBefore[0]} 
-                            alt="Motorcycle Before Repair" 
-                            className="w-full h-48 object-cover rounded-2xl border border-slate-200"
-                          />
-                        </div>
-                      )}
-                      {result.photosAfter && result.photosAfter.length > 0 && (
-                        <div>
-                          <span className="text-xs font-semibold text-slate-600 block mb-2">Completed Work:</span>
-                          <img 
-                            src={result.photosAfter[0]} 
-                            alt="Motorcycle After Repair" 
-                            className="w-full h-48 object-cover rounded-2xl border border-slate-200"
-                          />
-                        </div>
-                      )}
+                  {/* Photos Before / After (if available) */}
+                  {((result.photosBefore && result.photosBefore.length > 0) || (result.photosAfter && result.photosAfter.length > 0)) && (
+                    <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200/90 shadow-automotive space-y-4">
+                      <h3 className="text-base font-bold text-slate-900 border-b border-slate-100 pb-3 font-heading">
+                        Workshop Inspection Photography
+                      </h3>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        {result.photosBefore && result.photosBefore.length > 0 && (
+                          <div>
+                            <span className="text-xs font-semibold text-slate-600 block mb-2">Check-in Condition:</span>
+                            <img
+                              src={result.photosBefore[0]}
+                              alt="Motorcycle Before Repair"
+                              className="w-full h-48 object-cover rounded-2xl border border-slate-200"
+                            />
+                          </div>
+                        )}
+                        {result.photosAfter && result.photosAfter.length > 0 && (
+                          <div>
+                            <span className="text-xs font-semibold text-slate-600 block mb-2">Completed Work:</span>
+                            <img
+                              src={result.photosAfter[0]}
+                              alt="Motorcycle After Repair"
+                              className="w-full h-48 object-cover rounded-2xl border border-slate-200"
+                            />
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="bg-rose-50 border border-rose-200 rounded-3xl p-8 text-center space-y-3">
-                <AlertCircle className="w-10 h-10 text-rose-600 mx-auto" />
-                <h3 className="text-base font-bold text-rose-900 font-heading">Record Not Found</h3>
-                <p className="text-xs text-rose-700 max-w-md mx-auto">
-                  {result?.error || 'Unable to locate this job card. Please check the job card number on your workshop receipt or contact Hamza Autos directly.'}
-                </p>
-                <div className="pt-2 flex justify-center gap-3">
-                  <motion.a
-                    {...buttonPressProps}
-                    href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                    className="px-4 py-2 bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold rounded-xl cursor-pointer inline-flex items-center gap-1.5"
-                  >
-                    <Phone className="w-3.5 h-3.5" />
-                    <span>Call Workshop</span>
-                  </motion.a>
+                  )}
                 </div>
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+              ) : (
+                <div className="bg-rose-50 border border-rose-200 rounded-3xl p-8 text-center space-y-3">
+                  <AlertCircle className="w-10 h-10 text-rose-600 mx-auto" />
+                  <h3 className="text-base font-bold text-rose-900 font-heading">Record Not Found</h3>
+                  <p className="text-xs text-rose-700 max-w-md mx-auto">
+                    {result?.error || 'Unable to locate this job card. Please check the job card number on your workshop receipt or contact Hamza Autos directly.'}
+                  </p>
+                  <div className="pt-2 flex justify-center gap-3">
+                    <motion.a
+                      {...buttonPressProps}
+                      href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                      className="px-4 py-2 bg-rose-700 hover:bg-rose-800 text-white text-xs font-bold rounded-xl cursor-pointer inline-flex items-center gap-1.5"
+                    >
+                      <Phone className="w-3.5 h-3.5" />
+                      <span>Call Workshop</span>
+                    </motion.a>
+                  </div>
+                </div>
+              )}
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-      {/* Workshop Location Helper */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-automotive flex flex-col sm:flex-row items-center justify-between gap-6">
-        <div className="space-y-1 text-center sm:text-left">
-          <h4 className="text-sm font-bold text-slate-900 font-heading">
-            Picking up or dropping off your motorcycle?
-          </h4>
-          <p className="text-xs text-slate-600">
-            {BUSINESS_INFO.fullAddress} · Open 9:00 AM – 9:00 PM (Monday – Sunday)
-          </p>
+        {/* Workshop Location Helper */}
+        <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200/90 shadow-automotive flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="space-y-1 text-center sm:text-left">
+            <h4 className="text-sm font-bold text-slate-900 font-heading">
+              Picking up or dropping off your motorcycle?
+            </h4>
+            <p className="text-xs text-slate-600">
+              {BUSINESS_INFO.fullAddress} · Open 9:00 AM – 9:00 PM (Monday – Sunday)
+            </p>
+          </div>
+          <motion.a
+            {...buttonPressProps}
+            href={BUSINESS_INFO.googleMapsDirectionsUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-5 py-2.5 bg-[#E50914] hover:bg-[#CC0812] text-white font-bold text-xs rounded-xl shadow-xs transition-colors shrink-0"
+          >
+            Open Google Maps Directions
+          </motion.a>
         </div>
-        <motion.a
-          {...buttonPressProps}
-          href={BUSINESS_INFO.googleMapsDirectionsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-5 py-2.5 bg-[#E50914] hover:bg-[#CC0812] text-white font-bold text-xs rounded-xl shadow-xs transition-colors shrink-0"
-        >
-          Open Google Maps Directions
-        </motion.a>
-      </div>
       </div>
     </div>
   );

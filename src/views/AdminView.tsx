@@ -109,6 +109,10 @@ import { CustomersTab } from '../components/admin/CustomersTab';
 import { InventoryTab } from '../components/admin/InventoryTab';
 import { StaffTab } from '../components/admin/StaffTab';
 import { RemindersTab } from '../components/admin/RemindersTab';
+import { InspectionsTab } from '../components/admin/InspectionsTab';
+import { QuotationsTab } from '../components/admin/QuotationsTab';
+import { WhatsAppTemplatesTab } from '../components/admin/WhatsAppTemplatesTab';
+import { FeedbackModerationTab } from '../components/admin/FeedbackModerationTab';
 import { PrintJobCardModal } from '../components/admin/PrintJobCardModal';
 import { PrintInvoiceModal } from '../components/admin/PrintInvoiceModal';
 import { DatabaseBackupModal } from '../components/admin/DatabaseBackupModal';
@@ -117,11 +121,15 @@ export type AdminTab =
   | 'dashboard' 
   | 'jobcards' 
   | 'bookings' 
+  | 'inspections'
+  | 'quotations'
   | 'invoices' 
   | 'customers' 
   | 'inventory' 
   | 'staff' 
   | 'reminders' 
+  | 'whatsapp'
+  | 'feedback'
   | 'leads' 
   | 'services' 
   | 'blogs' 
@@ -813,6 +821,26 @@ export const AdminView: React.FC = () => {
         </button>
 
         <button
+          onClick={() => setActiveTab('inspections')}
+          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            activeTab === 'inspections' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
+          }`}
+        >
+          <ShieldCheck className="w-4 h-4" />
+          16-Pt Inspections
+        </button>
+
+        <button
+          onClick={() => setActiveTab('quotations')}
+          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            activeTab === 'quotations' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
+          }`}
+        >
+          <FileText className="w-4 h-4" />
+          Quotations
+        </button>
+
+        <button
           onClick={() => setActiveTab('invoices')}
           className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
             activeTab === 'invoices' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
@@ -865,6 +893,26 @@ export const AdminView: React.FC = () => {
         >
           <Bell className="w-4 h-4" />
           Reminders ({reminders.length})
+        </button>
+
+        <button
+          onClick={() => setActiveTab('whatsapp')}
+          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            activeTab === 'whatsapp' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
+          }`}
+        >
+          <MessageCircle className="w-4 h-4" />
+          WhatsApp Templates
+        </button>
+
+        <button
+          onClick={() => setActiveTab('feedback')}
+          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
+            activeTab === 'feedback' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
+          }`}
+        >
+          <Star className="w-4 h-4" />
+          Feedback Pipeline
         </button>
 
         <button
@@ -956,6 +1004,19 @@ export const AdminView: React.FC = () => {
         />
       )}
 
+      {/* FEATURE 3: 16-POINT BIKE HEALTH INSPECTIONS */}
+      {activeTab === 'inspections' && (
+        <InspectionsTab onRefreshStats={reloadAllData} />
+      )}
+
+      {/* FEATURE 5: DIGITAL QUOTATIONS */}
+      {activeTab === 'quotations' && (
+        <QuotationsTab
+          onRefreshStats={reloadAllData}
+          onNavigateToInvoice={() => setActiveTab('invoices')}
+        />
+      )}
+
       {/* TAB 4: INVOICES & BILLING */}
       {activeTab === 'invoices' && (
         <InvoicesTab
@@ -1011,6 +1072,16 @@ export const AdminView: React.FC = () => {
           onUpdateStatus={handleUpdateReminderStatus}
           onDeleteReminder={handleDeleteReminder}
         />
+      )}
+
+      {/* FEATURE 4: CONTEXTUAL WHATSAPP TEMPLATES */}
+      {activeTab === 'whatsapp' && (
+        <WhatsAppTemplatesTab onNotify={showNotification} />
+      )}
+
+      {/* FEATURE 10: CUSTOMER FEEDBACK & REVIEW MODERATION */}
+      {activeTab === 'feedback' && (
+        <FeedbackModerationTab onNotify={showNotification} />
       )}
 
       {/* TAB 9: INBOUND CONTACT LEADS */}

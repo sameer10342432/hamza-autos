@@ -20,6 +20,7 @@ import {
 } from '../utils/workshopLogic';
 import { ServiceItem, AppointmentBooking } from '../types';
 import { BrandLogo } from './BrandLogo';
+import { bookingService } from '../services';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -102,6 +103,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, initialServi
     setErrors({});
     setCreatedBooking(result.booking || null);
     setIsSubmitted(true);
+
+    // Also persist into IndexedDB primary storage asynchronously
+    bookingService.create({
+      customerName,
+      phoneNumber,
+      area,
+      bikeBrand,
+      bikeModel,
+      registrationNumber: registrationNumber || undefined,
+      serviceRequested,
+      problemDescription,
+      appointmentDate,
+      appointmentTime
+    }).catch(err => console.warn('IndexedDB booking save warning:', err));
   };
 
   const handleWhatsAppHandoff = () => {

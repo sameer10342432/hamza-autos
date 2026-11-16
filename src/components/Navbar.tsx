@@ -254,6 +254,14 @@ export const Navbar: React.FC<NavbarProps> = ({
             </a>
             <span className="text-slate-700">|</span>
             <button
+              onClick={() => handleNavClick('customer-portal')}
+              className="text-slate-300 hover:text-white transition-colors cursor-pointer inline-flex items-center gap-1 text-[11px]"
+            >
+              <Bike className="w-3 h-3 text-[#E50914]" />
+              <span>Customer Portal &amp; Bike Health</span>
+            </button>
+            <span className="text-slate-700">|</span>
+            <button
               onClick={() => handleNavClick('admin')}
               className="text-slate-400 hover:text-red-400 transition-colors cursor-pointer inline-flex items-center gap-1 text-[11px]"
             >
@@ -957,6 +965,22 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <span>Maintenance Blog</span>
+                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                  </button>
+
+                  {/* Customer Portal */}
+                  <button
+                    onClick={() => handleNavClick('customer-portal')}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-colors cursor-pointer min-h-[44px] ${
+                      currentView === 'customer-portal' || currentView === 'customer-dashboard'
+                        ? 'bg-red-50 text-[#E50914] font-bold border-l-4 border-[#E50914]'
+                        : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#E50914]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <Bike className="w-4 h-4 text-[#E50914]" />
+                      <span>Customer Portal &amp; Bike Health</span>
+                    </div>
                     <ChevronRight className="w-4 h-4 text-slate-400" />
                   </button>
 
