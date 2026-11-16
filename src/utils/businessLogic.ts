@@ -308,6 +308,17 @@ export function saveStoredSettings(settings: SiteSettings): void {
   }
 }
 
+// BASE & ASSET URL HELPER (Handles GitHub Pages subpaths seamlessly)
+export function assetUrl(path: string): string {
+  if (!path) return '';
+  if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
+    return path;
+  }
+  const clean = path.replace(/^\.?\//, '');
+  const base = import.meta.env.BASE_URL || '/';
+  return base.endsWith('/') ? `${base}${clean}` : `${base}/${clean}`;
+}
+
 // SERVICES CRUD
 export function getStoredServices(): ServiceItem[] {
   try {

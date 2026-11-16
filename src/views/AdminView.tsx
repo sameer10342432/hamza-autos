@@ -19,7 +19,8 @@ import {
   saveStoredReviews,
   isAdminLoggedIn,
   loginAdmin,
-  logoutAdmin
+  logoutAdmin,
+  assetUrl
 } from '../utils/businessLogic';
 import { 
   getStoredBookings, 
@@ -195,7 +196,7 @@ export const AdminView: React.FC = () => {
   const [showGalleryModal, setShowGalleryModal] = useState(false);
   const [newGalleryTitle, setNewGalleryTitle] = useState('');
   const [newGalleryCategory, setNewGalleryCategory] = useState('Workshop Bay');
-  const [newGalleryImage, setNewGalleryImage] = useState('/assets/images/gallery/gallery-service-bay.jpg');
+  const [newGalleryImage, setNewGalleryImage] = useState(assetUrl("assets/images/gallery/gallery-service-bay.jpg"));
 
   // FAQ Edit/Add Modal
   const [editingFaq, setEditingFaq] = useState<FAQItem | null>(null);
@@ -336,7 +337,7 @@ export const AdminView: React.FC = () => {
       finalCost: 1500,
       expectedCompletionDate: b.appointmentDate,
       repairStatus: 'Received',
-      photosBefore: ['/assets/images/services/motorcycle-engine-repair.jpg'],
+      photosBefore: [assetUrl("assets/images/services/motorcycle-engine-repair.jpg")],
       photosAfter: []
     });
     updateBookingStatus(b.id, 'In Progress', 'Converted to Job Card');
@@ -591,7 +592,7 @@ export const AdminView: React.FC = () => {
       title: newGalleryTitle,
       category: newGalleryCategory,
       description: 'Original photograph from Hamza Autos workshop in Badami Bagh',
-      image: newGalleryImage || '/assets/images/gallery/gallery-service-bay.jpg'
+      image: newGalleryImage || assetUrl("assets/images/gallery/gallery-service-bay.jpg")
     };
 
     const updated = [newItem, ...gallery];
@@ -1123,7 +1124,7 @@ export const AdminView: React.FC = () => {
                     processSteps: ['1. Initial inspection', '2. Precision repair', '3. Road testing'],
                     supportedBikes: ['Honda', 'Yamaha', 'Suzuki', 'United', 'Chinese Bikes'],
                     estimatedTime: '1 to 2 Hours',
-                    image: '/assets/images/services/motorcycle-engine-repair.jpg'
+                    image: assetUrl("assets/images/services/motorcycle-engine-repair.jpg")
                   });
                   setShowServiceModal(true);
                 }}
@@ -1188,7 +1189,7 @@ export const AdminView: React.FC = () => {
                   author: 'Hamza Autos Technical Team',
                   publishedDate: new Date().toISOString().split('T')[0],
                   readTime: '4 min read',
-                  image: '/assets/images/blog/blog-engine-problems.jpg',
+                  image: assetUrl("assets/images/blog/blog-engine-problems.jpg"),
                   faqs: [],
                   tags: ['Motorcycle Maintenance', 'Badami Bagh']
                 });

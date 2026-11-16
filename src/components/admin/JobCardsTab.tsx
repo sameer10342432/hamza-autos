@@ -1,3 +1,4 @@
+import { assetUrl } from '../../utils/businessLogic';
 import React, { useState } from 'react';
 import { 
   Wrench, 
@@ -125,8 +126,8 @@ export const JobCardsTab: React.FC<JobCardsTabProps> = ({
       assignedMechanicName: assignedStaff ? assignedStaff.name : 'Hamza Mechanics',
       expectedCompletionDate,
       repairStatus,
-      photosBefore: editingCard?.photosBefore || ['/assets/images/services/motorcycle-engine-repair.jpg'],
-      photosAfter: editingCard?.photosAfter || ['/assets/images/home/motorcycle-service-bay-presence.jpg']
+      photosBefore: editingCard?.photosBefore || [assetUrl("assets/images/services/motorcycle-engine-repair.jpg")],
+      photosAfter: editingCard?.photosAfter || [assetUrl("assets/images/home/motorcycle-service-bay-presence.jpg")]
     });
 
     setShowModal(false);

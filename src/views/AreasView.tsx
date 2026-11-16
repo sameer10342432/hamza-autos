@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { MapPin, Navigation, Clock, Phone, MessageCircle, ArrowRight, CheckCircle2 } from 'lucide-react';
 import { AREAS_LIST, BUSINESS_INFO } from '../data/businessData';
-import { buildWhatsAppLink, trackEvent } from '../utils/businessLogic';
+import { buildWhatsAppLink, trackEvent, assetUrl } from '../utils/businessLogic';
 
 interface AreasViewProps {
   selectedSlug?: string;
@@ -101,7 +101,7 @@ export const AreasView: React.FC<AreasViewProps> = ({ selectedSlug, onNavigate, 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div className="relative rounded-2xl overflow-hidden border border-slate-200 aspect-16/9 group shadow-xs">
             <img
-              src="/assets/images/locations/lahore-badami-bagh-traffic.jpg"
+              src={assetUrl("assets/images/locations/lahore-badami-bagh-traffic.jpg")}
               alt="Lahore Badami Bagh and Circular Road Commuter Traffic Scene"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
@@ -114,7 +114,7 @@ export const AreasView: React.FC<AreasViewProps> = ({ selectedSlug, onNavigate, 
           </div>
           <div className="relative rounded-2xl overflow-hidden border border-slate-200 aspect-16/9 group shadow-xs">
             <img
-              src="/assets/images/locations/lahore-commuter-road.jpg"
+              src={assetUrl("assets/images/locations/lahore-commuter-road.jpg")}
               alt="Lahore Urban Commuter Road and Connecting Transit Routes"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
               loading="lazy"

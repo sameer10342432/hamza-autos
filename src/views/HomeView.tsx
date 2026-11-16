@@ -30,7 +30,8 @@ import {
   getStoredReviews, 
   getStoredFAQs, 
   getStoredGallery, 
-  getStoredSettings 
+  getStoredSettings,
+  assetUrl
 } from '../utils/businessLogic';
 import { ServiceItem, CustomerReview, FAQItem, GalleryItem, SiteSettings } from '../types';
 
@@ -96,7 +97,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
         {/* Subtle decorative background workshop texture */}
         <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-luminosity">
           <img
-            src="/assets/images/home/motorcycle-workshop-hero.jpg"
+            src={assetUrl("assets/images/home/motorcycle-workshop-hero.jpg")}
             alt="Real Motorcycle Repair Workshop - Hamza Autos Badami Bagh Lahore"
             className="w-full h-full object-cover scale-105 filter blur-[0.5px]"
           />
@@ -226,7 +227,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               <div className="bg-slate-900/95 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-2xl space-y-4 sm:space-y-5">
                 <div className="group relative rounded-xl overflow-hidden aspect-video border border-slate-700/80 shadow-inner">
                   <img
-                    src="/assets/images/home/motorcycle-service-bay-presence.jpg"
+                    src={assetUrl("assets/images/home/motorcycle-service-bay-presence.jpg")}
                     alt="Hamza Autos Motorcycle Workshop Abu Bakar Road Badami Bagh Lahore"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
@@ -319,7 +320,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
               <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-sm">
                 <img
-                  src="/assets/images/about/engine-overhaul-workbench.jpg"
+                  src={assetUrl("assets/images/about/engine-overhaul-workbench.jpg")}
                   alt="Motorcycle Engine Overhaul and Precision Cylinder Head Repair at Hamza Autos"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
@@ -327,7 +328,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               </div>
               <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-sm">
                 <img
-                  src="/assets/images/about/tuning-carburetor-setup.jpg"
+                  src={assetUrl("assets/images/about/tuning-carburetor-setup.jpg")}
                   alt="Professional Motorcycle Carburetor Tuning and Fuel System Calibration"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"

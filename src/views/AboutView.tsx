@@ -1,3 +1,4 @@
+import { assetUrl } from '../utils/businessLogic';
 import React from 'react';
 import { ShieldCheck, Wrench, Clock, MapPin, Phone, MessageCircle, CheckCircle2, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -83,7 +84,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenBooking 
         >
           <div className="group rounded-2xl overflow-hidden border border-slate-200 shadow-md aspect-4/3 bg-slate-100">
             <img
-              src="/assets/images/about/workshop-mechanic-philosophy.jpg"
+              src={assetUrl("assets/images/about/workshop-mechanic-philosophy.jpg")}
               alt="Hamza Autos Badami Bagh Professional Motorcycle Mechanic Inspecting Engine"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
             />
