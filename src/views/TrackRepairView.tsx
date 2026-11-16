@@ -22,6 +22,7 @@ import { BUSINESS_INFO } from '../data/businessData';
 import { trackEvent, buildWhatsAppLink } from '../utils/businessLogic';
 import { RepairStatus } from '../types';
 import { buttonPressProps } from '../utils/motion';
+import { SectionBackground } from '../components/backgrounds';
 
 interface TrackRepairViewProps {
   initialJobCard?: string;
@@ -69,7 +70,9 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
   const currentIndex = getStepIndex(result?.repairStatus);
 
   return (
-    <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="light-generic" opacity={0.3} />
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Page Header */}
       <motion.div 
         initial={{ opacity: 0, y: 16 }}
@@ -407,6 +410,7 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
         >
           Open Google Maps Directions
         </motion.a>
+      </div>
       </div>
     </div>
   );

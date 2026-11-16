@@ -9,6 +9,7 @@ import {
   buttonPressProps,
   interactiveCardHover 
 } from '../utils/motion';
+import { SectionBackground } from '../components/backgrounds';
 
 interface ServicesViewProps {
   onNavigate: (view: string, slug?: string) => void;
@@ -42,7 +43,9 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, onOpenBo
   });
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="services" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: 16 }}
@@ -196,6 +199,7 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, onOpenBo
           </p>
         </motion.div>
       )}
+      </div>
     </div>
   );
 };

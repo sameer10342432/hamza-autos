@@ -4,6 +4,7 @@ import { GalleryItem } from '../types';
 import { getStoredGallery } from '../utils/businessLogic';
 import { X, ZoomIn, ChevronLeft, ChevronRight, Sparkles, Camera } from 'lucide-react';
 import { staggerContainerVariants, staggerItemVariants, buttonPressProps } from '../utils/motion';
+import { SectionBackground } from '../components/backgrounds';
 
 export const GalleryView: React.FC = () => {
   const [gallery] = useState<GalleryItem[]>(() => getStoredGallery());
@@ -46,7 +47,9 @@ export const GalleryView: React.FC = () => {
   }, [activeIndex, handleNext, handlePrev]);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="gallery" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Page Header */}
       <motion.div 
         initial={{ opacity: 0, y: 16 }}
@@ -231,6 +234,7 @@ export const GalleryView: React.FC = () => {
           </div>
         )}
       </AnimatePresence>
+      </div>
     </div>
   );
 };

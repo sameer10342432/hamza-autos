@@ -34,6 +34,7 @@ import {
   assetUrl
 } from '../utils/businessLogic';
 import { ServiceItem, CustomerReview, FAQItem, GalleryItem, SiteSettings } from '../types';
+import { SectionBackground } from '../components/backgrounds';
 
 interface HomeViewProps {
   onNavigate: (view: string, slug?: string) => void;
@@ -93,25 +94,17 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
   return (
     <div className="space-y-16 sm:space-y-24 overflow-hidden">
       {/* 1. CINEMATIC HERO SECTION */}
-      <section className="relative bg-gradient-to-b from-[#0F172A] via-[#0B0F17] to-[#111827] text-white overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 border-b border-slate-800/80">
-        {/* Subtle decorative background workshop texture */}
-        <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-luminosity">
+      <section className="relative text-white overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 border-b border-slate-800/80">
+        {/* Animated Automotive Background System: Deep Navy, Red Sweep, Sprockets & Particles */}
+        <SectionBackground variant="hero" />
+
+        {/* Real Motorcycle Workshop Atmosphere Overlay */}
+        <div className="absolute inset-0 opacity-15 pointer-events-none mix-blend-luminosity">
           <img
             src={assetUrl("assets/images/home/motorcycle-workshop-hero.jpg")}
             alt="Real Motorcycle Repair Workshop - Hamza Autos Badami Bagh Lahore"
             className="w-full h-full object-cover scale-105 filter blur-[0.5px]"
           />
-        </div>
-        {/* Carbon mechanical grid pattern overlay */}
-        <div className="absolute inset-0 bg-dark-grid opacity-40 pointer-events-none" />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0F172A] via-[#0F172A]/90 to-[#0F172A]/50 pointer-events-none" />
-
-        {/* Slow rotating ambient sprocket watermark in background */}
-        <div className="absolute -right-24 -top-24 w-96 h-96 opacity-5 pointer-events-none animate-[spin_60s_linear_infinite]">
-          <svg viewBox="0 0 120 120" fill="currentColor" className="text-white w-full h-full">
-            <circle cx="60" cy="60" r="48" stroke="currentColor" strokeWidth="8" fill="none" strokeDasharray="12 6" />
-            <circle cx="60" cy="60" r="28" stroke="currentColor" strokeWidth="4" fill="none" />
-          </svg>
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -279,9 +272,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
         whileInView="visible"
         viewport={{ once: true, margin: "-50px" }}
         variants={itemVariants}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative"
       >
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-automotive hover:shadow-automotive-hover transition-all duration-300">
+        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-slate-200/90 shadow-automotive hover:shadow-automotive-hover transition-all duration-300 relative overflow-hidden">
+          {/* Engineering Blueprint & Mechanical Drafting Calipers */}
+          <SectionBackground variant="about" />
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-7 space-y-4">
               <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block">
@@ -340,8 +335,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       </motion.section>
 
       {/* 3. MOTORCYCLE REPAIR SERVICES (Bento Grid) */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+        <SectionBackground variant="services" />
+        <div className="relative z-10 flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
           <div>
             <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
               Complete Workshop Capabilities
@@ -435,8 +431,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       </section>
 
       {/* 4. MOTORCYCLE BRANDS WE SERVICE */}
-      <section className="bg-slate-100/90 py-16 border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-slate-100/90 py-16 border-y border-slate-200 relative overflow-hidden">
+        <SectionBackground variant="brands" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
               Broad Brand Expertise
@@ -684,8 +681,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       </section>
 
       {/* 7. AREAS WE SERVE HIGHLIGHT */}
-      <section className="bg-slate-100/70 py-16 border-y border-slate-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="bg-slate-100/70 py-16 border-y border-slate-200 relative overflow-hidden">
+        <SectionBackground variant="areas" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
@@ -801,8 +799,8 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
 
       {/* 9. CUSTOMER TESTIMONIALS */}
       <section className="bg-slate-950 text-white py-16 border-y border-slate-800 relative overflow-hidden">
-        <div className="absolute inset-0 bg-dark-grid opacity-30 pointer-events-none" />
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <SectionBackground variant="dark-generic" />
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-2xl mx-auto mb-12">
             <span className="text-xs font-bold uppercase tracking-wider text-red-400 block mb-1">
               Real Local Feedback
@@ -1007,10 +1005,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
           whileInView="visible"
           viewport={{ once: true, margin: "-40px" }}
           variants={itemVariants}
-          className="bg-gradient-to-r from-[#E50914] via-[#B20710] to-slate-950 text-white rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 border border-red-500/20 relative overflow-hidden"
+          className="text-white rounded-3xl p-8 sm:p-12 shadow-2xl flex flex-col md:flex-row items-center justify-between gap-8 border border-red-500/30 relative overflow-hidden"
         >
-          <div className="absolute inset-0 bg-dark-grid opacity-20 pointer-events-none" />
-          <div className="relative space-y-2 max-w-xl text-center md:text-left">
+          {/* Automotive Animated CTA Background: Red Sweep, Gears & Embers */}
+          <SectionBackground variant="cta" />
+          <div className="relative z-10 space-y-2 max-w-xl text-center md:text-left">
             <h2 className="text-2xl sm:text-3xl font-black tracking-tight font-heading">
               Ready for a Smooth, Reliable Ride?
             </h2>

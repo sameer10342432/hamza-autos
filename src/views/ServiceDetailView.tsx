@@ -21,6 +21,7 @@ import {
   staggerContainerVariants, 
   staggerItemVariants 
 } from '../utils/motion';
+import { SectionBackground } from '../components/backgrounds';
 
 interface ServiceDetailViewProps {
   slug: string;
@@ -43,7 +44,9 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({ slug, onNa
   const relatedServices = allServices.filter((s) => s.slug !== service.slug).slice(0, 3);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="services" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
       {/* Breadcrumbs */}
       <motion.nav 
         initial={{ opacity: 0, x: -10 }}
@@ -274,6 +277,7 @@ export const ServiceDetailView: React.FC<ServiceDetailViewProps> = ({ slug, onNa
             </motion.div>
           ))}
         </div>
+      </div>
       </div>
     </div>
   );

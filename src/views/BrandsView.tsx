@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { BRANDS_LIST, BUSINESS_INFO } from '../data/businessData';
 import { buildWhatsAppLink, trackEvent } from '../utils/businessLogic';
 import { buttonPressProps } from '../utils/motion';
+import { SectionBackground } from '../components/backgrounds';
 
 interface BrandsViewProps {
   selectedSlug?: string;
@@ -23,7 +24,9 @@ export const BrandsView: React.FC<BrandsViewProps> = ({ selectedSlug, onNavigate
   const activeBrand = BRANDS_LIST.find((b) => b.id === activeBrandId) || BRANDS_LIST[0];
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="brands" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: 16 }}
@@ -187,6 +190,7 @@ export const BrandsView: React.FC<BrandsViewProps> = ({ selectedSlug, onNavigate
           </div>
         </motion.div>
       </AnimatePresence>
+      </div>
     </div>
   );
 };

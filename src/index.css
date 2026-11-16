@@ -57,6 +57,98 @@
   background-size: 36px 36px;
 }
 
+/* Engineering Technical Blueprint Grids */
+.bg-engineering-grid-dark {
+  background-image: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to right, rgba(229, 9, 20, 0.06) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(229, 9, 20, 0.06) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+}
+
+.bg-engineering-grid-light {
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.03) 1px, transparent 1px),
+    linear-gradient(to right, rgba(229, 9, 20, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(229, 9, 20, 0.04) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px, 120px 120px, 120px 120px;
+}
+
+/* Automotive Keyframe Animations */
+@keyframes gearSpinCw {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes gearSpinCcw {
+  from { transform: rotate(360deg); }
+  to { transform: rotate(0deg); }
+}
+
+@keyframes redLightSweep {
+  0% {
+    transform: translate(-20%, -15%) scale(0.95);
+    opacity: 0.18;
+  }
+  50% {
+    transform: translate(25%, 15%) scale(1.12);
+    opacity: 0.42;
+  }
+  100% {
+    transform: translate(-20%, -15%) scale(0.95);
+    opacity: 0.18;
+  }
+}
+
+@keyframes roadDashFlow {
+  to {
+    stroke-dashoffset: -120;
+  }
+}
+
+@keyframes gridDrift {
+  0% {
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+  }
+  100% {
+    background-position: 120px 120px, 120px 120px, 120px 120px, 120px 120px;
+  }
+}
+
+.animate-gear-cw-slow {
+  animation: gearSpinCw 85s linear infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.animate-gear-ccw-slow {
+  animation: gearSpinCcw 60s linear infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.animate-gear-cw-medium {
+  animation: gearSpinCw 42s linear infinite;
+  transform-origin: center;
+  will-change: transform;
+}
+
+.animate-red-sweep {
+  animation: redLightSweep 16s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.animate-road-dash {
+  stroke-dasharray: 8 6;
+  animation: roadDashFlow 12s linear infinite;
+}
+
+.animate-grid-drift {
+  animation: gridDrift 60s linear infinite;
+}
+
 .shadow-automotive {
   box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.07), 0 4px 6px -2px rgba(15, 23, 42, 0.04);
 }
@@ -97,5 +189,13 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+  .animate-gear-cw-slow,
+  .animate-gear-ccw-slow,
+  .animate-gear-cw-medium,
+  .animate-red-sweep,
+  .animate-road-dash,
+  .animate-grid-drift {
+    animation: none !important;
   }
 }

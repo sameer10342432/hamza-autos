@@ -4,6 +4,7 @@ import { motion, type Variants } from 'motion/react';
 import { BUSINESS_INFO, SERVICES_LIST, AREAS_LIST, BRANDS_LIST } from '../data/businessData';
 import { trackEvent, buildWhatsAppLink } from '../utils/businessLogic';
 import { BrandLogo } from './BrandLogo';
+import { SectionBackground } from './backgrounds';
 
 interface FooterProps {
   onNavigate: (view: string, slug?: string) => void;
@@ -32,8 +33,8 @@ export const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
       variants={footerVariants}
       className="bg-slate-950 text-slate-300 pt-16 pb-12 border-t border-slate-800/80 relative overflow-hidden"
     >
-      {/* Subtle carbon mechanical grid accent in footer background */}
-      <div className="absolute inset-0 bg-dark-grid opacity-30 pointer-events-none" />
+      {/* Premium Automotive Animated Footer Background */}
+      <SectionBackground variant="footer" />
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Main 4-column footer grid */}

@@ -20,6 +20,7 @@ import {
   getStoredServices
 } from '../utils/businessLogic';
 import { ServiceItem, SiteSettings } from '../types';
+import { SectionBackground } from '../components/backgrounds';
 
 export const ContactView: React.FC = () => {
   const [settings, setSettings] = useState<SiteSettings>(getStoredSettings());
@@ -69,7 +70,9 @@ export const ContactView: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="light-generic" opacity={0.3} />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: 15 }}
@@ -355,6 +358,7 @@ export const ContactView: React.FC = () => {
             )}
           </AnimatePresence>
         </motion.div>
+      </div>
       </div>
     </div>
   );

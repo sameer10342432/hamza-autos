@@ -4,6 +4,7 @@ import { getStoredBlogs } from '../utils/businessLogic';
 import { Calendar, Clock, ArrowRight, Tag, HelpCircle, ArrowLeft, BookOpen } from 'lucide-react';
 import { motion, useScroll, useSpring } from 'motion/react';
 import { staggerContainerVariants, staggerItemVariants, buttonPressProps } from '../utils/motion';
+import { SectionBackground } from '../components/backgrounds';
 
 interface BlogViewProps {
   initialSlug?: string;
@@ -26,7 +27,9 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
 
   if (selectedPost) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 relative">
+      <div className="relative overflow-hidden">
+        <SectionBackground variant="blog" opacity={0.18} />
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
         {/* Reading Progress Indicator Bar */}
         <motion.div
           className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#E50914] to-red-500 z-50 origin-left"
@@ -141,12 +144,15 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
             Book Workshop Inspection
           </motion.button>
         </motion.div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="blog" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
       <motion.div 
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
@@ -212,6 +218,7 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
           </motion.div>
         ))}
       </motion.div>
+      </div>
     </div>
   );
 };

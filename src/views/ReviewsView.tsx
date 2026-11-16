@@ -5,6 +5,7 @@ import { BUSINESS_INFO } from '../data/businessData';
 import { CustomerReview } from '../types';
 import { getStoredReviews, saveStoredReviews, getStoredSettings } from '../utils/businessLogic';
 import { staggerContainerVariants, staggerItemVariants, buttonPressProps } from '../utils/motion';
+import { SectionBackground } from '../components/backgrounds';
 
 export const ReviewsView: React.FC = () => {
   const [reviews, setReviews] = useState<CustomerReview[]>(() => getStoredReviews());
@@ -42,7 +43,9 @@ export const ReviewsView: React.FC = () => {
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="reviews" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
       {/* Header */}
       <motion.div 
         initial={{ opacity: 0, y: 16 }}
@@ -268,6 +271,7 @@ export const ReviewsView: React.FC = () => {
             </motion.a>
           </div>
         </div>
+      </div>
       </div>
     </div>
   );

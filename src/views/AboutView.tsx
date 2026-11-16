@@ -4,6 +4,7 @@ import { ShieldCheck, Wrench, Clock, MapPin, Phone, MessageCircle, CheckCircle2,
 import { motion } from 'motion/react';
 import { BUSINESS_INFO } from '../data/businessData';
 import { trackEvent, buildWhatsAppLink } from '../utils/businessLogic';
+import { SectionBackground } from '../components/backgrounds';
 
 interface AboutViewProps {
   onNavigate: (view: string, slug?: string) => void;
@@ -12,7 +13,9 @@ interface AboutViewProps {
 
 export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenBooking }) => {
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
+    <div className="relative overflow-hidden">
+      <SectionBackground variant="about" />
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-12">
       {/* Breadcrumb */}
       <nav className="flex items-center gap-2 text-xs text-slate-500">
         <button onClick={() => onNavigate('home')} className="hover:text-red-600 cursor-pointer">Home</button>
@@ -141,6 +144,7 @@ export const AboutView: React.FC<AboutViewProps> = ({ onNavigate, onOpenBooking 
           </motion.a>
         </div>
       </motion.div>
+      </div>
     </div>
   );
 };
