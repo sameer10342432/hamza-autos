@@ -117,6 +117,20 @@
   }
 }
 
+@keyframes scannerFast {
+  0% { top: 0%; opacity: 0; }
+  10% { opacity: 0.9; }
+  90% { opacity: 0.9; }
+  100% { top: 98%; opacity: 0; }
+}
+
+@keyframes scannerSlow {
+  0% { top: 0%; opacity: 0; }
+  12% { opacity: 0.85; }
+  88% { opacity: 0.85; }
+  100% { top: 98%; opacity: 0; }
+}
+
 .animate-gear-cw-slow {
   animation: gearSpinCw 85s linear infinite;
   transform-origin: center;

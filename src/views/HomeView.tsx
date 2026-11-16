@@ -35,6 +35,16 @@ import {
 } from '../utils/businessLogic';
 import { ServiceItem, CustomerReview, FAQItem, GalleryItem, SiteSettings } from '../types';
 import { SectionBackground } from '../components/backgrounds';
+import { 
+  RPMGauge, 
+  InteractiveEngine, 
+  Card3D, 
+  MechanicalScanner, 
+  InteractiveLocationMap, 
+  CursorGlow, 
+  AnimatedCounter, 
+  CounterGroup 
+} from '../components/interactive';
 
 interface HomeViewProps {
   onNavigate: (view: string, slug?: string) => void;
@@ -97,6 +107,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
       <section className="relative text-white overflow-hidden pt-8 pb-16 sm:pt-14 sm:pb-24 border-b border-slate-800/80">
         {/* Animated Automotive Background System: Deep Navy, Red Sweep, Sprockets & Particles */}
         <SectionBackground variant="hero" />
+
+        {/* Feature 8: Dynamic Hardware-Accelerated Cursor Glow Spotlight */}
+        <CursorGlow color="rgba(229, 9, 20, 0.22)" radius={440} />
 
         {/* Real Motorcycle Workshop Atmosphere Overlay */}
         <div className="absolute inset-0 opacity-15 pointer-events-none mix-blend-luminosity">
@@ -210,22 +223,25 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               </motion.div>
             </motion.div>
 
-            {/* Right Column: Workshop Presence Card */}
+            {/* Right Column: Workshop Presence & Interactive RPM Tachometer */}
             <motion.div 
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-              className="lg:col-span-5"
+              className="lg:col-span-5 space-y-4"
             >
-              <div className="bg-slate-900/95 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-2xl space-y-4 sm:space-y-5">
+              <div className="bg-slate-900/95 backdrop-blur-md rounded-2xl p-5 sm:p-6 border border-slate-800 shadow-2xl space-y-4 sm:space-y-5 relative overflow-hidden">
                 <div className="group relative rounded-xl overflow-hidden aspect-video border border-slate-700/80 shadow-inner">
+                  {/* Feature 6: Mechanical Telemetry Laser Sweep */}
+                  <MechanicalScanner active={true} label="BADAMI BAGH TELEMETRY · BAY 1" />
+
                   <img
                     src={assetUrl("assets/images/home/motorcycle-service-bay-presence.jpg")}
                     alt="Hamza Autos Motorcycle Workshop Abu Bakar Road Badami Bagh Lahore"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
-                  <div className="absolute bottom-2.5 left-2.5 px-2.5 py-1 bg-slate-950/90 text-white rounded text-[11px] font-medium backdrop-blur-xs border border-slate-800 flex items-center gap-1.5">
+                  <div className="absolute bottom-2.5 left-2.5 px-2.5 py-1 bg-slate-950/90 text-white rounded text-[11px] font-medium backdrop-blur-xs border border-slate-800 flex items-center gap-1.5 z-20">
                     <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
                     <span>Abu Bakar Road Service Bay · Open</span>
                   </div>
@@ -261,6 +277,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   <span>Reserve a Repair Slot Online</span>
                 </motion.button>
               </div>
+
+              {/* Feature 1: Interactive Precision RPM Tachometer Dial */}
+              <RPMGauge />
             </motion.div>
           </div>
         </div>
@@ -370,64 +389,72 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
             <motion.div
               key={service.id}
               variants={itemVariants}
-              whileHover={{ y: -6 }}
-              className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-automotive hover:shadow-automotive-hover hover:border-red-300 transition-all duration-300 flex flex-col justify-between"
+              className="h-full"
             >
-              <div>
-                <div className="relative aspect-video overflow-hidden bg-slate-100">
-                  <img
-                    src={service.image}
-                    alt={service.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 left-3 px-2.5 py-1 bg-slate-950/85 text-white rounded-md text-[11px] font-semibold backdrop-blur-xs border border-slate-800">
-                    {service.category}
+              <Card3D className="h-full">
+                <div className="group bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-automotive hover:shadow-automotive-hover hover:border-red-300 transition-all duration-300 flex flex-col justify-between h-full">
+                  <div>
+                    <div className="relative aspect-video overflow-hidden bg-slate-100">
+                      <img
+                        src={service.image}
+                        alt={service.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        loading="lazy"
+                      />
+                      <div className="absolute top-3 left-3 px-2.5 py-1 bg-slate-950/85 text-white rounded-md text-[11px] font-semibold backdrop-blur-xs border border-slate-800">
+                        {service.category}
+                      </div>
+                    </div>
+
+                    <div className="p-6">
+                      <h3 className="text-base font-bold text-slate-950 group-hover:text-[#E50914] transition-colors mb-2 font-heading">
+                        {service.title}
+                      </h3>
+                      <p className="text-xs text-slate-600 leading-relaxed line-clamp-3 mb-4">
+                        {service.shortDescription}
+                      </p>
+
+                      <div className="text-[11px] text-slate-500 space-y-1 mb-4">
+                        <span className="font-semibold text-slate-700">Estimated Duration:</span> {service.estimatedTime}
+                      </div>
+
+                      <div className="flex flex-wrap gap-1">
+                        {service.supportedBikes.slice(0, 3).map((bike, i) => (
+                          <span key={i} className="text-[10px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded font-medium">
+                            {bike}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="p-6 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between">
+                    <button
+                      onClick={() => onNavigate('service-detail', service.slug)}
+                      className="text-xs font-bold text-slate-700 hover:text-[#E50914] inline-flex items-center gap-1 cursor-pointer transition-colors"
+                    >
+                      <span>View Details</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </button>
+                    <motion.button
+                      whileHover={{ scale: 1.04 }}
+                      whileTap={{ scale: 0.96 }}
+                      onClick={() => onOpenBooking(service.title)}
+                      className="px-3.5 py-1.5 text-xs font-semibold bg-red-50 text-[#E50914] hover:bg-[#E50914] hover:text-white rounded-xl transition-all duration-200 cursor-pointer shadow-xs"
+                    >
+                      Book Service
+                    </motion.button>
                   </div>
                 </div>
-
-                <div className="p-6">
-                  <h3 className="text-base font-bold text-slate-950 group-hover:text-[#E50914] transition-colors mb-2 font-heading">
-                    {service.title}
-                  </h3>
-                  <p className="text-xs text-slate-600 leading-relaxed line-clamp-3 mb-4">
-                    {service.shortDescription}
-                  </p>
-
-                  <div className="text-[11px] text-slate-500 space-y-1 mb-4">
-                    <span className="font-semibold text-slate-700">Estimated Duration:</span> {service.estimatedTime}
-                  </div>
-
-                  <div className="flex flex-wrap gap-1">
-                    {service.supportedBikes.slice(0, 3).map((bike, i) => (
-                      <span key={i} className="text-[10px] text-slate-600 bg-slate-100 px-2 py-0.5 rounded font-medium">
-                        {bike}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className="p-6 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between">
-                <button
-                  onClick={() => onNavigate('service-detail', service.slug)}
-                  className="text-xs font-bold text-slate-700 hover:text-[#E50914] inline-flex items-center gap-1 cursor-pointer transition-colors"
-                >
-                  <span>View Details</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
-                </button>
-                <motion.button
-                  whileHover={{ scale: 1.04 }}
-                  whileTap={{ scale: 0.96 }}
-                  onClick={() => onOpenBooking(service.title)}
-                  className="px-3.5 py-1.5 text-xs font-semibold bg-red-50 text-[#E50914] hover:bg-[#E50914] hover:text-white rounded-xl transition-all duration-200 cursor-pointer shadow-xs"
-                >
-                  Book Service
-                </motion.button>
-              </div>
+              </Card3D>
             </motion.div>
           ))}
         </motion.div>
+      </section>
+
+      {/* Feature 2: Interactive Motorcycle Engine 4-Stroke Diagnostic Inspector */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <InteractiveEngine />
       </section>
 
       {/* 4. MOTORCYCLE BRANDS WE SERVICE */}
@@ -680,11 +707,26 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
         </motion.div>
       </section>
 
+      {/* Feature 9: Verified Workshop Statistics & Operational Metrics */}
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <CounterGroup
+          title="Verified Workshop Operating Metrics"
+          subtitle="Real verifiable parameters directly grounded in our Badami Bagh workshop facility."
+          counters={[
+            { value: 13, label: "Specialist Repair Services", suffix: "", description: "Engine rebuilds to wiring loom diagnostics" },
+            { value: 7, label: "Motorcycle Brands Serviced", suffix: "+", description: "Honda, Yamaha, Suzuki, United & Chinese 70-150cc" },
+            { value: 10, label: "Lahore Localities Covered", suffix: "+", description: "Direct road access from Northern Lahore neighborhoods" },
+            { value: 7, label: "Days Open Weekly", suffix: " Days", description: "Monday through Sunday 9:00 AM – 9:00 PM" },
+            { value: 100, label: "Genuine Lubricants Guaranteed", suffix: "%", description: "Factory-sealed 4T motorcycle oils only" },
+          ]}
+        />
+      </section>
+
       {/* 7. AREAS WE SERVE HIGHLIGHT */}
       <section className="bg-slate-100/70 py-16 border-y border-slate-200 relative overflow-hidden">
         <SectionBackground variant="areas" />
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+          <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
             <div>
               <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block mb-1">
                 Local Proximity
@@ -704,6 +746,12 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
             </button>
           </div>
+
+          {/* Feature 7: Animated Transit Routes Map Converging to Badami Bagh Workshop */}
+          <InteractiveLocationMap 
+            onNavigateArea={(slug) => onNavigate('area-detail', slug)} 
+            className="mb-10" 
+          />
 
           <motion.div 
             initial="hidden"
@@ -1009,6 +1057,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
         >
           {/* Automotive Animated CTA Background: Red Sweep, Gears & Embers */}
           <SectionBackground variant="cta" />
+          <CursorGlow color="rgba(255, 255, 255, 0.15)" radius={320} />
           <div className="relative z-10 space-y-2 max-w-xl text-center md:text-left">
             <h2 className="text-2xl sm:text-3xl font-black tracking-tight font-heading">
               Ready for a Smooth, Reliable Ride?

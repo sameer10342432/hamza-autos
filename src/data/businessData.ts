@@ -976,6 +976,22 @@ export const GALLERY_ITEMS: GalleryItem[] = [
     description: "Hydraulic shock absorber inspection, spring preload setting, and swingarm pivot bushing rebuild.",
     image: asset("assets/images/gallery/gallery-suspension-shocks.jpg"),
     imageAlt: "Motorcycle rear shock absorber spring and suspension components"
+  },
+  {
+    id: "gal-7",
+    title: "Motorcycle Brake Drum & Shoe Servicing",
+    category: "Brakes & Safety",
+    description: "Brake lining inspection, drum de-glazing, spring tension testing, and emergency stopping calibration.",
+    image: asset("assets/images/services/motorcycle-brake-repair.jpg"),
+    imageAlt: "Mechanic servicing motorcycle drum brake shoe and hub assembly"
+  },
+  {
+    id: "gal-8",
+    title: "Electrical Loom & Stator Coil Diagnosis",
+    category: "Electrical & Loom",
+    description: "Precision multimeter continuity check, regulator-rectifier testing, and weatherproof wire harness protection.",
+    image: asset("assets/images/services/motorcycle-electrical-repair.jpg"),
+    imageAlt: "Technician inspecting motorcycle wiring harness and electrical multimeter readings"
   }
 ];
 

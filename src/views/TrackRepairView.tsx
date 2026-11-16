@@ -141,24 +141,45 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
             </div>
           </div>
 
-          <motion.button
-            {...buttonPressProps}
-            type="submit"
-            disabled={loading}
-            className="w-full sm:w-auto px-8 py-3 bg-[#E50914] hover:bg-[#CC0812] text-white font-bold text-xs rounded-xl shadow-md shadow-red-950/40 transition-colors cursor-pointer flex items-center justify-center gap-2"
-          >
-            {loading ? (
-              <>
-                <Loader2 className="w-4 h-4 animate-spin" />
-                <span>Verifying with Workshop...</span>
-              </>
-            ) : (
-              <>
-                <Search className="w-4 h-4" />
-                <span>Track Repair Progress</span>
-              </>
-            )}
-          </motion.button>
+          <div className="flex flex-wrap items-center gap-3">
+            <motion.button
+              {...buttonPressProps}
+              type="submit"
+              disabled={loading}
+              className="w-full sm:w-auto px-8 py-3 bg-[#E50914] hover:bg-[#CC0812] text-white font-bold text-xs rounded-xl shadow-md shadow-red-950/40 transition-colors cursor-pointer flex items-center justify-center gap-2"
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>Verifying with Workshop...</span>
+                </>
+              ) : (
+                <>
+                  <Search className="w-4 h-4" />
+                  <span>Track Repair Progress</span>
+                </>
+              )}
+            </motion.button>
+
+            <button
+              type="button"
+              data-demo-btn="true"
+              onClick={() => {
+                setJobCardNumber('HA-JC-2026-001');
+                setPhoneNumber('0300 7654321');
+                setLoading(true);
+                setHasSearched(true);
+                setTimeout(() => {
+                  const res = lookupJobCardForTracking('HA-JC-2026-001', '0300 7654321');
+                  setResult(res);
+                  setLoading(false);
+                }, 300);
+              }}
+              className="text-xs text-slate-500 hover:text-[#E50914] hover:underline font-medium px-2 py-2 cursor-pointer transition-colors"
+            >
+              Demo: Preview Sample Status (HA-JC-2026-001)
+            </button>
+          </div>
         </form>
 
         <div className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center gap-2.5 text-xs text-slate-600">
@@ -207,42 +228,75 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
                     </div>
                   </div>
 
-                  {/* Interactive Multi-Step Timeline */}
-                  <div className="pt-2">
-                    <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400 mb-6">
-                      Live Workshop Milestones
-                    </h3>
+                  {/* Interactive Multi-Step Timeline (Feature 4) */}
+                  <div className="pt-2 space-y-4">
+                    <div className="flex items-center justify-between">
+                      <h3 className="text-xs font-bold uppercase tracking-wider text-slate-400">
+                        Live Workshop Milestones
+                      </h3>
+                      <div className="flex items-center gap-2 text-xs">
+                        <span className="text-slate-400">Repair Progress:</span>
+                        <span className="font-mono font-bold text-emerald-400 bg-emerald-950/80 px-2.5 py-0.5 rounded-full border border-emerald-800/80">
+                          {Math.round(((Math.max(0, currentIndex) + 1) / statusSteps.length) * 100)}% Completed
+                        </span>
+                      </div>
+                    </div>
 
-                    <div className="relative">
-                      <div className="grid grid-cols-1 sm:grid-cols-7 gap-4">
+                    {/* Desktop continuous track bar */}
+                    <div className="relative pt-2">
+                      <div className="hidden sm:block absolute top-[23px] left-6 right-6 h-1 bg-slate-800 rounded-full z-0 overflow-hidden">
+                        <motion.div
+                          className="h-full bg-gradient-to-r from-emerald-500 via-red-500 to-[#E50914]"
+                          initial={{ width: 0 }}
+                          animate={{ 
+                            width: `${(Math.max(0, currentIndex) / (statusSteps.length - 1)) * 100}%` 
+                          }}
+                          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                        />
+                      </div>
+
+                      <div className="grid grid-cols-1 sm:grid-cols-7 gap-4 relative z-10">
                         {statusSteps.map((step, idx) => {
                           const isDone = idx < currentIndex;
                           const isCurrent = idx === currentIndex;
 
                           return (
-                            <div key={step.status} className="flex flex-row sm:flex-col items-start gap-3 sm:gap-2">
+                            <motion.div 
+                              key={step.status} 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ duration: 0.4, delay: idx * 0.06 }}
+                              className={`flex flex-row sm:flex-col items-start gap-3 sm:gap-2 p-2.5 sm:p-2 rounded-xl transition-all ${
+                                isCurrent 
+                                  ? 'bg-slate-900 border border-red-500/40 shadow-lg shadow-red-950/40' 
+                                  : 'hover:bg-slate-900/40'
+                              }`}
+                            >
                               <div className="flex items-center gap-2">
-                                <div className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 transition-all ${
-                                  isDone 
-                                    ? 'bg-emerald-500 text-white shadow-xs' 
-                                    : isCurrent 
-                                    ? 'bg-[#E50914] text-white ring-4 ring-red-500/30 shadow-md animate-pulse' 
-                                    : 'bg-slate-800 text-slate-500'
-                                }`}>
+                                <motion.div 
+                                  animate={isCurrent ? { scale: [1, 1.1, 1] } : {}}
+                                  transition={{ repeat: Infinity, duration: 2 }}
+                                  className={`w-8 h-8 rounded-xl flex items-center justify-center font-bold text-xs shrink-0 transition-all ${
+                                    isDone 
+                                      ? 'bg-emerald-500 text-white shadow-xs' 
+                                      : isCurrent 
+                                      ? 'bg-[#E50914] text-white ring-4 ring-red-500/30 shadow-md' 
+                                      : 'bg-slate-800 text-slate-500'
+                                  }`}
+                                >
                                   {isDone ? <CheckCircle2 className="w-4 h-4" /> : idx + 1}
-                                </div>
-                                <div className="hidden sm:block h-0.5 bg-slate-800 flex-1" />
+                                </motion.div>
                               </div>
 
-                              <div>
+                              <div className="min-w-0">
                                 <span className={`text-xs font-bold block ${isCurrent ? 'text-red-400 font-heading' : isDone ? 'text-slate-200' : 'text-slate-500'}`}>
                                   {step.label}
                                 </span>
-                                <span className="text-[10px] text-slate-400 hidden sm:block leading-tight mt-0.5">
+                                <span className="text-[10px] text-slate-400 block leading-tight mt-0.5">
                                   {step.desc}
                                 </span>
                               </div>
-                            </div>
+                            </motion.div>
                           );
                         })}
                       </div>

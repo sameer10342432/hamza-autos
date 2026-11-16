@@ -21,6 +21,7 @@ import { AdminView } from './views/AdminView';
 import { NotFoundView } from './views/NotFoundView';
 import { TrackRepairView } from './views/TrackRepairView';
 import { SearchModal } from './components/SearchModal';
+import { InitialLoader } from './components/interactive/InitialLoader';
 
 import { getStoredSettings } from './utils/businessLogic';
 
@@ -175,6 +176,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen w-full max-w-full flex flex-col bg-slate-50 text-slate-900 overflow-x-clip">
+      {/* Feature 10: Premium Initial Splash / Loading Animation */}
+      <InitialLoader />
+
       {/* Top Bar Navigation */}
       <Navbar
         currentView={currentView}
