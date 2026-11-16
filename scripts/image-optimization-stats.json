@@ -1,0 +1,274 @@
+[
+  {
+    "originalPath": "public/assets/images/about/engine-overhaul-workbench.jpg",
+    "webpPath": "public/assets/images/about/engine-overhaul-workbench.webp",
+    "dimensions": "1200x1800",
+    "originalSizeKB": "225.7",
+    "optimizedSizeKB": "135.1",
+    "savingsPercent": "40.1%"
+  },
+  {
+    "originalPath": "public/assets/images/about/tuning-carburetor-setup.jpg",
+    "webpPath": "public/assets/images/about/tuning-carburetor-setup.webp",
+    "dimensions": "1200x735",
+    "originalSizeKB": "116.7",
+    "optimizedSizeKB": "86.0",
+    "savingsPercent": "26.3%"
+  },
+  {
+    "originalPath": "public/assets/images/about/workshop-mechanic-philosophy.jpg",
+    "webpPath": "public/assets/images/about/workshop-mechanic-philosophy.webp",
+    "dimensions": "1200x1800",
+    "originalSizeKB": "236.5",
+    "optimizedSizeKB": "151.5",
+    "savingsPercent": "35.9%"
+  },
+  {
+    "originalPath": "public/assets/images/blog/blog-clutch-plate-guide.jpg",
+    "webpPath": "public/assets/images/blog/blog-clutch-plate-guide.webp",
+    "dimensions": "1200x1800",
+    "originalSizeKB": "244.2",
+    "optimizedSizeKB": "156.8",
+    "savingsPercent": "35.8%"
+  },
+  {
+    "originalPath": "public/assets/images/blog/blog-engine-problems.jpg",
+    "webpPath": "public/assets/images/blog/blog-engine-problems.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "166.7",
+    "optimizedSizeKB": "128.3",
+    "savingsPercent": "23.0%"
+  },
+  {
+    "originalPath": "public/assets/images/blog/blog-fuel-economy-tuning.jpg",
+    "webpPath": "public/assets/images/blog/blog-fuel-economy-tuning.webp",
+    "dimensions": "1200x1800",
+    "originalSizeKB": "203.6",
+    "optimizedSizeKB": "134.7",
+    "savingsPercent": "33.8%"
+  },
+  {
+    "originalPath": "public/assets/images/blog/blog-oil-change-guide.jpg",
+    "webpPath": "public/assets/images/blog/blog-oil-change-guide.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "118.7",
+    "optimizedSizeKB": "75.3",
+    "savingsPercent": "36.5%"
+  },
+  {
+    "originalPath": "public/assets/images/brands/honda-motorcycle.jpg",
+    "webpPath": "public/assets/images/brands/honda-motorcycle.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "133.0",
+    "optimizedSizeKB": "103.0",
+    "savingsPercent": "22.6%"
+  },
+  {
+    "originalPath": "public/assets/images/brands/suzuki-motorcycle.jpg",
+    "webpPath": "public/assets/images/brands/suzuki-motorcycle.webp",
+    "dimensions": "1200x2133",
+    "originalSizeKB": "445.3",
+    "optimizedSizeKB": "377.9",
+    "savingsPercent": "15.1%"
+  },
+  {
+    "originalPath": "public/assets/images/brands/united-chinese-bike.jpg",
+    "webpPath": "public/assets/images/brands/united-chinese-bike.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "134.3",
+    "optimizedSizeKB": "94.1",
+    "savingsPercent": "29.9%"
+  },
+  {
+    "originalPath": "public/assets/images/brands/yamaha-motorcycle.jpg",
+    "webpPath": "public/assets/images/brands/yamaha-motorcycle.webp",
+    "dimensions": "1200x1647",
+    "originalSizeKB": "310.7",
+    "optimizedSizeKB": "235.7",
+    "savingsPercent": "24.1%"
+  },
+  {
+    "originalPath": "public/assets/images/gallery/gallery-carburetor-tuning.jpg",
+    "webpPath": "public/assets/images/gallery/gallery-carburetor-tuning.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "148.5",
+    "optimizedSizeKB": "111.4",
+    "savingsPercent": "25.0%"
+  },
+  {
+    "originalPath": "public/assets/images/gallery/gallery-chain-sprocket.jpg",
+    "webpPath": "public/assets/images/gallery/gallery-chain-sprocket.webp",
+    "dimensions": "1200x1800",
+    "originalSizeKB": "281.5",
+    "optimizedSizeKB": "186.7",
+    "savingsPercent": "33.7%"
+  },
+  {
+    "originalPath": "public/assets/images/gallery/gallery-engine-rebuild.jpg",
+    "webpPath": "public/assets/images/gallery/gallery-engine-rebuild.webp",
+    "dimensions": "1200x1799",
+    "originalSizeKB": "303.3",
+    "optimizedSizeKB": "228.4",
+    "savingsPercent": "24.7%"
+  },
+  {
+    "originalPath": "public/assets/images/gallery/gallery-oil-servicing.jpg",
+    "webpPath": "public/assets/images/gallery/gallery-oil-servicing.webp",
+    "dimensions": "1200x1800",
+    "originalSizeKB": "169.3",
+    "optimizedSizeKB": "84.6",
+    "savingsPercent": "50.0%"
+  },
+  {
+    "originalPath": "public/assets/images/gallery/gallery-service-bay.jpg",
+    "webpPath": "public/assets/images/gallery/gallery-service-bay.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "196.8",
+    "optimizedSizeKB": "162.3",
+    "savingsPercent": "17.5%"
+  },
+  {
+    "originalPath": "public/assets/images/gallery/gallery-suspension-shocks.jpg",
+    "webpPath": "public/assets/images/gallery/gallery-suspension-shocks.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "55.2",
+    "optimizedSizeKB": "30.5",
+    "savingsPercent": "44.7%"
+  },
+  {
+    "originalPath": "public/assets/images/home/motorcycle-service-bay-presence.jpg",
+    "webpPath": "public/assets/images/home/motorcycle-service-bay-presence.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "196.8",
+    "optimizedSizeKB": "162.3",
+    "savingsPercent": "17.5%"
+  },
+  {
+    "originalPath": "public/assets/images/home/motorcycle-workshop-hero.jpg",
+    "webpPath": "public/assets/images/home/motorcycle-workshop-hero.webp",
+    "dimensions": "1400x1050",
+    "originalSizeKB": "313.7",
+    "optimizedSizeKB": "264.9",
+    "savingsPercent": "15.6%"
+  },
+  {
+    "originalPath": "public/assets/images/locations/lahore-badami-bagh-traffic.jpg",
+    "webpPath": "public/assets/images/locations/lahore-badami-bagh-traffic.webp",
+    "dimensions": "1200x1600",
+    "originalSizeKB": "297.5",
+    "optimizedSizeKB": "256.0",
+    "savingsPercent": "14.0%"
+  },
+  {
+    "originalPath": "public/assets/images/locations/lahore-commuter-road.jpg",
+    "webpPath": "public/assets/images/locations/lahore-commuter-road.webp",
+    "dimensions": "1200x956",
+    "originalSizeKB": "196.1",
+    "optimizedSizeKB": "161.9",
+    "savingsPercent": "17.5%"
+  },
+  {
+    "originalPath": "public/assets/images/services/bike-clutch-repair.jpg",
+    "webpPath": "public/assets/images/services/bike-clutch-repair.webp",
+    "dimensions": "1200x675",
+    "originalSizeKB": "126.8",
+    "optimizedSizeKB": "100.8",
+    "savingsPercent": "20.5%"
+  },
+  {
+    "originalPath": "public/assets/images/services/bike-modification.jpg",
+    "webpPath": "public/assets/images/services/bike-modification.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "107.8",
+    "optimizedSizeKB": "70.5",
+    "savingsPercent": "34.7%"
+  },
+  {
+    "originalPath": "public/assets/images/services/bike-puncture-repair.jpg",
+    "webpPath": "public/assets/images/services/bike-puncture-repair.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "123.4",
+    "optimizedSizeKB": "87.8",
+    "savingsPercent": "28.9%"
+  },
+  {
+    "originalPath": "public/assets/images/services/bike-tuning.jpg",
+    "webpPath": "public/assets/images/services/bike-tuning.webp",
+    "dimensions": "1200x735",
+    "originalSizeKB": "116.7",
+    "optimizedSizeKB": "86.0",
+    "savingsPercent": "26.3%"
+  },
+  {
+    "originalPath": "public/assets/images/services/bike-wiring-repair.jpg",
+    "webpPath": "public/assets/images/services/bike-wiring-repair.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "139.2",
+    "optimizedSizeKB": "96.0",
+    "savingsPercent": "31.0%"
+  },
+  {
+    "originalPath": "public/assets/images/services/general-bike-repair.jpg",
+    "webpPath": "public/assets/images/services/general-bike-repair.webp",
+    "dimensions": "1200x1800",
+    "originalSizeKB": "236.5",
+    "optimizedSizeKB": "151.5",
+    "savingsPercent": "35.9%"
+  },
+  {
+    "originalPath": "public/assets/images/services/motorcycle-brake-repair.jpg",
+    "webpPath": "public/assets/images/services/motorcycle-brake-repair.webp",
+    "dimensions": "1200x2133",
+    "originalSizeKB": "252.0",
+    "optimizedSizeKB": "142.9",
+    "savingsPercent": "43.3%"
+  },
+  {
+    "originalPath": "public/assets/images/services/motorcycle-electrical-repair.jpg",
+    "webpPath": "public/assets/images/services/motorcycle-electrical-repair.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "94.6",
+    "optimizedSizeKB": "56.5",
+    "savingsPercent": "40.3%"
+  },
+  {
+    "originalPath": "public/assets/images/services/motorcycle-engine-repair.jpg",
+    "webpPath": "public/assets/images/services/motorcycle-engine-repair.webp",
+    "dimensions": "1200x1800",
+    "originalSizeKB": "225.7",
+    "optimizedSizeKB": "135.1",
+    "savingsPercent": "40.1%"
+  },
+  {
+    "originalPath": "public/assets/images/services/motorcycle-general-maintenance.jpg",
+    "webpPath": "public/assets/images/services/motorcycle-general-maintenance.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "139.3",
+    "optimizedSizeKB": "101.7",
+    "savingsPercent": "27.0%"
+  },
+  {
+    "originalPath": "public/assets/images/services/motorcycle-oil-change.jpg",
+    "webpPath": "public/assets/images/services/motorcycle-oil-change.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "159.4",
+    "optimizedSizeKB": "115.4",
+    "savingsPercent": "27.6%"
+  },
+  {
+    "originalPath": "public/assets/images/services/motorcycle-spare-parts.jpg",
+    "webpPath": "public/assets/images/services/motorcycle-spare-parts.webp",
+    "dimensions": "1200x675",
+    "originalSizeKB": "142.4",
+    "optimizedSizeKB": "105.1",
+    "savingsPercent": "26.2%"
+  },
+  {
+    "originalPath": "public/assets/images/services/motorcycle-tyre-repair.jpg",
+    "webpPath": "public/assets/images/services/motorcycle-tyre-repair.webp",
+    "dimensions": "1200x800",
+    "originalSizeKB": "84.0",
+    "optimizedSizeKB": "48.7",
+    "savingsPercent": "42.0%"
+  }
+]

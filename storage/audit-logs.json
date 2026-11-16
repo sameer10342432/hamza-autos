@@ -1,5 +1,37 @@
 [
   {
+    "id": "audit-mwj044zq-y3jsc",
+    "action": "BACKUP_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "snapshot-2026-11-16T08-28-15-285Z.json",
+    "timestamp": "2026-11-16T08:28:15.302Z",
+    "metadata": "Created snapshot of 14 stores"
+  },
+  {
+    "id": "audit-mwj042cq-nallp",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-16T08:28:11.882Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwizyukb-nibdh",
+    "action": "BACKUP_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "snapshot-2026-11-16T08-24-08-496Z.json",
+    "timestamp": "2026-11-16T08:24:08.507Z",
+    "metadata": "Created snapshot of 14 stores"
+  },
+  {
+    "id": "audit-mwizyra6-07723",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-16T08:24:04.254Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
     "id": "audit-mwiywa9d-egdpq",
     "action": "BACKUP_CREATED",
     "performedBy": "admin",

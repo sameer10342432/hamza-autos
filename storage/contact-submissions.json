@@ -1,5 +1,35 @@
 [
   {
+    "id": "cs-mwj042ac-186w2",
+    "customerName": "Bilal Khan",
+    "name": "Bilal Khan",
+    "phoneNumber": "0300 9876543",
+    "phone": "0300 9876543",
+    "email": "bilal.khan@example.com",
+    "area": "Badami Bagh",
+    "subject": "Carburetor Replacement Pricing",
+    "serviceRequested": "Carburetor Replacement Pricing",
+    "message": "Need genuine Keihin carburetor for Yamaha YBR 125. What is the total cost including labor?",
+    "createdAt": "2026-11-16T08:28:11.796Z",
+    "status": "New",
+    "adminNotes": ""
+  },
+  {
+    "id": "cs-mwizyr78-a7tr9",
+    "customerName": "Bilal Khan",
+    "name": "Bilal Khan",
+    "phoneNumber": "0300 9876543",
+    "phone": "0300 9876543",
+    "email": "bilal.khan@example.com",
+    "area": "Badami Bagh",
+    "subject": "Carburetor Replacement Pricing",
+    "serviceRequested": "Carburetor Replacement Pricing",
+    "message": "Need genuine Keihin carburetor for Yamaha YBR 125. What is the total cost including labor?",
+    "createdAt": "2026-11-16T08:24:04.148Z",
+    "status": "New",
+    "adminNotes": ""
+  },
+  {
     "id": "cs-mwiyw67p-pbleg",
     "customerName": "Bilal Khan",
     "name": "Bilal Khan",

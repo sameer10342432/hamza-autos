@@ -23,18 +23,35 @@
       name="twitter:description"
       content="Motorcycle repair shop in Badami Bagh, Lahore. Honda, Yamaha, Suzuki, United & Chinese bike maintenance."
     />
+    <!-- Critical Resource Hints & LCP Preload -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="image" href="/assets/images/home/motorcycle-workshop-hero.webp" type="image/webp" fetchpriority="high" />
+    
+    <!-- Non-blocking Optimized Google Fonts -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&family=Outfit:wght@400..800&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
     />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+      media="print"
+      onload="this.media='all'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap"
+      />
+    </noscript>
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "AutoRepair",
       "name": "Hamza Autos",
-      "image": "/assets/images/home/motorcycle-workshop-hero.jpg",
+      "image": "/assets/images/home/motorcycle-workshop-hero.webp",
       "telephone": "+923251814548",
       "address": {
         "@type": "PostalAddress",

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface CursorGlowProps {
   color?: string;
@@ -9,8 +9,9 @@ interface CursorGlowProps {
 
 /**
  * CursorGlow
- * Subtle red radial illumination tracking pointer position on desktop
- * Disabled automatically on touch screens and prefers-reduced-motion
+ * High-performance, GPU-accelerated red radial illumination tracking pointer position
+ * Direct DOM transform translation with zero React state re-renders on RAF
+ * Automatically disabled on touch screens and prefers-reduced-motion
  */
 export const CursorGlow: React.FC<CursorGlowProps> = ({
   color = 'rgba(229, 9, 20, 0.18)',
@@ -19,8 +20,7 @@ export const CursorGlow: React.FC<CursorGlowProps> = ({
   className = ''
 }) => {
   const containerRef = useRef<HTMLDivElement | null>(null);
-  const [pos, setPos] = useState<{ x: number; y: number } | null>(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const glowRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     // Disable on touch devices or reduced motion
@@ -31,7 +31,37 @@ export const CursorGlow: React.FC<CursorGlowProps> = ({
     let targetY = 0;
     let currentX = 0;
     let currentY = 0;
-    let rafId: number;
+    let isVisible = false;
+    let rafId: number | null = null;
+    let isRunning = false;
+
+    const updatePosition = () => {
+      const dx = targetX - currentX;
+      const dy = targetY - currentY;
+      
+      currentX += dx * 0.15;
+      currentY += dy * 0.15;
+
+      if (glowRef.current) {
+        glowRef.current.style.transform = `translate3d(${currentX - size / 2}px, ${currentY - size / 2}px, 0)`;
+        glowRef.current.style.opacity = isVisible ? opacity.toString() : '0';
+      }
+
+      // Only continue RAF if movement is significant or visibility is transitioning
+      if (Math.abs(dx) > 0.1 || Math.abs(dy) > 0.1) {
+        rafId = requestAnimationFrame(updatePosition);
+      } else {
+        isRunning = false;
+        rafId = null;
+      }
+    };
+
+    const startAnimation = () => {
+      if (!isRunning) {
+        isRunning = true;
+        rafId = requestAnimationFrame(updatePosition);
+      }
+    };
 
     const handleMouseMove = (e: MouseEvent) => {
       const parent = containerRef.current?.parentElement;
@@ -41,46 +71,34 @@ export const CursorGlow: React.FC<CursorGlowProps> = ({
       targetX = e.clientX - rect.left;
       targetY = e.clientY - rect.top;
 
-      // Check if cursor is within parent bounds
       if (
         e.clientX >= rect.left &&
         e.clientX <= rect.right &&
         e.clientY >= rect.top &&
         e.clientY <= rect.bottom
       ) {
-        setIsVisible(true);
+        isVisible = true;
       } else {
-        setIsVisible(false);
+        isVisible = false;
       }
+
+      startAnimation();
     };
 
     const handleMouseLeave = () => {
-      setIsVisible(false);
-    };
-
-    const animate = () => {
-      // Smooth interpolation (damping factor 0.15)
-      currentX += (targetX - currentX) * 0.15;
-      currentY += (targetY - currentY) * 0.15;
-
-      setPos({ x: currentX, y: currentY });
-      rafId = requestAnimationFrame(animate);
+      isVisible = false;
+      startAnimation();
     };
 
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mouseout', handleMouseLeave);
-    rafId = requestAnimationFrame(animate);
+    window.addEventListener('mouseout', handleMouseLeave, { passive: true });
 
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseout', handleMouseLeave);
-      cancelAnimationFrame(rafId);
+      if (rafId) cancelAnimationFrame(rafId);
     };
-  }, []);
-
-  if (!pos || !isVisible) {
-    return <div ref={containerRef} data-cursor-glow="true" className="absolute inset-0 pointer-events-none" />;
-  }
+  }, [opacity, size]);
 
   return (
     <div
@@ -90,14 +108,14 @@ export const CursorGlow: React.FC<CursorGlowProps> = ({
       aria-hidden="true"
     >
       <div
-        className="absolute rounded-full pointer-events-none filter blur-[70px] transition-opacity duration-300"
+        ref={glowRef}
+        className="absolute top-0 left-0 rounded-full pointer-events-none filter blur-[70px] will-change-transform transition-opacity duration-300"
         style={{
           width: size,
           height: size,
-          left: pos.x - size / 2,
-          top: pos.y - size / 2,
           background: `radial-gradient(circle, ${color} 0%, transparent 70%)`,
-          opacity
+          opacity: 0,
+          transform: 'translate3d(-9999px, -9999px, 0)'
         }}
       />
     </div>

@@ -116,6 +116,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
           <img
             src={assetUrl("assets/images/home/motorcycle-workshop-hero.jpg")}
             alt="Real Motorcycle Repair Workshop - Hamza Autos Badami Bagh Lahore"
+            width={1400}
+            height={1050}
+            loading="eager"
+            fetchPriority="high"
+            decoding="async"
             className="w-full h-full object-cover scale-105 filter blur-[0.5px]"
           />
         </div>
@@ -238,6 +243,11 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   <img
                     src={assetUrl("assets/images/home/motorcycle-service-bay-presence.jpg")}
                     alt="Hamza Autos Motorcycle Workshop Abu Bakar Road Badami Bagh Lahore"
+                    width={1200}
+                    height={800}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
@@ -338,6 +348,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   alt="Motorcycle Engine Overhaul and Precision Cylinder Head Repair at Hamza Autos"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  decoding="async"
+                  width={600}
+                  height={600}
                 />
               </div>
               <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-sm">
@@ -346,6 +359,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   alt="Professional Motorcycle Carburetor Tuning and Fuel System Calibration"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  decoding="async"
+                  width={600}
+                  height={600}
                 />
               </div>
             </div>
@@ -400,6 +416,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                         alt={service.title}
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         loading="lazy"
+                        decoding="async"
+                        width={600}
+                        height={338}
                       />
                       <div className="absolute top-3 left-3 px-2.5 py-1 bg-slate-950/85 text-white rounded-md text-[11px] font-semibold backdrop-blur-xs border border-slate-800">
                         {service.category}
@@ -832,6 +851,9 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
                   alt={item.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
+                  decoding="async"
+                  width={600}
+                  height={450}
                 />
               </div>
               <div className="p-4">

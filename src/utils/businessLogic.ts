@@ -308,13 +308,15 @@ export function saveStoredSettings(settings: SiteSettings): void {
   }
 }
 
-// BASE & ASSET URL HELPER (Handles GitHub Pages subpaths seamlessly)
+// BASE & ASSET URL HELPER (Handles GitHub Pages subpaths seamlessly & prefers WebP)
 export function assetUrl(path: string): string {
   if (!path) return '';
   if (path.startsWith('http://') || path.startsWith('https://') || path.startsWith('data:')) {
     return path;
   }
-  const clean = path.replace(/^\.?\//, '');
+  // Automatically prefer modern WebP format for fast loading
+  const webpCandidate = path.replace(/\.(jpg|jpeg)$/i, '.webp');
+  const clean = webpCandidate.replace(/^\.?\//, '');
   const base = import.meta.env.BASE_URL || '/';
   return base.endsWith('/') ? `${base}${clean}` : `${base}/${clean}`;
 }

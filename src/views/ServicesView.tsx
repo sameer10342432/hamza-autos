@@ -133,8 +133,11 @@ export const ServicesView: React.FC<ServicesViewProps> = ({ onNavigate, onOpenBo
                       <img
                         src={service.image}
                         alt={service.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                        width={600}
+                        height={338}
+                        decoding="async"
                         loading="lazy"
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                       />
                       <div className="absolute top-3 left-3 px-2.5 py-1 bg-slate-950/85 text-white rounded-md text-[11px] font-semibold backdrop-blur-xs border border-slate-800">
                         {service.category}

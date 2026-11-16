@@ -24,12 +24,12 @@ export const InitialLoader: React.FC<InitialLoaderProps> = ({ onComplete }) => {
       return;
     }
 
-    // Short graceful startup sequence (480ms)
+    // Snappy non-blocking startup sequence (180ms) to ensure rapid FCP / LCP
     const timer = setTimeout(() => {
       setIsVisible(false);
       sessionStorage.setItem('hamza_initial_load', 'true');
       if (onComplete) onComplete();
-    }, 550);
+    }, 180);
 
     return () => clearTimeout(timer);
   }, [onComplete]);

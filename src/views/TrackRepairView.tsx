@@ -402,6 +402,10 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
                               <img
                                 src={result.photosBefore[0]}
                                 alt="Motorcycle Before Repair"
+                                width={400}
+                                height={192}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-48 object-cover rounded-2xl border border-slate-200"
                               />
                             </div>
@@ -412,6 +416,10 @@ export const TrackRepairView: React.FC<TrackRepairViewProps> = ({ initialJobCard
                               <img
                                 src={result.photosAfter[0]}
                                 alt="Motorcycle After Repair"
+                                width={400}
+                                height={192}
+                                loading="lazy"
+                                decoding="async"
                                 className="w-full h-48 object-cover rounded-2xl border border-slate-200"
                               />
                             </div>

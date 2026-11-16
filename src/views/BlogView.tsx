@@ -79,6 +79,11 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
             <img
               src={selectedPost.image}
               alt={selectedPost.imageAlt || selectedPost.title}
+              width={1200}
+              height={675}
+              loading="eager"
+              fetchPriority="high"
+              decoding="async"
               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             />
           </motion.div>
@@ -190,8 +195,11 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
                   <img
                     src={post.image}
                     alt={post.imageAlt || post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                    width={600}
+                    height={338}
                     loading="lazy"
+                    decoding="async"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                   />
                 </div>
               )}

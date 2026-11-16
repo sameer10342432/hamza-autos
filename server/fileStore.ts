@@ -36,6 +36,9 @@ for (const dir of [
 // In-memory Mutex queue per file to serialize writes and prevent race conditions
 const writeQueues: Map<string, Promise<any>> = new Map();
 
+// In-memory cache with mtime validation for instantaneous reads
+const memoryCache: Map<string, { data: any; mtime: number }> = new Map();
+
 function enqueueWrite<T>(filePath: string, operation: () => Promise<T>): Promise<T> {
   const previous = writeQueues.get(filePath) || Promise.resolve();
   const next = previous.then(() => operation()).catch(err => {
@@ -47,7 +50,7 @@ function enqueueWrite<T>(filePath: string, operation: () => Promise<T>): Promise
 }
 
 /**
- * Read data from a JSON file in storage/
+ * Read data from a JSON file in storage/ with memory caching
  */
 export async function readJsonFile<T>(filename: string, defaultValue: T): Promise<T> {
   const filePath = path.join(STORAGE_DIR, filename);
@@ -56,11 +59,19 @@ export async function readJsonFile<T>(filename: string, defaultValue: T): Promis
       await writeJsonFileAtomic(filename, defaultValue);
       return defaultValue;
     }
+
+    const stat = await fs.promises.stat(filePath);
+    const cached = memoryCache.get(filename);
+    if (cached && cached.mtime === stat.mtimeMs) {
+      return cached.data as T;
+    }
+
     const raw = await fs.promises.readFile(filePath, 'utf-8');
     if (!raw.trim()) {
       return defaultValue;
     }
     const parsed = JSON.parse(raw);
+    memoryCache.set(filename, { data: parsed, mtime: stat.mtimeMs });
     return parsed as T;
   } catch (error: any) {
     console.error(`[FileStore Warning] Could not parse ${filename}. Recovering:`, error.message);
@@ -110,6 +121,12 @@ export async function writeJsonFileAtomic<T>(filename: string, data: T, createSa
 
     // 4. Atomic rename replaces destination file without leaving partial data
     await fs.promises.rename(tempPath, filePath);
+
+    // 5. Update in-memory cache
+    try {
+      const stat = await fs.promises.stat(filePath);
+      memoryCache.set(filename, { data, mtime: stat.mtimeMs });
+    } catch {}
   });
 }
 
