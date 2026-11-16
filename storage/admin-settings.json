@@ -1,0 +1,15 @@
+{
+  "businessName": "Hamza Autos",
+  "tagline": "Bike Mechanic & Motorcycle Repair Shop",
+  "phone": "+92 325 1814548",
+  "whatsappNumber": "+92 325 1814548",
+  "address": "Abu Bakar Road, Near Ali Hajvery Marriage Hall, Badami Bagh, Lahore, Punjab 54000",
+  "operatingHours": "9:00 AM – 9:00 PM (Monday to Sunday)",
+  "emailNotificationsEnabled": false,
+  "notificationEmail": "hamzaautos.lahore@gmail.com",
+  "adminUsername": "admin",
+  "adminDisplayName": "Master Mechanic Hamza",
+  "autoBackupDays": 7,
+  "allowRegistration": false,
+  "sessionTimeoutHours": 24
+}

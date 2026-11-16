@@ -1,0 +1,29 @@
+[
+  {
+    "id": "cat-maintenance",
+    "name": "Maintenance Guides",
+    "slug": "maintenance-guides",
+    "description": "Practical motorcycle maintenance, oil change intervals, and DIY inspection tips.",
+    "seoTitle": "Motorcycle Maintenance Guides – Hamza Autos Badami Bagh",
+    "seoDescription": "Expert maintenance advice for Honda CD 70, CG 125, Yamaha YBR 125, and Suzuki GS 150 bikes in Pakistan.",
+    "count": 2
+  },
+  {
+    "id": "cat-troubleshooting",
+    "name": "Mechanical Diagnostics",
+    "slug": "mechanical-diagnostics",
+    "description": "Symptoms, causes, and solutions for engine knocking, clutch slip, electrical faults, and carburetion issues.",
+    "seoTitle": "Motorcycle Mechanical Diagnostics & Repair – Hamza Autos",
+    "seoDescription": "Diagnose common motorcycle faults in Lahore traffic with tips from Master Mechanics in Badami Bagh.",
+    "count": 2
+  },
+  {
+    "id": "cat-tips",
+    "name": "Fuel Economy & Tuning",
+    "slug": "fuel-economy-and-tuning",
+    "description": "Strategies for maximizing petrol average and carburetor efficiency.",
+    "seoTitle": "Motorcycle Tuning & Petrol Average Tips – Hamza Autos",
+    "seoDescription": "Get 60+ km/L from your 70cc motorcycle with proper spark plug and carburetor jetting.",
+    "count": 1
+  }
+]

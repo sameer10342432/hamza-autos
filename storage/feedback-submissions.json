@@ -1,0 +1,30 @@
+[
+  {
+    "id": "fbs-1",
+    "customerName": "Muhammad Arshad",
+    "phoneNumber": "0300 1234567",
+    "bikeModel": "Honda CD 70",
+    "overallRating": 5,
+    "serviceQualityRating": 5,
+    "staffBehaviorRating": 5,
+    "pricingRating": 5,
+    "comment": "Best tuning in Badami Bagh! Mileage improved noticeably from 48 to 61 km/L. Honest advice from Hamza bhai.",
+    "status": "Approved",
+    "isFeatured": true,
+    "createdAt": "2026-11-12T14:30:00.000Z"
+  },
+  {
+    "id": "fbs-2",
+    "customerName": "Usman Ali",
+    "phoneNumber": "0312 4567890",
+    "bikeModel": "Yamaha YBR 125",
+    "overallRating": 5,
+    "serviceQualityRating": 5,
+    "staffBehaviorRating": 5,
+    "pricingRating": 4,
+    "comment": "Resolved electrical and self-start issue in 40 minutes. Genuine parts provided with warranty.",
+    "status": "Approved",
+    "isFeatured": true,
+    "createdAt": "2026-11-10T17:15:00.000Z"
+  }
+]

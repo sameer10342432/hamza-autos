@@ -1,0 +1,50 @@
+[
+  {
+    "id": "audit-mwiywa9d-egdpq",
+    "action": "BACKUP_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "snapshot-2026-11-16T07-54-09-223Z.json",
+    "timestamp": "2026-11-16T07:54:09.265Z",
+    "metadata": "Created snapshot of 14 stores"
+  },
+  {
+    "id": "audit-mwiyw6aw-vfg61",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-16T07:54:04.136Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwiyut11-d25xo",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-16T07:53:00.277Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwiy8of3-wk4i2",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-16T07:35:47.871Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwiy833y-9b07m",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-16T07:35:20.254Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-1",
+    "action": "SYSTEM_INIT",
+    "performedBy": "System Engine",
+    "affectedRecord": "storage/init",
+    "timestamp": "2026-11-16T07:33:30.957Z",
+    "metadata": "File-based storage engine initialized with 16 JSON stores."
+  }
+]

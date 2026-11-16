@@ -2,11 +2,22 @@ import tailwindcss from '@tailwindcss/vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
+import { createServerApp } from './server/app';
+
+function serverApiPlugin() {
+  return {
+    name: 'hamza-autos-api-server',
+    configureServer(server: any) {
+      const app = createServerApp();
+      server.middlewares.use(app);
+    }
+  };
+}
 
 export default defineConfig(() => {
   return {
     base: process.env.NODE_ENV === 'production' ? '/hamza-autos/' : '/',
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), serverApiPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, '.'),

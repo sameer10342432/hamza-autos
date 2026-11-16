@@ -1,0 +1,17 @@
+[
+  {
+    "id": "bs-1",
+    "inquiryId": "inq-101",
+    "bookingNumber": "HA-BK-2026-001",
+    "customerName": "Muhammad Arshad",
+    "phoneNumber": "0300 1234567",
+    "bikeBrand": "Honda",
+    "bikeModel": "CD 70 (2023)",
+    "registrationNumber": "LEN-23-4412",
+    "serviceRequested": "Bike Tuning & Oil Change",
+    "appointmentDate": "2026-11-18",
+    "appointmentTime": "10:30 AM",
+    "status": "Confirmed",
+    "createdAt": "2026-11-15T09:15:00.000Z"
+  }
+]

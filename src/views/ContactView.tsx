@@ -21,6 +21,7 @@ import {
 } from '../utils/businessLogic';
 import { ServiceItem, SiteSettings } from '../types';
 import { SectionBackground } from '../components/backgrounds';
+import { FormSubmissionService } from '../services/formSubmissionService';
 
 export const ContactView: React.FC = () => {
   const [settings, setSettings] = useState<SiteSettings>(getStoredSettings());
@@ -65,6 +66,15 @@ export const ContactView: React.FC = () => {
       problemDetails,
       preferredTime: 'Direct Contact Form'
     });
+
+    // Submit to Server API (persists into central server storage/contact-submissions.json & inquiries.json)
+    FormSubmissionService.submitContact({
+      name: customerName,
+      phone: phoneNumber,
+      subject: serviceRequested,
+      message: `${area ? `Area: ${area}. ` : ''}${problemDetails || ''}`.trim(),
+      source: 'Contact Page Form'
+    }).catch(err => console.warn('[ContactView] Server sync warning:', err));
 
     setSubmitted(true);
   };

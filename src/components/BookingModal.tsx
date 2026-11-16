@@ -21,6 +21,7 @@ import {
 import { ServiceItem, AppointmentBooking } from '../types';
 import { BrandLogo } from './BrandLogo';
 import { bookingService } from '../services';
+import { FormSubmissionService } from '../services/formSubmissionService';
 
 interface BookingModalProps {
   isOpen: boolean;
@@ -103,6 +104,20 @@ export const BookingModal: React.FC<BookingModalProps> = ({ isOpen, initialServi
     setErrors({});
     setCreatedBooking(result.booking || null);
     setIsSubmitted(true);
+
+    // Submit to Server API (persists into central server storage/booking-submissions.json & inquiries.json)
+    FormSubmissionService.submitBooking({
+      customerName,
+      phone: phoneNumber,
+      bikeMake: bikeBrand,
+      bikeModel,
+      registrationNumber: registrationNumber || undefined,
+      serviceType: serviceRequested,
+      preferredDate: appointmentDate,
+      preferredTime: appointmentTime,
+      notes: `${area ? `Area: ${area}. ` : ''}${problemDescription || ''}`.trim(),
+      source: 'Website Booking Modal'
+    }).catch(err => console.warn('[BookingModal] Server sync warning:', err));
 
     // Also persist into IndexedDB primary storage asynchronously
     bookingService.create({

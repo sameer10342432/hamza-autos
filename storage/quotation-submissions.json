@@ -1,0 +1,14 @@
+[
+  {
+    "id": "qs-1",
+    "inquiryId": "inq-102",
+    "customerName": "Tariq Mahmood",
+    "phoneNumber": "0300 7654321",
+    "bikeBrand": "Honda",
+    "bikeModel": "CG 125",
+    "requestedService": "Complete Cylinder Boring & Piston Kit",
+    "estimatedAmount": 8500,
+    "createdAt": "2026-11-15T12:00:00.000Z",
+    "status": "Approved"
+  }
+]

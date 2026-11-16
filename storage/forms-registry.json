@@ -1,0 +1,46 @@
+[
+  {
+    "id": "form-booking-modal",
+    "name": "Workshop Appointment Booking Modal",
+    "publicPage": "Site-wide Modal & Header Button",
+    "formType": "Booking",
+    "active": true,
+    "totalSubmissions": 42,
+    "lastSubmissionDate": "2026-11-15T09:15:00.000Z",
+    "successMessage": "Your workshop appointment has been submitted successfully! Hamza Autos will confirm your bay.",
+    "spamProtection": "Honeypot + Rate Limiting"
+  },
+  {
+    "id": "form-contact-page",
+    "name": "Online Contact & Service Enquiry Form",
+    "publicPage": "/#/contact",
+    "formType": "Contact",
+    "active": true,
+    "totalSubmissions": 31,
+    "lastSubmissionDate": "2026-11-15T11:45:00.000Z",
+    "successMessage": "Thank you for reaching out! Our master mechanic will review your inquiry shortly.",
+    "spamProtection": "Honeypot + Validation"
+  },
+  {
+    "id": "form-feedback-review",
+    "name": "Customer Review & Rating Form",
+    "publicPage": "/#/reviews & /#/customer-portal",
+    "formType": "Feedback",
+    "active": true,
+    "totalSubmissions": 28,
+    "lastSubmissionDate": "2026-11-12T14:30:00.000Z",
+    "successMessage": "Thank you! Your feedback has been submitted for workshop review.",
+    "spamProtection": "Standard Validation"
+  },
+  {
+    "id": "form-repair-tracker",
+    "name": "Job Card Status Tracker Form",
+    "publicPage": "/#/track-repair",
+    "formType": "Lookup",
+    "active": true,
+    "totalSubmissions": 85,
+    "lastSubmissionDate": "2026-11-16T10:00:00.000Z",
+    "successMessage": "Status fetched from workshop records.",
+    "spamProtection": "Phone Verification Lock"
+  }
+]

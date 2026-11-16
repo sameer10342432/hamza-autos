@@ -1,0 +1,42 @@
+[
+  {
+    "id": "tag-1",
+    "name": "Honda CD 70",
+    "slug": "honda-cd-70"
+  },
+  {
+    "id": "tag-2",
+    "name": "Honda CG 125",
+    "slug": "honda-cg-125"
+  },
+  {
+    "id": "tag-3",
+    "name": "Yamaha YBR 125",
+    "slug": "yamaha-ybr-125"
+  },
+  {
+    "id": "tag-4",
+    "name": "Engine Oil",
+    "slug": "engine-oil"
+  },
+  {
+    "id": "tag-5",
+    "name": "Tuning",
+    "slug": "tuning"
+  },
+  {
+    "id": "tag-6",
+    "name": "Badami Bagh",
+    "slug": "badami-bagh"
+  },
+  {
+    "id": "tag-7",
+    "name": "Overhaul",
+    "slug": "overhaul"
+  },
+  {
+    "id": "tag-8",
+    "name": "Mileage",
+    "slug": "mileage"
+  }
+]

@@ -1,0 +1,14 @@
+[
+  {
+    "id": "cs-1",
+    "inquiryId": "inq-102",
+    "customerName": "Tariq Mahmood",
+    "phoneNumber": "0300 7654321",
+    "area": "Shadbagh",
+    "serviceRequested": "Engine Overhaul",
+    "message": "Engine making knocking noise on 3rd gear. Want quotation for complete piston and cylinder overhaul.",
+    "createdAt": "2026-11-15T11:45:00.000Z",
+    "status": "In Progress",
+    "adminNotes": "Quotation sent via WhatsApp"
+  }
+]

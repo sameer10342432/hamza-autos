@@ -1,0 +1,29 @@
+[
+  {
+    "id": "notif-1",
+    "title": "New Booking Request",
+    "message": "Muhammad Arshad requested tuning for Honda CD 70 on Nov 18, 10:30 AM.",
+    "type": "booking",
+    "relatedId": "inq-101",
+    "isRead": false,
+    "createdAt": "2026-11-15T09:15:00.000Z"
+  },
+  {
+    "id": "notif-2",
+    "title": "New Quotation Inquiry",
+    "message": "Tariq Mahmood requested overhaul quote for Honda CG 125.",
+    "type": "inquiry",
+    "relatedId": "inq-102",
+    "isRead": false,
+    "createdAt": "2026-11-15T11:45:00.000Z"
+  },
+  {
+    "id": "notif-3",
+    "title": "Weekly Storage Backup Reminder",
+    "message": "Weekly file storage backup reminder. Download full JSON backup to secure records.",
+    "type": "system",
+    "relatedId": "backup",
+    "isRead": true,
+    "createdAt": "2026-11-14T08:00:00.000Z"
+  }
+]

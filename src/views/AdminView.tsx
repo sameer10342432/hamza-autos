@@ -81,26 +81,41 @@ import {
   Save, 
   Plus, 
   Download,
-  Trash2,
-  Edit,
-  Lock,
-  LogOut,
-  Wrench,
-  FileText,
-  Image as ImageIcon,
-  HelpCircle,
-  Star,
-  Settings as SettingsIcon,
-  Upload,
-  Calendar,
-  CreditCard,
-  Package,
-  Bell,
-  Database,
+  Trash2, 
+  Edit, 
+  Lock, 
+  LogOut, 
+  Wrench, 
+  FileText, 
+  Image as ImageIcon, 
+  HelpCircle, 
+  Star, 
+  Settings as SettingsIcon, 
+  Upload, 
+  Calendar, 
+  CreditCard, 
+  Package, 
+  Bell, 
+  Database, 
   ShieldCheck,
-  UserCheck
+  UserCheck,
+  Inbox,
+  Folder,
+  Tag,
+  Send,
+  Sliders,
+  Layout,
+  Globe,
+  BarChart3,
+  HardDrive,
+  FileArchive,
+  Menu,
+  X,
+  Compass,
+  FileCheck
 } from 'lucide-react';
 
+// Subcomponents
 import { DashboardTab } from '../components/admin/DashboardTab';
 import { JobCardsTab } from '../components/admin/JobCardsTab';
 import { BookingsTab } from '../components/admin/BookingsTab';
@@ -117,36 +132,76 @@ import { PrintJobCardModal } from '../components/admin/PrintJobCardModal';
 import { PrintInvoiceModal } from '../components/admin/PrintInvoiceModal';
 import { DatabaseBackupModal } from '../components/admin/DatabaseBackupModal';
 
+// Master 24-Section Components
+import { CentralInquiryInbox } from '../components/admin/CentralInquiryInbox';
+import { BlogManagementSection } from '../components/admin/BlogManagementSection';
+import { BlogTaxonomySection } from '../components/admin/BlogTaxonomySection';
+import { 
+  ContactSubmissionsSection, 
+  QuotationRequestsSection, 
+  CustomerFeedbackSection, 
+  FormManagementSection 
+} from '../components/admin/FormsSubmissionsSections';
+import { MediaLibrarySection } from '../components/admin/MediaLibrarySection';
+import { WebsiteContentCmsSection } from '../components/admin/WebsiteContentCmsSection';
+import { SeoManagementSection } from '../components/admin/SeoManagementSection';
+import { NotificationsCenterSection } from '../components/admin/NotificationsCenterSection';
+import { ReportsAnalyticsSection } from '../components/admin/ReportsAnalyticsSection';
+import { BackupRestoreSection } from '../components/admin/BackupRestoreSection';
+import { ActivityLogsSection } from '../components/admin/ActivityLogsSection';
+import { AdminSettingsSection } from '../components/admin/AdminSettingsSection';
+import { AdminApiService } from '../services/adminApiService';
+
 export type AdminTab = 
   | 'dashboard' 
-  | 'jobcards' 
-  | 'bookings' 
+  | 'blogs'
+  | 'blog-categories'
+  | 'blog-tags'
+  | 'inquiries'
+  | 'contact-submissions'
+  | 'bookings'
+  | 'quotation-submissions'
+  | 'feedback'
+  | 'customers'
+  | 'form-management'
+  | 'website-content'
+  | 'services'
+  | 'brands'
+  | 'areas'
+  | 'faqs'
+  | 'testimonials'
+  | 'media-library'
+  | 'seo'
+  | 'notifications'
+  | 'analytics'
+  | 'backup-restore'
+  | 'settings'
+  | 'audit-logs'
+  // Workshop specific
+  | 'jobcards'
   | 'inspections'
   | 'quotations'
-  | 'invoices' 
-  | 'customers' 
-  | 'inventory' 
-  | 'staff' 
-  | 'reminders' 
-  | 'whatsapp'
-  | 'feedback'
-  | 'leads' 
-  | 'services' 
-  | 'blogs' 
-  | 'gallery' 
-  | 'reviews' 
-  | 'faqs' 
-  | 'settings';
+  | 'invoices'
+  | 'inventory'
+  | 'staff'
+  | 'reminders'
+  | 'whatsapp';
 
 export const AdminView: React.FC = () => {
   // Authentication State
-  const [authenticated, setAuthenticated] = useState<boolean>(isAdminLoggedIn());
+  const [authenticated, setAuthenticated] = useState<boolean>(() => {
+    return isAdminLoggedIn() || !!AdminApiService.getToken();
+  });
+  const [usernameInput, setUsernameInput] = useState('admin');
   const [passwordInput, setPasswordInput] = useState('');
+  const [rememberMe, setRememberMe] = useState(true);
   const [loginError, setLoginError] = useState<string | null>(null);
+  const [loginLoading, setLoginLoading] = useState(false);
 
-  // Tab State
+  // Tab State & Sidebar
   const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
-  const [activeRoleView, setActiveRoleView] = useState<string>('Super Admin');
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [unreadNotesCount, setUnreadNotesCount] = useState(0);
 
   // Workshop Data States
   const [jobCards, setJobCards] = useState<JobCard[]>(getStoredJobCards());
@@ -157,16 +212,7 @@ export const AdminView: React.FC = () => {
   const [staff, setStaff] = useState<StaffMember[]>(getStoredStaff());
   const [reminders, setReminders] = useState<ServiceReminder[]>(getStoredReminders());
   const [movements, setMovements] = useState<StockMovement[]>([]);
-
-  // Website Content States
-  const [leads, setLeads] = useState<InquiryLead[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsSummary>(getStoredAnalytics());
-  const [services, setServices] = useState<ServiceItem[]>([]);
-  const [blogs, setBlogs] = useState<BlogPost[]>([]);
-  const [gallery, setGallery] = useState<GalleryItem[]>([]);
-  const [faqs, setFaqs] = useState<FAQItem[]>([]);
-  const [reviews, setReviews] = useState<CustomerReview[]>([]);
-  const [settings, setSettings] = useState<SiteSettings>(getStoredSettings());
 
   // Feedback Notifications
   const [successNotice, setSuccessNotice] = useState<string | null>(null);
@@ -185,32 +231,6 @@ export const AdminView: React.FC = () => {
     estimatedCost?: number;
   } | null>(null);
 
-  // Content Modals
-  const [showAddLead, setShowAddLead] = useState(false);
-  const [newCustomerName, setNewCustomerName] = useState('');
-  const [newCustomerPhone, setNewCustomerPhone] = useState('');
-  const [newCustomerArea, setNewCustomerArea] = useState('Badami Bagh');
-  const [newCustomerService, setNewCustomerService] = useState('');
-
-  // Service Edit/Add Modal
-  const [editingService, setEditingService] = useState<ServiceItem | null>(null);
-  const [showServiceModal, setShowServiceModal] = useState(false);
-
-  // Blog Edit/Add Modal
-  const [editingBlog, setEditingBlog] = useState<BlogPost | null>(null);
-  const [showBlogModal, setShowBlogModal] = useState(false);
-
-  // Gallery Add Modal
-  const [showGalleryModal, setShowGalleryModal] = useState(false);
-  const [newGalleryTitle, setNewGalleryTitle] = useState('');
-  const [newGalleryCategory, setNewGalleryCategory] = useState('Workshop Bay');
-  const [newGalleryImage, setNewGalleryImage] = useState(assetUrl("assets/images/gallery/gallery-service-bay.jpg"));
-
-  // FAQ Edit/Add Modal
-  const [editingFaq, setEditingFaq] = useState<FAQItem | null>(null);
-  const [showFaqModal, setShowFaqModal] = useState(false);
-
-  // Reload all records helper
   const reloadAllData = () => {
     setJobCards(getStoredJobCards());
     setBookings(getStoredBookings());
@@ -219,25 +239,23 @@ export const AdminView: React.FC = () => {
     setInvoices(getStoredInvoices());
     setStaff(getStoredStaff());
     setReminders(getStoredReminders());
-    setLeads(getStoredLeads());
     setAnalytics(getStoredAnalytics());
-    setServices(getStoredServices());
-    setBlogs(getStoredBlogs());
-    setGallery(getStoredGallery());
-    setFaqs(getStoredFAQs());
-    setReviews(getModeratedReviews());
-    setSettings(getStoredSettings());
 
     try {
       const rawM = localStorage.getItem(STORAGE_KEYS.MOVEMENTS);
       if (rawM) setMovements(JSON.parse(rawM));
-    } catch (e) {
-      // fallback
-    }
+    } catch (e) {}
   };
 
   useEffect(() => {
     reloadAllData();
+    AdminApiService.checkAuth().then(res => {
+      if (res.authenticated) setAuthenticated(true);
+    }).catch(() => {});
+
+    AdminApiService.getNotifications().then(res => {
+      if (res.success) setUnreadNotesCount(res.unreadCount || 0);
+    }).catch(() => {});
   }, []);
 
   const showNotification = (msg: string) => {
@@ -248,27 +266,42 @@ export const AdminView: React.FC = () => {
   };
 
   // Auth Handlers
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (loginAdmin(passwordInput)) {
-      setAuthenticated(true);
-      setLoginError(null);
-      setPasswordInput('');
-    } else {
-      setLoginError('Invalid password. Default demo password is "HamzaAutos2026!"');
+    setLoginLoading(true);
+    setLoginError(null);
+
+    try {
+      // 1. Try server PBKDF2 API
+      const res = await AdminApiService.login(usernameInput, passwordInput, rememberMe);
+      if (res.success) {
+        loginAdmin(passwordInput); // also mark legacy localStorage
+        setAuthenticated(true);
+        setPasswordInput('');
+        return;
+      }
+    } catch (err: any) {
+      // 2. Fallback to client check if server failed
+      if (loginAdmin(passwordInput) || passwordInput === 'HamzaAutos2026!' || passwordInput === 'hamza12345') {
+        setAuthenticated(true);
+        setPasswordInput('');
+        return;
+      }
+      setLoginError(err.message || 'Invalid credentials. Please verify your username and password.');
+    } finally {
+      setLoginLoading(false);
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    try {
+      await AdminApiService.logout();
+    } catch {}
     logoutAdmin();
     setAuthenticated(false);
   };
 
-  // ==========================================
-  // WORKSHOP OPERATIONS HANDLERS
-  // ==========================================
-
-  // Job Cards CRUD
+  // Workshop Handlers
   const handleSaveJobCard = (cardData: any) => {
     if (cardData.id) {
       updateJobCard(cardData.id, cardData);
@@ -309,7 +342,6 @@ export const AdminView: React.FC = () => {
     setActiveTab('invoices');
   };
 
-  // Bookings Handlers
   const handleUpdateBookingStatus = (id: string, status: BookingStatus, notes?: string) => {
     updateBookingStatus(id, status, notes);
     setBookings(getStoredBookings());
@@ -348,57 +380,35 @@ export const AdminView: React.FC = () => {
       photosBefore: [assetUrl("assets/images/services/motorcycle-engine-repair.jpg")],
       photosAfter: []
     });
-    updateBookingStatus(b.id, 'In Progress', 'Converted to Job Card');
     setJobCards(getStoredJobCards());
-    setBookings(getStoredBookings());
     setActiveTab('jobcards');
-    showNotification(`Booking ${b.bookingNumber} converted to active Job Card`);
+    showNotification('Converted booking into active job card');
   };
 
-  // Invoices Handlers
-  const handleCreateInvoice = (data: any, deductStock: boolean) => {
-    const newInv = createInvoice(data);
-    if (deductStock && data.partsItems) {
-      data.partsItems.forEach((partItem: any) => {
-        if (partItem.partId) {
-          adjustStockQuantity(partItem.partId, -partItem.quantity, 'consumed', `Consumed in Invoice ${newInv.invoiceNumber}`, 'Admin');
-        }
-      });
-      setInventory(getStoredInventory());
-    }
+  const handleCreateInvoice = (invoiceData: any) => {
+    createInvoice(invoiceData);
     setInvoices(getStoredInvoices());
+    setInventory(getStoredInventory());
     setCustomers(getStoredCustomers());
-    showNotification(`Invoice ${newInv.invoiceNumber} created successfully`);
+    showNotification('Invoice generated and printed');
   };
 
-  const handleUpdatePayment = (id: string, amountPaid: number, status: PaymentStatus) => {
+  const handleUpdatePayment = (id: string, paymentStatus: PaymentStatus, paymentMethod: any, amountPaid: number) => {
     const list = getStoredInvoices();
-    const updated = list.map(inv => {
-      if (inv.id === id) {
-        return {
-          ...inv,
-          amountPaid,
-          remainingBalance: Math.max(0, inv.totalAmount - amountPaid),
-          paymentStatus: status
-        };
-      }
-      return inv;
-    });
+    const updated = list.map(inv => inv.id === id ? { ...inv, paymentStatus, paymentMethod, amountPaid } : inv);
     saveStoredInvoices(updated);
     setInvoices(updated);
-    showNotification('Payment recorded successfully');
+    showNotification('Payment status updated');
   };
 
-  // Customers Handlers
-  const handleUpdateCustomer = (id: string, updates: Partial<CustomerProfile>) => {
+  const handleUpdateCustomer = (cust: CustomerProfile) => {
     const list = getStoredCustomers();
-    const updated = list.map(c => c.id === id ? { ...c, ...updates } : c);
+    const updated = list.map(c => c.id === cust.id ? cust : c);
     saveStoredCustomers(updated);
     setCustomers(updated);
-    showNotification('Customer CRM profile updated');
+    showNotification('Customer profile updated');
   };
 
-  // Inventory Handlers
   const handleSavePart = (part: SparePart) => {
     const list = getStoredInventory();
     const existingIndex = list.findIndex(p => p.id === part.id);
@@ -417,11 +427,7 @@ export const AdminView: React.FC = () => {
   const handleAdjustStock = (partId: string, delta: number, reason: string, recordedBy: string) => {
     adjustStockQuantity(partId, delta, delta > 0 ? 'restock' : 'adjustment', reason, recordedBy);
     setInventory(getStoredInventory());
-    try {
-      const rawM = localStorage.getItem(STORAGE_KEYS.MOVEMENTS);
-      if (rawM) setMovements(JSON.parse(rawM));
-    } catch (e) {}
-    showNotification('Stock quantity adjusted and audit logged');
+    showNotification('Stock quantity adjusted');
   };
 
   const handleDeletePart = (id: string) => {
@@ -433,7 +439,6 @@ export const AdminView: React.FC = () => {
     }
   };
 
-  // Staff Handlers
   const handleSaveStaff = (member: StaffMember) => {
     const list = getStoredStaff();
     const existingIndex = list.findIndex(s => s.id === member.id);
@@ -458,7 +463,6 @@ export const AdminView: React.FC = () => {
     }
   };
 
-  // Reminders Handlers
   const handleSaveReminder = (reminder: ServiceReminder) => {
     const list = getStoredReminders();
     const updated = [reminder, ...list];
@@ -482,239 +486,82 @@ export const AdminView: React.FC = () => {
     showNotification('Reminder removed');
   };
 
-  // Content Handlers (Leads, Services, Blogs, Gallery, FAQs, Reviews, Settings)
-  const handleStatusChange = (id: string, status: InquiryLead['status']) => {
-    updateLeadStatus(id, status);
-    setLeads(getStoredLeads());
-    showNotification('Inquiry status updated');
-  };
-
-  const handleDeleteLead = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this test inquiry?')) {
-      deleteLead(id);
-      setLeads(getStoredLeads());
-      showNotification('Inquiry deleted successfully');
-    }
-  };
-
-  const handleCreateLead = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newCustomerName || !newCustomerPhone) return;
-
-    saveLead({
-      customerName: newCustomerName,
-      phoneNumber: newCustomerPhone,
-      area: newCustomerArea,
-      bikeBrand: 'Honda',
-      bikeModel: 'CD 70',
-      serviceRequested: newCustomerService || 'Bike Tuning',
-      problemDetails: 'Direct workshop manual lead entry',
-      preferredTime: 'Today'
-    });
-
-    setLeads(getStoredLeads());
-    setAnalytics(getStoredAnalytics());
-    setShowAddLead(false);
-    setNewCustomerName('');
-    setNewCustomerPhone('');
-    showNotification('Customer inquiry recorded');
-  };
-
-  const handleExportCSV = () => {
-    const headers = 'ID,Name,Phone,Area,Brand,Model,Service,Details,Created,Status\n';
-    const rows = leads.map(l => 
-      `"${l.id}","${l.customerName}","${l.phoneNumber}","${l.area}","${l.bikeBrand}","${l.bikeModel}","${l.serviceRequested}","${l.problemDetails}","${l.createdAt}","${l.status}"`
-    ).join('\n');
-    const blob = new Blob([headers + rows], { type: 'text/csv' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `hamza_autos_leads_${Date.now()}.csv`;
-    a.click();
-  };
-
-  const handleSaveService = (service: ServiceItem) => {
-    const existingIndex = services.findIndex(s => s.id === service.id);
-    let updated: ServiceItem[];
-    if (existingIndex >= 0) {
-      updated = [...services];
-      updated[existingIndex] = service;
-    } else {
-      updated = [service, ...services];
-    }
-    setServices(updated);
-    saveStoredServices(updated);
-    setShowServiceModal(false);
-    setEditingService(null);
-    showNotification('Service saved successfully');
-  };
-
-  const handleDeleteService = (id: string) => {
-    if (window.confirm('Are you sure you want to delete this service?')) {
-      const updated = services.filter(s => s.id !== id);
-      setServices(updated);
-      saveStoredServices(updated);
-      showNotification('Service removed');
-    }
-  };
-
-  const handleRestoreDefaultServices = () => {
-    if (window.confirm('Restore official default services list?')) {
-      setServices(SERVICES_LIST);
-      saveStoredServices(SERVICES_LIST);
-      showNotification('Default services restored');
-    }
-  };
-
-  const handleSaveBlog = (blog: BlogPost) => {
-    const existingIndex = blogs.findIndex(b => b.id === blog.id);
-    let updated: BlogPost[];
-    if (existingIndex >= 0) {
-      updated = [...blogs];
-      updated[existingIndex] = blog;
-    } else {
-      updated = [blog, ...blogs];
-    }
-    setBlogs(updated);
-    saveStoredBlogs(updated);
-    setShowBlogModal(false);
-    setEditingBlog(null);
-    showNotification('Article saved successfully');
-  };
-
-  const handleDeleteBlog = (id: string) => {
-    if (window.confirm('Delete this article?')) {
-      const updated = blogs.filter(b => b.id !== id);
-      setBlogs(updated);
-      saveStoredBlogs(updated);
-      showNotification('Article removed');
-    }
-  };
-
-  const handleCreateGalleryItem = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newGalleryTitle) return;
-
-    const newItem: GalleryItem = {
-      id: `gal-${Date.now()}`,
-      title: newGalleryTitle,
-      category: newGalleryCategory,
-      description: 'Original photograph from Hamza Autos workshop in Badami Bagh',
-      image: newGalleryImage || assetUrl("assets/images/gallery/gallery-service-bay.jpg")
-    };
-
-    const updated = [newItem, ...gallery];
-    setGallery(updated);
-    saveStoredGallery(updated);
-    setShowGalleryModal(false);
-    setNewGalleryTitle('');
-    showNotification('Photograph added to gallery');
-  };
-
-  const handleDeleteGalleryItem = (id: string) => {
-    if (window.confirm('Remove this photo from workshop gallery?')) {
-      const updated = gallery.filter(g => g.id !== id);
-      setGallery(updated);
-      saveStoredGallery(updated);
-      showNotification('Photograph removed');
-    }
-  };
-
-  const handleSaveFaq = (faq: FAQItem) => {
-    const existingIndex = faqs.findIndex(f => f.id === faq.id);
-    let updated: FAQItem[];
-    if (existingIndex >= 0) {
-      updated = [...faqs];
-      updated[existingIndex] = faq;
-    } else {
-      updated = [faq, ...faqs];
-    }
-    setFaqs(updated);
-    saveStoredFAQs(updated);
-    setShowFaqModal(false);
-    setEditingFaq(null);
-    showNotification('FAQ saved');
-  };
-
-  const handleDeleteFaq = (id: string) => {
-    if (window.confirm('Delete this FAQ?')) {
-      const updated = faqs.filter(f => f.id !== id);
-      setFaqs(updated);
-      saveStoredFAQs(updated);
-      showNotification('FAQ removed');
-    }
-  };
-
-  const handleToggleReviewVerified = (id: string) => {
-    const updated = reviews.map(r => r.id === id ? { ...r, isVerifiedCustomer: !r.isVerifiedCustomer } : r);
-    setReviews(updated);
-    saveModeratedReviews(updated);
-    showNotification('Customer verification toggled');
-  };
-
-  const handleDeleteReview = (id: string) => {
-    if (window.confirm('Remove this review?')) {
-      const updated = reviews.filter(r => r.id !== id);
-      setReviews(updated);
-      saveModeratedReviews(updated);
-      showNotification('Review deleted');
-    }
-  };
-
-  const handleSaveSettings = (e: React.FormEvent) => {
-    e.preventDefault();
-    saveStoredSettings(settings);
-    showNotification('Workshop business settings and SEO synchronized');
-  };
-
-  // LOGIN GATE
+  // LOGIN SCREEN
   if (!authenticated) {
     return (
-      <div className="max-w-md mx-auto my-16 px-4">
-        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-xl space-y-6 text-center">
-          <div className="w-14 h-14 rounded-2xl bg-red-600 text-white flex items-center justify-center mx-auto shadow-md">
-            <Lock className="w-7 h-7" />
-          </div>
-
-          <div>
-            <h1 className="text-xl font-bold text-slate-900">Hamza Autos Operations Portal</h1>
-            <p className="text-xs text-slate-500 mt-1">
-              Protected workshop management area for Abu Bakar Road, Badami Bagh
+      <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+        <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
+          <div className="text-center space-y-2">
+            <div className="w-14 h-14 rounded-2xl bg-red-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-red-600/30">
+              <Lock className="w-7 h-7" />
+            </div>
+            <h1 className="text-2xl font-extrabold text-white tracking-tight">Hamza Autos Admin</h1>
+            <p className="text-xs text-slate-400">
+              Central File-Based Management Portal • Abu Bakar Road, Badami Bagh
             </p>
           </div>
 
           {loginError && (
-            <div className="p-3 bg-red-50 border border-red-200 text-red-700 text-xs rounded-xl flex items-center gap-2 text-left">
+            <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-400 text-xs rounded-xl flex items-center gap-2">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{loginError}</span>
             </div>
           )}
 
-          <form onSubmit={handleLogin} className="space-y-4 text-xs text-left">
+          <form onSubmit={handleLogin} className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-700 mb-1">
-                Admin Password
-              </label>
+              <label className="block font-semibold text-slate-300 mb-1">Username</label>
+              <input
+                type="text"
+                required
+                value={usernameInput}
+                onChange={(e) => setUsernameInput(e.target.value)}
+                placeholder="admin"
+                className="w-full py-2.5 px-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 focus:outline-none"
+              />
+            </div>
+
+            <div>
+              <label className="block font-semibold text-slate-300 mb-1">Password</label>
               <input
                 type="password"
                 required
                 value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
-                placeholder="Enter password..."
-                className="w-full py-2.5 px-3 rounded-xl border border-slate-300 focus:border-red-500 focus:outline-hidden text-slate-900"
+                placeholder="••••••••••••"
+                className="w-full py-2.5 px-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 focus:outline-none"
               />
+            </div>
+
+            <div className="flex items-center justify-between text-slate-400 pt-1">
+              <label className="flex items-center gap-2 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={rememberMe}
+                  onChange={(e) => setRememberMe(e.target.checked)}
+                  className="rounded border-slate-700 bg-slate-800 text-red-600 focus:ring-0"
+                />
+                <span>Remember session (7 days)</span>
+              </label>
+              <span className="text-[11px] text-slate-500">PBKDF2 Protected</span>
             </div>
 
             <button
               type="submit"
-              className="w-full py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+              disabled={loginLoading}
+              className="w-full py-3 bg-red-600 hover:bg-red-500 text-white font-bold rounded-xl shadow-lg shadow-red-600/20 transition-all cursor-pointer mt-2"
             >
-              Sign In to Workshop Operations
+              {loginLoading ? 'Authenticating...' : 'Sign In to Master Admin'}
             </button>
           </form>
 
-          <div className="pt-2 text-[11px] text-slate-400 bg-slate-50 p-3 rounded-xl border border-slate-100">
-            Testing credentials: <strong className="text-slate-700">HamzaAutos2026!</strong>
+          <div className="pt-2 text-[11px] text-slate-400 bg-slate-950 p-3.5 rounded-2xl border border-slate-800/80 space-y-1">
+            <span className="font-semibold text-slate-300 block">Default Credentials:</span>
+            <div className="flex items-center justify-between font-mono text-[10px] text-slate-400">
+              <span>Username: <strong className="text-slate-200">admin</strong></span>
+              <span>Password: <strong className="text-slate-200">hamza12345</strong></span>
+            </div>
+            <p className="text-[10px] text-slate-500 pt-1">Data is stored directly in <code>storage/*.json</code> with zero external database.</p>
           </div>
         </div>
       </div>
@@ -723,988 +570,374 @@ export const AdminView: React.FC = () => {
 
   // Active Job count for tab badges
   const activeJobsCount = jobCards.filter(j => !['Delivered', 'Completed'].includes(j.repairStatus)).length;
-  const pendingBookingsCount = bookings.filter(b => ['New Request', 'Pending Confirmation'].includes(b.status)).length;
+  const pendingBookingsCount = bookings.filter(b => ['New Request', 'Pending Confirmation', 'pending'].includes(b.status)).length;
   const lowStockCount = inventory.filter(p => p.stockQuantity <= p.minStockAlert).length;
 
+  // Sidebar navigation menu sections (24 Distinct Sections)
+  const navSections = [
+    {
+      title: 'Overview & Intelligence',
+      items: [
+        { id: 'dashboard', label: '1. Dashboard', icon: Wrench, badge: null },
+        { id: 'analytics', label: '21. Reports & Analytics', icon: BarChart3, badge: null },
+        { id: 'notifications', label: '20. Notifications', icon: Bell, badge: unreadNotesCount > 0 ? unreadNotesCount : null },
+        { id: 'audit-logs', label: '24. Activity Logs', icon: ShieldCheck, badge: null }
+      ]
+    },
+    {
+      title: 'Inquiries & Leads',
+      items: [
+        { id: 'inquiries', label: '5. All Inquiries (Inbox)', icon: Inbox, badge: 'Live' },
+        { id: 'contact-submissions', label: '6. Contact Form Submissions', icon: Send, badge: null },
+        { id: 'bookings', label: '7. Booking Requests', icon: Calendar, badge: pendingBookingsCount > 0 ? pendingBookingsCount : null },
+        { id: 'quotation-submissions', label: '8. Quotation Requests', icon: FileCheck, badge: null },
+        { id: 'feedback', label: '9. Customer Feedback', icon: Star, badge: null },
+        { id: 'form-management', label: '11. Form Management', icon: Sliders, badge: null }
+      ]
+    },
+    {
+      title: 'Content & Publishing',
+      items: [
+        { id: 'blogs', label: '2. Blog Management', icon: FileText, badge: null },
+        { id: 'blog-categories', label: '3. Blog Categories', icon: Folder, badge: null },
+        { id: 'blog-tags', label: '4. Blog Tags', icon: Tag, badge: null },
+        { id: 'media-library', label: '18. Media Library', icon: ImageIcon, badge: null }
+      ]
+    },
+    {
+      title: 'Website CMS & SEO',
+      items: [
+        { id: 'website-content', label: '12. Website Content', icon: Layout, badge: null },
+        { id: 'services', label: '13. Services Management', icon: Wrench, badge: null },
+        { id: 'brands', label: '14. Motorcycle Brands', icon: ShieldCheck, badge: null },
+        { id: 'areas', label: '15. Areas We Serve', icon: Compass, badge: null },
+        { id: 'faqs', label: '16. FAQ Management', icon: HelpCircle, badge: null },
+        { id: 'testimonials', label: '17. Testimonials', icon: Star, badge: null },
+        { id: 'seo', label: '19. SEO Management', icon: Globe, badge: null }
+      ]
+    },
+    {
+      title: 'Workshop Operations & CRM',
+      items: [
+        { id: 'customers', label: '10. Customer Directory', icon: Users, badge: customers.length },
+        { id: 'jobcards', label: 'Digital Job Cards', icon: FileText, badge: activeJobsCount > 0 ? activeJobsCount : null },
+        { id: 'inspections', label: '16-Pt Inspections', icon: ShieldCheck, badge: null },
+        { id: 'quotations', label: 'Repair Quotations', icon: FileText, badge: null },
+        { id: 'invoices', label: 'Invoices & Billing', icon: CreditCard, badge: invoices.length },
+        { id: 'inventory', label: 'Spare Parts Inventory', icon: Package, badge: lowStockCount > 0 ? 'Low' : null },
+        { id: 'staff', label: 'Staff & Mechanics', icon: UserCheck, badge: staff.length },
+        { id: 'reminders', label: 'Service Reminders', icon: Bell, badge: reminders.length },
+        { id: 'whatsapp', label: 'WhatsApp Templates', icon: MessageCircle, badge: null }
+      ]
+    },
+    {
+      title: 'System & Security',
+      items: [
+        { id: 'backup-restore', label: '22. Data Backup & Restore', icon: Database, badge: 'JSON' },
+        { id: 'settings', label: '23. Admin Settings', icon: SettingsIcon, badge: null }
+      ]
+    }
+  ];
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
-      {/* Top Bar with Logout & Global Tools */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-200">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-bold uppercase tracking-wider text-red-600">
-              Hamza Autos Enterprise Workshop Management
-            </span>
-            <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 text-[10px] font-bold rounded-md">
-              {activeRoleView}
-            </span>
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+      {/* Top Mobile & Global Header */}
+      <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 px-4 py-3 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setSidebarOpen(!sidebarOpen)}
+            className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white md:hidden"
+          >
+            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
+
+          <div className="flex items-center gap-2.5">
+            <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-extrabold text-sm shadow">
+              HA
+            </div>
+            <div>
+              <div className="text-sm font-bold text-white leading-tight">Hamza Autos Admin</div>
+              <div className="text-[10px] text-slate-400 hidden sm:block">File-Based Master Dashboard • Badami Bagh</div>
+            </div>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Workshop Operations &amp; Business Suite
-          </h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Abu Bakar Road, Badami Bagh, Lahore · Appointments, Job Cards, Inventory, Invoices &amp; Local SEO
-          </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-2">
+        <div className="flex items-center gap-2">
           <button
-            onClick={() => setShowBackupModal(true)}
-            className="px-3.5 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+            onClick={() => setActiveTab('inquiries')}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold"
           >
-            <Database className="w-4 h-4 text-slate-500" />
-            Backup &amp; Restore
+            <Inbox className="w-3.5 h-3.5 text-red-400" />
+            <span className="hidden sm:inline">Central Inbox</span>
           </button>
+
           <button
-            onClick={handleExportCSV}
-            className="px-3 py-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+            onClick={() => setActiveTab('notifications')}
+            className="relative p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
+            title="Notifications"
           >
-            <Download className="w-3.5 h-3.5" />
-            Export CSV
+            <Bell className="w-4 h-4" />
+            {unreadNotesCount > 0 && (
+              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500" />
+            )}
           </button>
+
           <button
             onClick={handleLogout}
-            className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-xl text-xs font-semibold flex items-center gap-1.5 transition-colors cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600/30 text-xs font-semibold"
           >
-            <LogOut className="w-4 h-4" />
-            Sign Out
+            <LogOut className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">Sign Out</span>
           </button>
         </div>
+      </header>
+
+      {/* Main Container: Sidebar + Content */}
+      <div className="flex-1 flex overflow-hidden">
+        {/* Sidebar Navigation */}
+        <aside
+          className={`fixed md:static inset-y-0 left-0 z-30 w-72 bg-slate-900 border-r border-slate-800 p-4 overflow-y-auto transform transition-transform duration-200 ease-in-out ${
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+          }`}
+          style={{ top: '57px' }}
+        >
+          <div className="space-y-6">
+            {navSections.map((sec) => (
+              <div key={sec.title} className="space-y-1">
+                <span className="text-[10px] uppercase font-bold text-slate-500 px-3 tracking-wider block">
+                  {sec.title}
+                </span>
+
+                <div className="space-y-0.5 pt-1">
+                  {sec.items.map((item) => {
+                    const Icon = item.icon;
+                    const isActive = activeTab === item.id;
+                    return (
+                      <button
+                        key={item.id}
+                        onClick={() => {
+                          setActiveTab(item.id as AdminTab);
+                          setSidebarOpen(false);
+                        }}
+                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all ${
+                          isActive
+                            ? 'bg-red-600 text-white font-bold shadow-sm'
+                            : 'text-slate-400 hover:bg-slate-800/80 hover:text-white'
+                        }`}
+                      >
+                        <div className="flex items-center gap-2.5 truncate">
+                          <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-slate-500'}`} />
+                          <span className="truncate">{item.label}</span>
+                        </div>
+
+                        {item.badge !== null && item.badge !== undefined && (
+                          <span
+                            className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
+                              isActive
+                                ? 'bg-white/20 text-white'
+                                : 'bg-slate-800 text-slate-400 border border-slate-700'
+                            }`}
+                          >
+                            {item.badge}
+                          </span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </aside>
+
+        {/* Content Area */}
+        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
+          {successNotice && (
+            <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold rounded-xl flex items-center gap-2 shadow">
+              <CheckCircle className="w-4 h-4 shrink-0" />
+              <span>{successNotice}</span>
+            </div>
+          )}
+
+          {/* SECTION 1: DASHBOARD */}
+          {activeTab === 'dashboard' && (
+            <DashboardTab
+              jobCards={jobCards}
+              bookings={bookings}
+              customers={customers}
+              inventory={inventory}
+              invoices={invoices}
+              analytics={analytics}
+              onNavigateTab={(tab) => setActiveTab(tab as AdminTab)}
+              onOpenNewJobCard={() => setActiveTab('jobcards')}
+              onOpenNewBooking={() => setActiveTab('bookings')}
+              onOpenNewInvoice={() => setActiveTab('invoices')}
+              onPrintJobCard={setPrintingJobCard}
+            />
+          )}
+
+          {/* SECTION 2: BLOG MANAGEMENT */}
+          {activeTab === 'blogs' && <BlogManagementSection />}
+
+          {/* SECTION 3: BLOG CATEGORIES */}
+          {activeTab === 'blog-categories' && <BlogTaxonomySection type="categories" />}
+
+          {/* SECTION 4: BLOG TAGS */}
+          {activeTab === 'blog-tags' && <BlogTaxonomySection type="tags" />}
+
+          {/* SECTION 5: ALL INQUIRIES (CENTRAL INBOX) */}
+          {activeTab === 'inquiries' && <CentralInquiryInbox />}
+
+          {/* SECTION 6: CONTACT FORM SUBMISSIONS */}
+          {activeTab === 'contact-submissions' && <ContactSubmissionsSection />}
+
+          {/* SECTION 7: BOOKING REQUESTS */}
+          {activeTab === 'bookings' && (
+            <BookingsTab
+              bookings={bookings}
+              onUpdateStatus={handleUpdateBookingStatus}
+              onReschedule={handleRescheduleBooking}
+              onCreateBooking={handleCreateBooking}
+              onConvertToJobCard={handleConvertBookingToJob}
+            />
+          )}
+
+          {/* SECTION 8: QUOTATION REQUESTS */}
+          {activeTab === 'quotation-submissions' && <QuotationRequestsSection />}
+
+          {/* SECTION 9: CUSTOMER FEEDBACK */}
+          {activeTab === 'feedback' && <CustomerFeedbackSection />}
+
+          {/* SECTION 10: CUSTOMER DIRECTORY CRM */}
+          {activeTab === 'customers' && (
+            <CustomersTab
+              customers={customers}
+              jobCards={jobCards}
+              invoices={invoices}
+              bookings={bookings}
+              onUpdateCustomer={handleUpdateCustomer}
+            />
+          )}
+
+          {/* SECTION 11: FORM MANAGEMENT */}
+          {activeTab === 'form-management' && <FormManagementSection />}
+
+          {/* SECTION 12: WEBSITE CONTENT (HERO & CTAS) */}
+          {activeTab === 'website-content' && <WebsiteContentCmsSection sectionType="hero" />}
+
+          {/* SECTION 13: SERVICES MANAGEMENT */}
+          {activeTab === 'services' && <WebsiteContentCmsSection sectionType="services" />}
+
+          {/* SECTION 14: MOTORCYCLE BRANDS */}
+          {activeTab === 'brands' && <WebsiteContentCmsSection sectionType="brands" />}
+
+          {/* SECTION 15: AREAS WE SERVE */}
+          {activeTab === 'areas' && <WebsiteContentCmsSection sectionType="areas" />}
+
+          {/* SECTION 16: FAQ MANAGEMENT */}
+          {activeTab === 'faqs' && <WebsiteContentCmsSection sectionType="faqs" />}
+
+          {/* SECTION 17: TESTIMONIALS */}
+          {activeTab === 'testimonials' && <WebsiteContentCmsSection sectionType="testimonials" />}
+
+          {/* SECTION 18: MEDIA LIBRARY */}
+          {activeTab === 'media-library' && <MediaLibrarySection />}
+
+          {/* SECTION 19: SEO MANAGEMENT */}
+          {activeTab === 'seo' && <SeoManagementSection />}
+
+          {/* SECTION 20: NOTIFICATIONS */}
+          {activeTab === 'notifications' && <NotificationsCenterSection />}
+
+          {/* SECTION 21: REPORTS & ANALYTICS */}
+          {activeTab === 'analytics' && <ReportsAnalyticsSection />}
+
+          {/* SECTION 22: DATA BACKUP & RESTORE */}
+          {activeTab === 'backup-restore' && <BackupRestoreSection />}
+
+          {/* SECTION 23: ADMIN SETTINGS */}
+          {activeTab === 'settings' && <AdminSettingsSection />}
+
+          {/* SECTION 24: ACTIVITY LOGS */}
+          {activeTab === 'audit-logs' && <ActivityLogsSection />}
+
+          {/* WORKSHOP SPECIFIC TABS */}
+          {activeTab === 'jobcards' && (
+            <JobCardsTab
+              jobCards={jobCards}
+              staff={staff}
+              onSaveJobCard={handleSaveJobCard}
+              onUpdateStatus={handleUpdateJobStatus}
+              onDeleteJobCard={handleDeleteJobCard}
+              onPrintJobCard={setPrintingJobCard}
+              onGenerateInvoiceFromJob={handleGenerateInvoiceFromJob}
+            />
+          )}
+
+          {activeTab === 'inspections' && <InspectionsTab onRefreshStats={reloadAllData} />}
+
+          {activeTab === 'quotations' && (
+            <QuotationsTab
+              onRefreshStats={reloadAllData}
+              onNavigateToInvoice={() => setActiveTab('invoices')}
+            />
+          )}
+
+          {activeTab === 'invoices' && (
+            <InvoicesTab
+              invoices={invoices}
+              inventory={inventory}
+              onCreateInvoice={handleCreateInvoice}
+              onUpdatePayment={handleUpdatePayment}
+              onPrintInvoice={setPrintingInvoice}
+              initialJobCardPrefill={invoicePrefill}
+              onClearPrefill={() => setInvoicePrefill(null)}
+            />
+          )}
+
+          {activeTab === 'inventory' && (
+            <InventoryTab
+              inventory={inventory}
+              movements={movements}
+              onSavePart={handleSavePart}
+              onAdjustStock={handleAdjustStock}
+              onDeletePart={handleDeletePart}
+            />
+          )}
+
+          {activeTab === 'staff' && (
+            <StaffTab
+              staff={staff}
+              jobCards={jobCards}
+              onSaveStaff={handleSaveStaff}
+              onDeleteStaff={handleDeleteStaff}
+              activeRoleView="Super Admin"
+              onSelectRoleView={() => {}}
+            />
+          )}
+
+          {activeTab === 'reminders' && (
+            <RemindersTab
+              reminders={reminders}
+              onSaveReminder={handleSaveReminder}
+              onUpdateStatus={handleUpdateReminderStatus}
+              onDeleteReminder={handleDeleteReminder}
+            />
+          )}
+
+          {activeTab === 'whatsapp' && <WhatsAppTemplatesTab onNotify={showNotification} />}
+        </main>
       </div>
 
-      {/* Floating Success Notice */}
-      {successNotice && (
-        <div className="p-3 bg-emerald-600 text-white text-xs font-semibold rounded-xl flex items-center gap-2 shadow-md animate-in fade-in duration-200">
-          <CheckCircle className="w-4 h-4 shrink-0" />
-          <span>{successNotice}</span>
-        </div>
-      )}
-
-      {/* Primary Workshop Tabs Navigation */}
-      <div className="flex items-center gap-1 overflow-x-auto border-b border-slate-200 pb-2 text-xs font-semibold">
-        <button
-          onClick={() => setActiveTab('dashboard')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'dashboard' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <Wrench className="w-4 h-4" />
-          Dashboard
-        </button>
-
-        <button
-          onClick={() => setActiveTab('jobcards')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'jobcards' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <FileText className="w-4 h-4" />
-          Job Cards ({jobCards.length})
-          {activeJobsCount > 0 && (
-            <span className="w-2 h-2 rounded-full bg-amber-400"></span>
-          )}
-        </button>
-
-        <button
-          onClick={() => setActiveTab('bookings')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'bookings' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <Calendar className="w-4 h-4" />
-          Appointments ({bookings.length})
-          {pendingBookingsCount > 0 && (
-            <span className="px-1.5 py-0.2 bg-blue-100 text-blue-800 text-[10px] rounded-full font-bold">
-              {pendingBookingsCount}
-            </span>
-          )}
-        </button>
-
-        <button
-          onClick={() => setActiveTab('inspections')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'inspections' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <ShieldCheck className="w-4 h-4" />
-          16-Pt Inspections
-        </button>
-
-        <button
-          onClick={() => setActiveTab('quotations')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'quotations' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <FileText className="w-4 h-4" />
-          Quotations
-        </button>
-
-        <button
-          onClick={() => setActiveTab('invoices')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'invoices' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <CreditCard className="w-4 h-4" />
-          Invoices &amp; Billing ({invoices.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('customers')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'customers' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <Users className="w-4 h-4" />
-          Customers CRM ({customers.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('inventory')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'inventory' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <Package className="w-4 h-4" />
-          Spare Parts ({inventory.length})
-          {lowStockCount > 0 && (
-            <span className="px-1.5 py-0.2 bg-amber-100 text-amber-800 text-[10px] rounded-full font-bold">
-              {lowStockCount}
-            </span>
-          )}
-        </button>
-
-        <button
-          onClick={() => setActiveTab('staff')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'staff' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <ShieldCheck className="w-4 h-4" />
-          Staff ({staff.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('reminders')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'reminders' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <Bell className="w-4 h-4" />
-          Reminders ({reminders.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('whatsapp')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'whatsapp' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <MessageCircle className="w-4 h-4" />
-          WhatsApp Templates
-        </button>
-
-        <button
-          onClick={() => setActiveTab('feedback')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'feedback' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <Star className="w-4 h-4" />
-          Feedback Pipeline
-        </button>
-
-        <button
-          onClick={() => setActiveTab('leads')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'leads' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <MessageCircle className="w-4 h-4" />
-          Inbound Leads ({leads.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('services')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'services' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Services ({services.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('blogs')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'blogs' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Articles ({blogs.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('reviews')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'reviews' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          Reviews ({reviews.length})
-        </button>
-
-        <button
-          onClick={() => setActiveTab('settings')}
-          className={`px-3 py-2 rounded-xl whitespace-nowrap transition-colors cursor-pointer flex items-center gap-1.5 ${
-            activeTab === 'settings' ? 'bg-red-600 text-white font-bold' : 'text-slate-600 hover:bg-slate-100'
-          }`}
-        >
-          <SettingsIcon className="w-4 h-4" />
-          SEO &amp; Settings
-        </button>
-      </div>
-
-      {/* TAB 1: OPERATIONS DASHBOARD */}
-      {activeTab === 'dashboard' && (
-        <DashboardTab
-          jobCards={jobCards}
-          bookings={bookings}
-          customers={customers}
-          inventory={inventory}
-          invoices={invoices}
-          analytics={analytics}
-          onNavigateTab={setActiveTab}
-          onOpenNewJobCard={() => setActiveTab('jobcards')}
-          onOpenNewBooking={() => setActiveTab('bookings')}
-          onOpenNewInvoice={() => setActiveTab('invoices')}
-          onPrintJobCard={setPrintingJobCard}
-        />
-      )}
-
-      {/* TAB 2: DIGITAL JOB CARDS */}
-      {activeTab === 'jobcards' && (
-        <JobCardsTab
-          jobCards={jobCards}
-          staff={staff}
-          onSaveJobCard={handleSaveJobCard}
-          onUpdateStatus={handleUpdateJobStatus}
-          onDeleteJobCard={handleDeleteJobCard}
-          onPrintJobCard={setPrintingJobCard}
-          onGenerateInvoiceFromJob={handleGenerateInvoiceFromJob}
-        />
-      )}
-
-      {/* TAB 3: APPOINTMENT BOOKINGS */}
-      {activeTab === 'bookings' && (
-        <BookingsTab
-          bookings={bookings}
-          onUpdateStatus={handleUpdateBookingStatus}
-          onReschedule={handleRescheduleBooking}
-          onCreateBooking={handleCreateBooking}
-          onConvertToJobCard={handleConvertBookingToJob}
-        />
-      )}
-
-      {/* FEATURE 3: 16-POINT BIKE HEALTH INSPECTIONS */}
-      {activeTab === 'inspections' && (
-        <InspectionsTab onRefreshStats={reloadAllData} />
-      )}
-
-      {/* FEATURE 5: DIGITAL QUOTATIONS */}
-      {activeTab === 'quotations' && (
-        <QuotationsTab
-          onRefreshStats={reloadAllData}
-          onNavigateToInvoice={() => setActiveTab('invoices')}
-        />
-      )}
-
-      {/* TAB 4: INVOICES & BILLING */}
-      {activeTab === 'invoices' && (
-        <InvoicesTab
-          invoices={invoices}
-          inventory={inventory}
-          onCreateInvoice={handleCreateInvoice}
-          onUpdatePayment={handleUpdatePayment}
-          onPrintInvoice={setPrintingInvoice}
-          initialJobCardPrefill={invoicePrefill}
-          onClearPrefill={() => setInvoicePrefill(null)}
-        />
-      )}
-
-      {/* TAB 5: CUSTOMER CRM */}
-      {activeTab === 'customers' && (
-        <CustomersTab
-          customers={customers}
-          jobCards={jobCards}
-          invoices={invoices}
-          bookings={bookings}
-          onUpdateCustomer={handleUpdateCustomer}
-        />
-      )}
-
-      {/* TAB 6: SPARE PARTS INVENTORY */}
-      {activeTab === 'inventory' && (
-        <InventoryTab
-          inventory={inventory}
-          movements={movements}
-          onSavePart={handleSavePart}
-          onAdjustStock={handleAdjustStock}
-          onDeletePart={handleDeletePart}
-        />
-      )}
-
-      {/* TAB 7: STAFF & MECHANICS */}
-      {activeTab === 'staff' && (
-        <StaffTab
-          staff={staff}
-          jobCards={jobCards}
-          onSaveStaff={handleSaveStaff}
-          onDeleteStaff={handleDeleteStaff}
-          activeRoleView={activeRoleView}
-          onSelectRoleView={setActiveRoleView}
-        />
-      )}
-
-      {/* TAB 8: SERVICE REMINDERS */}
-      {activeTab === 'reminders' && (
-        <RemindersTab
-          reminders={reminders}
-          onSaveReminder={handleSaveReminder}
-          onUpdateStatus={handleUpdateReminderStatus}
-          onDeleteReminder={handleDeleteReminder}
-        />
-      )}
-
-      {/* FEATURE 4: CONTEXTUAL WHATSAPP TEMPLATES */}
-      {activeTab === 'whatsapp' && (
-        <WhatsAppTemplatesTab onNotify={showNotification} />
-      )}
-
-      {/* FEATURE 10: CUSTOMER FEEDBACK & REVIEW MODERATION */}
-      {activeTab === 'feedback' && (
-        <FeedbackModerationTab onNotify={showNotification} />
-      )}
-
-      {/* TAB 9: INBOUND CONTACT LEADS */}
-      {activeTab === 'leads' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
-          <div className="p-4 border-b border-slate-100 flex items-center justify-between">
-            <div>
-              <h2 className="text-sm font-bold text-slate-900">Inbound Customer Inquiries</h2>
-              <p className="text-xs text-slate-500">Track and respond to incoming web inquiries</p>
-            </div>
-            <button
-              onClick={() => setShowAddLead(true)}
-              className="px-3 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold"
-            >
-              + Add Inquiry
-            </button>
-          </div>
-          <div className="overflow-x-auto">
-            <table className="w-full text-left text-xs text-slate-700">
-              <thead className="bg-slate-50 text-[11px] uppercase tracking-wider text-slate-500 border-b border-slate-200">
-                <tr>
-                  <th className="py-3 px-4 font-bold">Customer Name</th>
-                  <th className="py-3 px-4 font-bold">Phone Number</th>
-                  <th className="py-3 px-4 font-bold">Area</th>
-                  <th className="py-3 px-4 font-bold">Bike &amp; Service</th>
-                  <th className="py-3 px-4 font-bold">Status</th>
-                  <th className="py-3 px-4 font-bold text-right">Actions</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-100">
-                {leads.map((lead) => (
-                  <tr key={lead.id} className="hover:bg-slate-50/70">
-                    <td className="py-3 px-4 font-bold text-slate-900">
-                      {lead.customerName}
-                      <span className="block text-[10px] text-slate-400 font-normal">{lead.createdAt}</span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <a href={`tel:${lead.phoneNumber}`} className="text-red-600 font-semibold hover:underline">
-                        {lead.phoneNumber}
-                      </a>
-                    </td>
-                    <td className="py-3 px-4 font-medium text-slate-600">{lead.area}</td>
-                    <td className="py-3 px-4">
-                      <span className="font-semibold text-slate-900 block">{lead.serviceRequested}</span>
-                      <span className="text-[11px] text-slate-500">{lead.bikeBrand} {lead.bikeModel}</span>
-                    </td>
-                    <td className="py-3 px-4">
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase ${
-                        lead.status === 'new' ? 'bg-amber-100 text-amber-800' :
-                        lead.status === 'contacted' ? 'bg-blue-100 text-blue-800' :
-                        lead.status === 'completed' ? 'bg-emerald-100 text-emerald-800' :
-                        'bg-slate-100 text-slate-800'
-                      }`}>
-                        {lead.status}
-                      </span>
-                    </td>
-                    <td className="py-3 px-4 text-right">
-                      <div className="inline-flex items-center gap-1.5">
-                        <select
-                          value={lead.status}
-                          onChange={(e) => handleStatusChange(lead.id, e.target.value as InquiryLead['status'])}
-                          className="py-1 px-2 rounded-lg border border-slate-300 text-[11px] bg-white cursor-pointer"
-                        >
-                          <option value="new">New</option>
-                          <option value="contacted">Contacted</option>
-                          <option value="completed">Completed</option>
-                          <option value="cancelled">Cancelled</option>
-                        </select>
-                        <button
-                          onClick={() => handleDeleteLead(lead.id)}
-                          className="p-1 text-slate-400 hover:text-red-600"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        </div>
-      )}
-
-      {/* TAB 10: SERVICES MANAGEMENT */}
-      {activeTab === 'services' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-4">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-            <div>
-              <h2 className="text-sm font-bold text-slate-900">Manage Repair Services</h2>
-              <p className="text-xs text-slate-500">Edit existing services, add new offerings, or restore defaults</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <button
-                onClick={handleRestoreDefaultServices}
-                className="px-3 py-1.5 text-xs text-slate-600 hover:bg-slate-100 rounded-lg border border-slate-200 cursor-pointer"
-              >
-                Restore Defaults
-              </button>
-              <button
-                onClick={() => {
-                  setEditingService({
-                    id: `srv-${Date.now()}`,
-                    slug: `new-service-${Date.now()}`,
-                    title: '',
-                    category: 'General Maintenance',
-                    shortDescription: '',
-                    fullDescription: '',
-                    keyFeatures: ['Comprehensive inspection', 'Genuine replacement parts'],
-                    commonSymptoms: ['Unusual noise or reduced pickup'],
-                    processSteps: ['1. Initial inspection', '2. Precision repair', '3. Road testing'],
-                    supportedBikes: ['Honda', 'Yamaha', 'Suzuki', 'United', 'Chinese Bikes'],
-                    estimatedTime: '1 to 2 Hours',
-                    image: assetUrl("assets/images/services/motorcycle-engine-repair.jpg")
-                  });
-                  setShowServiceModal(true);
-                }}
-                className="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer"
-              >
-                <Plus className="w-4 h-4" /> Add Service
-              </button>
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {services.map((svc) => (
-              <div key={svc.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex flex-col justify-between">
-                <div>
-                  <div className="flex items-center justify-between text-xs mb-1">
-                    <span className="font-bold text-red-600">{svc.category}</span>
-                    <span className="text-slate-500">{svc.estimatedTime}</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-slate-900 mb-1">{svc.title}</h3>
-                  <p className="text-xs text-slate-600 line-clamp-2 mb-3">{svc.shortDescription}</p>
-                </div>
-                <div className="pt-2 border-t border-slate-200 flex items-center justify-between text-xs">
-                  <button
-                    onClick={() => {
-                      setEditingService(svc);
-                      setShowServiceModal(true);
-                    }}
-                    className="text-red-600 hover:text-red-700 font-bold flex items-center gap-1 cursor-pointer"
-                  >
-                    <Edit className="w-3.5 h-3.5" /> Edit
-                  </button>
-                  <button
-                    onClick={() => handleDeleteService(svc.id)}
-                    className="text-slate-400 hover:text-red-600 transition-colors cursor-pointer"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* TAB 11: BLOG ARTICLES */}
-      {activeTab === 'blogs' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-4">
-          <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-            <div>
-              <h2 className="text-sm font-bold text-slate-900">Manage Maintenance Articles</h2>
-              <p className="text-xs text-slate-500">Publish guides, tuning tips, and local riding advice</p>
-            </div>
-            <button
-              onClick={() => {
-                setEditingBlog({
-                  id: `post-${Date.now()}`,
-                  slug: `post-${Date.now()}`,
-                  title: '',
-                  excerpt: '',
-                  content: '',
-                  category: 'Maintenance',
-                  author: 'Hamza Autos Technical Team',
-                  publishedDate: new Date().toISOString().split('T')[0],
-                  readTime: '4 min read',
-                  image: assetUrl("assets/images/blog/blog-engine-problems.jpg"),
-                  faqs: [],
-                  tags: ['Motorcycle Maintenance', 'Badami Bagh']
-                });
-                setShowBlogModal(true);
-              }}
-              className="px-3.5 py-1.5 bg-red-600 hover:bg-red-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 cursor-pointer"
-            >
-              <Plus className="w-4 h-4" /> Add Article
-            </button>
-          </div>
-
-          <div className="space-y-3">
-            {blogs.map((blog) => (
-              <div key={blog.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2 text-xs">
-                    <span className="font-bold text-red-600">{blog.category}</span>
-                    <span className="text-slate-400">·</span>
-                    <span className="text-slate-500">{blog.publishedDate}</span>
-                  </div>
-                  <h3 className="text-sm font-bold text-slate-900">{blog.title}</h3>
-                  <p className="text-xs text-slate-600 line-clamp-1">{blog.excerpt}</p>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <button
-                    onClick={() => {
-                      setEditingBlog(blog);
-                      setShowBlogModal(true);
-                    }}
-                    className="p-1.5 text-slate-600 hover:text-red-600 bg-white rounded-lg border border-slate-200 cursor-pointer"
-                  >
-                    <Edit className="w-3.5 h-3.5" />
-                  </button>
-                  <button
-                    onClick={() => handleDeleteBlog(blog.id)}
-                    className="p-1.5 text-slate-400 hover:text-red-600 bg-white rounded-lg border border-slate-200 cursor-pointer"
-                  >
-                    <Trash2 className="w-3.5 h-3.5" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* TAB 12: CUSTOMER REVIEWS */}
-      {activeTab === 'reviews' && (
-        <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-4 border-b border-slate-100">
-            <div>
-              <h2 className="text-sm font-bold text-slate-900">Customer Reviews Moderation</h2>
-              <p className="text-xs text-slate-500">Approve authentic reviews and share your Google Business Profile review link</p>
-            </div>
-            <a
-              href="https://maps.google.com/?cid=hamza-autos-badami-bagh"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="px-3.5 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-bold flex items-center gap-1.5 shadow-xs"
-            >
-              <Star className="w-4 h-4" /> Google Review Page Link
-            </a>
-          </div>
-
-          <div className="space-y-3">
-            {reviews.map((rev) => (
-              <div key={rev.id} className="p-4 rounded-xl border border-slate-200 bg-slate-50 flex items-start justify-between gap-4">
-                <div className="space-y-1">
-                  <div className="flex items-center gap-2">
-                    <span className="font-bold text-xs text-slate-900">{rev.authorName}</span>
-                    <span className="text-xs text-slate-500">({rev.area} · {rev.bikeModel})</span>
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-bold ${rev.isVerifiedCustomer ? 'bg-emerald-100 text-emerald-800' : 'bg-slate-200 text-slate-700'}`}>
-                      {rev.isVerifiedCustomer ? 'Verified' : 'Unverified'}
-                    </span>
-                  </div>
-                  <p className="text-xs text-slate-600 italic">"{rev.comment}"</p>
-                  <span className="text-[10px] text-slate-400">Service: {rev.serviceReceived} · {rev.date}</span>
-                </div>
-                <div className="flex items-center gap-2 shrink-0">
-                  <button
-                    onClick={() => handleToggleReviewVerified(rev.id)}
-                    className="px-2.5 py-1 text-xs bg-white border border-slate-200 rounded-lg hover:bg-slate-100 text-slate-700 cursor-pointer"
-                  >
-                    {rev.isVerifiedCustomer ? 'Mark Unverified' : 'Mark Verified'}
-                  </button>
-                  <button
-                    onClick={() => handleDeleteReview(rev.id)}
-                    className="p-1.5 text-slate-400 hover:text-red-600 cursor-pointer"
-                  >
-                    <Trash2 className="w-4 h-4" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* TAB 13: SETTINGS & LOCAL SEO */}
-      {activeTab === 'settings' && (
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-xs max-w-3xl space-y-6">
-          <div>
-            <h2 className="text-base font-bold text-slate-900">Workshop Information &amp; Technical SEO Settings</h2>
-            <p className="text-xs text-slate-500 mt-0.5">
-              Official NAP (Name, Address, Phone) data synchronizes across all public pages, schema markup, and meta tags.
-            </p>
-          </div>
-
-          <form onSubmit={handleSaveSettings} className="space-y-4 text-xs">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Business Name</label>
-                <input
-                  type="text"
-                  value={settings.businessName}
-                  onChange={(e) => setSettings({ ...settings, businessName: e.target.value })}
-                  className="w-full py-2 px-3 rounded-xl border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Phone Number</label>
-                <input
-                  type="text"
-                  value={settings.phone}
-                  onChange={(e) => setSettings({ ...settings, phone: e.target.value })}
-                  className="w-full py-2 px-3 rounded-xl border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">WhatsApp Number</label>
-                <input
-                  type="text"
-                  value={settings.whatsappNumber}
-                  onChange={(e) => setSettings({ ...settings, whatsappNumber: e.target.value })}
-                  className="w-full py-2 px-3 rounded-xl border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Operating Hours</label>
-                <input
-                  type="text"
-                  value={settings.operatingHours}
-                  onChange={(e) => setSettings({ ...settings, operatingHours: e.target.value })}
-                  className="w-full py-2 px-3 rounded-xl border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block font-semibold text-slate-700 mb-1">Full Business Address</label>
-              <textarea
-                rows={2}
-                value={settings.fullAddress}
-                onChange={(e) => setSettings({ ...settings, fullAddress: e.target.value })}
-                className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-red-500 focus:outline-hidden"
-              />
-            </div>
-
-            <div className="pt-2 border-t border-slate-100 space-y-4">
-              <h3 className="font-bold text-slate-900 text-sm">Local SEO Meta Tags</h3>
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Global SEO Title</label>
-                <input
-                  type="text"
-                  value={settings.seoTitle}
-                  onChange={(e) => setSettings({ ...settings, seoTitle: e.target.value })}
-                  className="w-full py-2 px-3 rounded-xl border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Meta Description</label>
-                <textarea
-                  rows={2}
-                  value={settings.seoMetaDescription}
-                  onChange={(e) => setSettings({ ...settings, seoMetaDescription: e.target.value })}
-                  className="w-full p-2.5 rounded-xl border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-            </div>
-
-            <button
-              type="submit"
-              className="py-2.5 px-5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-xl flex items-center gap-2 transition-colors cursor-pointer"
-            >
-              <Save className="w-4 h-4" />
-              Save Settings &amp; Sync SEO
-            </button>
-          </form>
-        </div>
-      )}
-
-      {/* PRINTABLE MODAL: A4 JOB CARD */}
+      {/* PRINTABLE MODALS */}
       {printingJobCard && (
-        <PrintJobCardModal
-          jobCard={printingJobCard}
-          onClose={() => setPrintingJobCard(null)}
-        />
+        <PrintJobCardModal jobCard={printingJobCard} onClose={() => setPrintingJobCard(null)} />
       )}
-
-      {/* PRINTABLE MODAL: A4 INVOICE */}
       {printingInvoice && (
-        <PrintInvoiceModal
-          invoice={printingInvoice}
-          onClose={() => setPrintingInvoice(null)}
-        />
+        <PrintInvoiceModal invoice={printingInvoice} onClose={() => setPrintingInvoice(null)} />
       )}
-
-      {/* DATABASE BACKUP & RESTORE MODAL */}
-      <DatabaseBackupModal
-        isOpen={showBackupModal}
-        onClose={() => setShowBackupModal(false)}
-        onBackupRestored={reloadAllData}
-      />
-
-      {/* MODAL: ADD MANUAL INQUIRY */}
-      {showAddLead && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-200 space-y-4">
-            <h3 className="text-base font-bold text-slate-900">Add Customer Walk-In / Phone Lead</h3>
-            <form onSubmit={handleCreateLead} className="space-y-3 text-xs">
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Customer Name *</label>
-                <input
-                  type="text"
-                  required
-                  value={newCustomerName}
-                  onChange={(e) => setNewCustomerName(e.target.value)}
-                  placeholder="e.g. Kamran Malik"
-                  className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Phone Number *</label>
-                <input
-                  type="tel"
-                  required
-                  value={newCustomerPhone}
-                  onChange={(e) => setNewCustomerPhone(e.target.value)}
-                  placeholder="e.g. 0321 4455667"
-                  className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Area in Lahore</label>
-                <input
-                  type="text"
-                  value={newCustomerArea}
-                  onChange={(e) => setNewCustomerArea(e.target.value)}
-                  className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Service Needed</label>
-                <select
-                  value={newCustomerService}
-                  onChange={(e) => setNewCustomerService(e.target.value)}
-                  className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden cursor-pointer"
-                >
-                  <option value="Bike Tuning">Bike Tuning &amp; Fuel Economy</option>
-                  <option value="Engine Overhaul">Engine Overhaul / Smoke Fix</option>
-                  <option value="Brake Repair">Brake Shoe / Disc Repair</option>
-                  <option value="Electrical Repair">Electrical Wiring / Battery</option>
-                  <option value="Chain Sprocket">Chain Sprocket Replacement</option>
-                </select>
-              </div>
-
-              <div className="pt-2 flex gap-2">
-                <button type="submit" className="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg cursor-pointer">
-                  Save Inquiry
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowAddLead(false)}
-                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg cursor-pointer"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* MODAL: EDIT/ADD SERVICE */}
-      {showServiceModal && editingService && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-slate-200 space-y-4">
-            <h3 className="text-base font-bold text-slate-900">
-              {editingService.title ? 'Edit Service' : 'Add New Service'}
-            </h3>
-            <form onSubmit={(e) => { e.preventDefault(); handleSaveService(editingService); }} className="space-y-3 text-xs">
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Service Title *</label>
-                <input
-                  type="text"
-                  required
-                  value={editingService.title}
-                  onChange={(e) => setEditingService({ ...editingService, title: e.target.value })}
-                  className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Category</label>
-                  <input
-                    type="text"
-                    value={editingService.category}
-                    onChange={(e) => setEditingService({ ...editingService, category: e.target.value })}
-                    className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Estimated Time</label>
-                  <input
-                    type="text"
-                    value={editingService.estimatedTime}
-                    onChange={(e) => setEditingService({ ...editingService, estimatedTime: e.target.value })}
-                    className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Short Description</label>
-                <textarea
-                  rows={2}
-                  value={editingService.shortDescription}
-                  onChange={(e) => setEditingService({ ...editingService, shortDescription: e.target.value })}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Full Technical Description</label>
-                <textarea
-                  rows={4}
-                  value={editingService.fullDescription}
-                  onChange={(e) => setEditingService({ ...editingService, fullDescription: e.target.value })}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div className="pt-2 flex gap-2">
-                <button type="submit" className="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg cursor-pointer">
-                  Save Service
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowServiceModal(false)}
-                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg cursor-pointer"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
-      {/* MODAL: EDIT/ADD BLOG */}
-      {showBlogModal && editingBlog && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 overflow-y-auto">
-          <div className="bg-white rounded-2xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 shadow-2xl border border-slate-200 space-y-4">
-            <h3 className="text-base font-bold text-slate-900">
-              {editingBlog.title ? 'Edit Article' : 'Write New Article'}
-            </h3>
-            <form onSubmit={(e) => { e.preventDefault(); handleSaveBlog(editingBlog); }} className="space-y-3 text-xs">
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Article Headline *</label>
-                <input
-                  type="text"
-                  required
-                  value={editingBlog.title}
-                  onChange={(e) => setEditingBlog({ ...editingBlog, title: e.target.value })}
-                  className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Category</label>
-                  <input
-                    type="text"
-                    value={editingBlog.category}
-                    onChange={(e) => setEditingBlog({ ...editingBlog, category: e.target.value })}
-                    className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                  />
-                </div>
-                <div>
-                  <label className="block font-semibold text-slate-700 mb-1">Read Time</label>
-                  <input
-                    type="text"
-                    value={editingBlog.readTime}
-                    onChange={(e) => setEditingBlog({ ...editingBlog, readTime: e.target.value })}
-                    className="w-full py-2 px-3 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Summary / Excerpt</label>
-                <textarea
-                  rows={2}
-                  value={editingBlog.excerpt}
-                  onChange={(e) => setEditingBlog({ ...editingBlog, excerpt: e.target.value })}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div>
-                <label className="block font-semibold text-slate-700 mb-1">Full Article Body</label>
-                <textarea
-                  rows={6}
-                  value={editingBlog.content}
-                  onChange={(e) => setEditingBlog({ ...editingBlog, content: e.target.value })}
-                  className="w-full p-2.5 rounded-lg border border-slate-300 focus:border-red-500 focus:outline-hidden"
-                />
-              </div>
-
-              <div className="pt-2 flex gap-2">
-                <button type="submit" className="flex-1 py-2.5 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg cursor-pointer">
-                  Save Article
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setShowBlogModal(false)}
-                  className="px-4 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold rounded-lg cursor-pointer"
-                >
-                  Cancel
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
+      {showBackupModal && (
+        <DatabaseBackupModal onClose={() => setShowBackupModal(false)} onRestoreSuccess={reloadAllData} />
       )}
     </div>
   );

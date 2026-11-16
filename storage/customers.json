@@ -1,0 +1,36 @@
+[
+  {
+    "id": "cust-1",
+    "name": "Muhammad Arshad",
+    "phoneNumber": "0300 1234567",
+    "whatsapp": "0300 1234567",
+    "email": "arshad.lahore@example.com",
+    "address": "Near Shadbagh Chowk, Lahore",
+    "bikeBrand": "Honda",
+    "bikeModel": "CD 70 (2023)",
+    "registrationNumber": "LEN-23-4412",
+    "firstContactDate": "2026-10-15",
+    "lastContactDate": "2026-11-15",
+    "totalInquiries": 3,
+    "totalBookings": 2,
+    "totalSpent": 4200,
+    "notes": "Prefers genuine Havoline 4T 20W-50 oil. Regular commuter on Circular Road."
+  },
+  {
+    "id": "cust-2",
+    "name": "Tariq Mahmood",
+    "phoneNumber": "0300 7654321",
+    "whatsapp": "0300 7654321",
+    "email": "",
+    "address": "Abu Bakar Road, Badami Bagh, Lahore",
+    "bikeBrand": "Honda",
+    "bikeModel": "CG 125 (2022)",
+    "registrationNumber": "LEB-22-1082",
+    "firstContactDate": "2026-10-20",
+    "lastContactDate": "2026-11-15",
+    "totalInquiries": 2,
+    "totalBookings": 1,
+    "totalSpent": 8500,
+    "notes": "CG 125 enthusiast. Piston replacement completed in Bay 2."
+  }
+]
