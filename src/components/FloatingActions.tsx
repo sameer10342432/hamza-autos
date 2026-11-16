@@ -144,22 +144,27 @@ export const FloatingActions: React.FC<FloatingActionsProps> = ({ onOpenBooking 
         transition={{ duration: 0.5, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="fixed bottom-6 right-6 z-40 hidden sm:flex flex-col items-end gap-2"
       >
-        <motion.button
-          whileHover={{ scale: 1.04, y: -2 }}
-          whileTap={{ scale: 0.96 }}
-          onClick={() => setShowWhatsAppPopup(!showWhatsAppPopup)}
-          className="group flex items-center gap-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white pl-4 pr-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:shadow-emerald-950/20 transition-all duration-200 cursor-pointer border border-emerald-500/30"
-          aria-label="Chat with Hamza Autos on WhatsApp"
-        >
-          <div className="relative">
-            <MessageCircle className="w-6 h-6" />
-            <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#E50914] border-2 border-white rounded-full"></span>
-          </div>
-          <div className="text-left">
-            <span className="block text-xs font-bold leading-none font-heading">WhatsApp Us</span>
-            <span className="block text-[10px] text-emerald-100 font-medium mt-0.5">Quick Reply · Badami Bagh</span>
-          </div>
-        </motion.button>
+        <div className="relative">
+          {/* Subtle Ambient Pulse Ring */}
+          <span className="absolute -inset-1 rounded-full bg-emerald-500/25 animate-ping pointer-events-none" />
+          
+          <motion.button
+            whileHover={{ scale: 1.04, y: -2 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={() => setShowWhatsAppPopup(!showWhatsAppPopup)}
+            className="relative group flex items-center gap-2.5 bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-500 hover:to-emerald-600 text-white pl-4 pr-5 py-3 rounded-full shadow-lg hover:shadow-xl hover:shadow-emerald-950/20 transition-all duration-200 cursor-pointer border border-emerald-500/30"
+            aria-label="Chat with Hamza Autos on WhatsApp"
+          >
+            <div className="relative">
+              <MessageCircle className="w-6 h-6" />
+              <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[#E50914] border-2 border-white rounded-full"></span>
+            </div>
+            <div className="text-left">
+              <span className="block text-xs font-bold leading-none font-heading">WhatsApp Us</span>
+              <span className="block text-[10px] text-emerald-100 font-medium mt-0.5">Quick Reply · Badami Bagh</span>
+            </div>
+          </motion.button>
+        </div>
       </motion.div>
 
       {/* Sticky Mobile Quick Action Bar (Strictly capped at 56px height) */}

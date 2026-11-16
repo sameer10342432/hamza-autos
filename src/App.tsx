@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
+import { pageTransitionVariants } from './utils/motion';
 import { Navbar } from './components/Navbar';
 import { Footer } from './components/Footer';
 import { FloatingActions } from './components/FloatingActions';
@@ -182,88 +184,99 @@ export default function App() {
       />
 
       {/* Main Dynamic View Content */}
-      <main className="flex-1 pb-16 sm:pb-0">
-        {currentView === 'home' && (
-          <HomeView
-            onNavigate={handleNavigate}
-            onOpenBooking={handleOpenBooking}
-          />
-        )}
+      <main className="flex-1 pb-16 sm:pb-0 overflow-x-clip">
+        <AnimatePresence mode="wait" initial={false}>
+          <motion.div
+            key={currentView + (currentSlug ? `-${currentSlug}` : '')}
+            variants={pageTransitionVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="w-full"
+          >
+            {currentView === 'home' && (
+              <HomeView
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-        {currentView === 'about' && (
-          <AboutView
-            onNavigate={handleNavigate}
-            onOpenBooking={handleOpenBooking}
-          />
-        )}
+            {currentView === 'about' && (
+              <AboutView
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-        {((currentView === 'services' && currentSlug) || (currentView === 'service-detail' && currentSlug)) ? (
-          <ServiceDetailView
-            slug={currentSlug}
-            onNavigate={handleNavigate}
-            onOpenBooking={handleOpenBooking}
-          />
-        ) : currentView === 'services' ? (
-          <ServicesView
-            onNavigate={handleNavigate}
-            onOpenBooking={handleOpenBooking}
-          />
-        ) : null}
+            {((currentView === 'services' && currentSlug) || (currentView === 'service-detail' && currentSlug)) ? (
+              <ServiceDetailView
+                slug={currentSlug}
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            ) : currentView === 'services' ? (
+              <ServicesView
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            ) : null}
 
-        {(currentView === 'brands' || currentView === 'brand-detail') && (
-          <BrandsView
-            selectedSlug={currentSlug}
-            onNavigate={handleNavigate}
-            onOpenBooking={handleOpenBooking}
-          />
-        )}
+            {(currentView === 'brands' || currentView === 'brand-detail') && (
+              <BrandsView
+                selectedSlug={currentSlug}
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-        {(currentView === 'areas' || currentView === 'area-detail') && (
-          <AreasView
-            selectedSlug={currentSlug}
-            onNavigate={handleNavigate}
-            onOpenBooking={handleOpenBooking}
-          />
-        )}
+            {(currentView === 'areas' || currentView === 'area-detail') && (
+              <AreasView
+                selectedSlug={currentSlug}
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-        {currentView === 'track-repair' && (
-          <TrackRepairView
-            initialJobCard={currentSlug}
-            onNavigate={handleNavigate}
-          />
-        )}
+            {currentView === 'track-repair' && (
+              <TrackRepairView
+                initialJobCard={currentSlug}
+                onNavigate={handleNavigate}
+              />
+            )}
 
-        {currentView === 'gallery' && (
-          <GalleryView />
-        )}
+            {currentView === 'gallery' && (
+              <GalleryView />
+            )}
 
-        {currentView === 'reviews' && (
-          <ReviewsView />
-        )}
+            {currentView === 'reviews' && (
+              <ReviewsView />
+            )}
 
-        {currentView === 'blog' && (
-          <BlogView
-            initialSlug={currentSlug}
-            onNavigate={handleNavigate}
-            onOpenBooking={handleOpenBooking}
-          />
-        )}
+            {currentView === 'blog' && (
+              <BlogView
+                initialSlug={currentSlug}
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-        {currentView === 'contact' && (
-          <ContactView />
-        )}
+            {currentView === 'contact' && (
+              <ContactView />
+            )}
 
-        {(currentView === 'privacy' || currentView === 'terms' || currentView === 'sitemap') && (
-          <LegalView type={currentView as 'privacy' | 'terms' | 'sitemap'} />
-        )}
+            {(currentView === 'privacy' || currentView === 'terms' || currentView === 'sitemap') && (
+              <LegalView type={currentView as 'privacy' | 'terms' | 'sitemap'} />
+            )}
 
-        {currentView === 'admin' && (
-          <AdminView />
-        )}
+            {currentView === 'admin' && (
+              <AdminView />
+            )}
 
-        {currentView === '404' && (
-          <NotFoundView onNavigate={handleNavigate} />
-        )}
+            {currentView === '404' && (
+              <NotFoundView onNavigate={handleNavigate} />
+            )}
+          </motion.div>
+        </AnimatePresence>
       </main>
 
       {/* Footer */}

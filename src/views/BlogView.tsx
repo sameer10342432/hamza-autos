@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { BlogPost } from '../types';
 import { getStoredBlogs } from '../utils/businessLogic';
-import { Calendar, Clock, ArrowRight, Tag, HelpCircle, ArrowLeft } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Tag, HelpCircle, ArrowLeft, BookOpen } from 'lucide-react';
+import { motion, useScroll, useSpring } from 'motion/react';
+import { staggerContainerVariants, staggerItemVariants, buttonPressProps } from '../utils/motion';
 
 interface BlogViewProps {
   initialSlug?: string;
@@ -13,50 +15,79 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
   const [blogs] = useState<BlogPost[]>(() => getStoredBlogs());
   const [activePostSlug, setActivePostSlug] = useState<string | null>(initialSlug || null);
 
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001
+  });
+
   const selectedPost = blogs.find((p) => p.slug === activePostSlug);
 
   if (selectedPost) {
     return (
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
-        <button
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8 relative">
+        {/* Reading Progress Indicator Bar */}
+        <motion.div
+          className="fixed top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#E50914] to-red-500 z-50 origin-left"
+          style={{ scaleX }}
+        />
+
+        <motion.button
+          {...buttonPressProps}
           onClick={() => setActivePostSlug(null)}
-          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-red-600 cursor-pointer"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-slate-600 hover:text-[#E50914] cursor-pointer transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
-          Back to All Articles
-        </button>
+          <span>Back to All Articles</span>
+        </motion.button>
 
-        <div className="space-y-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="space-y-4"
+        >
           <div className="flex items-center gap-2 text-xs text-slate-500">
-            <span className="text-red-600 font-bold uppercase">{selectedPost.category}</span>
+            <span className="text-[#E50914] font-bold uppercase">{selectedPost.category}</span>
             <span>·</span>
             <span>{selectedPost.publishedDate}</span>
             <span>·</span>
             <span>{selectedPost.readTime}</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight leading-tight font-heading">
             {selectedPost.title}
           </h1>
 
-          <div className="text-xs text-slate-600 italic border-l-2 border-red-500 pl-3">
+          <div className="text-xs text-slate-600 italic border-l-2 border-[#E50914] pl-3">
             Written by {selectedPost.author} for motorcycle riders in Badami Bagh and Lahore.
           </div>
-        </div>
+        </motion.div>
 
         {/* Featured Image */}
         {selectedPost.image && (
-          <div className="rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200 shadow-sm aspect-video sm:aspect-21/9 bg-slate-950">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.98 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="group rounded-2xl sm:rounded-3xl overflow-hidden border border-slate-200/90 shadow-automotive aspect-video sm:aspect-21/9 bg-slate-950"
+          >
             <img
               src={selectedPost.image}
               alt={selectedPost.imageAlt || selectedPost.title}
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
             />
-          </div>
+          </motion.div>
         )}
 
         {/* Article Body */}
-        <div className="bg-white p-6 sm:p-10 rounded-3xl border border-slate-200 shadow-xs space-y-6 text-sm text-slate-700 leading-relaxed">
+        <motion.div 
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.15 }}
+          className="bg-white p-6 sm:p-10 rounded-3xl border border-slate-200/90 shadow-automotive space-y-6 text-sm text-slate-700 leading-relaxed"
+        >
           <div className="whitespace-pre-line">
             {selectedPost.content}
           </div>
@@ -64,8 +95,8 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
           {/* Article Specific FAQs */}
           {selectedPost.faqs && selectedPost.faqs.length > 0 && (
             <div className="pt-6 border-t border-slate-100 space-y-4">
-              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2">
-                <HelpCircle className="w-4 h-4 text-red-600" />
+              <h3 className="text-base font-bold text-slate-900 flex items-center gap-2 font-heading">
+                <HelpCircle className="w-4 h-4 text-[#E50914]" />
                 Frequently Asked Questions on This Topic
               </h3>
               <div className="space-y-3">
@@ -82,52 +113,70 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
           {/* Tags */}
           <div className="pt-4 flex flex-wrap gap-1.5">
             {selectedPost.tags.map((t, idx) => (
-              <span key={idx} className="text-xs text-slate-600 bg-slate-100 px-2.5 py-1 rounded-md">
+              <span key={idx} className="text-xs text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg font-medium">
                 #{t}
               </span>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* CTA Box at Bottom of Article */}
-        <div className="bg-gradient-to-r from-red-600 to-slate-900 text-white rounded-2xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <motion.div 
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="bg-gradient-to-r from-[#E50914] to-slate-950 text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-xl"
+        >
           <div className="space-y-1 text-center sm:text-left">
-            <h3 className="text-lg font-bold">Experiencing this issue with your bike?</h3>
+            <h3 className="text-lg font-bold font-heading">Experiencing this issue with your bike?</h3>
             <p className="text-xs text-red-100">
               Visit Hamza Autos on Abu Bakar Road, Badami Bagh for same-day inspection and honest repair.
             </p>
           </div>
-          <button
+          <motion.button
+            {...buttonPressProps}
             onClick={() => onOpenBooking('Inspection from Blog Article')}
             className="px-5 py-2.5 bg-white text-slate-900 hover:bg-slate-100 font-bold text-xs rounded-xl shadow-md transition-colors whitespace-nowrap cursor-pointer shrink-0"
           >
             Book Workshop Inspection
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
       </div>
     );
   }
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-10">
-      <div className="text-center max-w-3xl mx-auto space-y-3">
-        <span className="text-xs font-bold uppercase tracking-wider text-red-600 block">
+      <motion.div 
+        initial={{ opacity: 0, y: 16 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center max-w-3xl mx-auto space-y-3"
+      >
+        <span className="text-xs font-bold uppercase tracking-wider text-[#E50914] block">
           Motorcycle Knowledge Base
         </span>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight">
+        <h1 className="text-3xl sm:text-4xl font-black text-slate-950 tracking-tight font-heading">
           Motorcycle Maintenance Articles &amp; Riding Guides
         </h1>
         <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
           Helpful maintenance guides, fuel economy tips, and technical advice tailored to Pakistani road conditions and Lahore city driving.
         </p>
-      </div>
+      </motion.div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <motion.div 
+        variants={staggerContainerVariants}
+        initial="hidden"
+        animate="visible"
+        className="grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
         {blogs.map((post) => (
-          <div
+          <motion.div
             key={post.id}
+            variants={staggerItemVariants}
+            whileHover={{ y: -5 }}
             onClick={() => setActivePostSlug(post.slug)}
-            className="group bg-white rounded-3xl border border-slate-200 p-5 sm:p-7 shadow-xs hover:shadow-lg transition-all cursor-pointer flex flex-col justify-between overflow-hidden"
+            className="group bg-white rounded-3xl border border-slate-200/90 p-5 sm:p-7 shadow-automotive hover:shadow-automotive-hover hover:border-red-300 transition-all duration-300 cursor-pointer flex flex-col justify-between overflow-hidden"
           >
             <div className="space-y-4">
               {post.image && (
@@ -135,19 +184,19 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
                   <img
                     src={post.image}
                     alt={post.imageAlt || post.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     loading="lazy"
                   />
                 </div>
               )}
 
               <div className="flex items-center gap-2 text-xs text-slate-500">
-                <span className="text-red-600 font-bold uppercase">{post.category}</span>
+                <span className="text-[#E50914] font-bold uppercase">{post.category}</span>
                 <span>·</span>
                 <span>{post.readTime}</span>
               </div>
 
-              <h2 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-red-600 transition-colors leading-snug">
+              <h2 className="text-lg sm:text-xl font-bold text-slate-900 group-hover:text-[#E50914] transition-colors leading-snug font-heading">
                 {post.title}
               </h2>
 
@@ -156,13 +205,13 @@ export const BlogView: React.FC<BlogViewProps> = ({ initialSlug, onNavigate, onO
               </p>
             </div>
 
-            <div className="pt-6 border-t border-slate-100 mt-4 flex items-center justify-between text-xs font-bold text-red-600">
+            <div className="pt-6 border-t border-slate-100 mt-4 flex items-center justify-between text-xs font-bold text-[#E50914]">
               <span>Read Full Article</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1.5 transition-transform" />
             </div>
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </div>
   );
 };
