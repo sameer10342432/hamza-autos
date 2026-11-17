@@ -8,6 +8,7 @@ import {
   navigatePublic, 
   RouteInfo 
 } from './utils/adminRouter';
+import { updatePageSeo } from './utils/seoHeadManager';
 
 // HomeView is eager for immediate first-paint LCP optimization
 import { HomeView } from './views/HomeView';
@@ -70,38 +71,11 @@ export default function App() {
     };
   }, []);
 
-  // Update public document title and canonical tags dynamically
+  // Update document title, canonical, meta tags, and structured data dynamically
   useEffect(() => {
-    if (routeInfo.isAdmin) return; // AdminView sets its own title
-
-    const settings = getStoredSettings();
-    const baseTitle = (settings as any).siteTitle || settings.seoTitle || 'Hamza Autos – Bike Mechanic & Motorcycle Repair Shop Badami Bagh Lahore';
-
-    const titles: Record<string, string> = {
-      home: baseTitle,
-      about: `About Hamza Autos | Master Bike Mechanic in Badami Bagh Lahore`,
-      services: `Motorcycle Repair & Maintenance Services | Hamza Autos Lahore`,
-      'service-detail': `Motorcycle Service | Hamza Autos Badami Bagh`,
-      brands: `Motorcycle Brands We Repair (Honda, Yamaha, Suzuki, United) | Hamza Autos`,
-      'brand-detail': `Brand Specialist Workshop | Hamza Autos Badami Bagh`,
-      areas: `Areas We Serve in Lahore (Badami Bagh, Shadbagh, Misri Shah) | Hamza Autos`,
-      'area-detail': `Motorcycle Mechanic Near You | Hamza Autos Lahore`,
-      gallery: `Workshop Bay & Repair Gallery | Hamza Autos Badami Bagh`,
-      reviews: `Customer Reviews & Testimonials | Hamza Autos Lahore`,
-      blog: `Motorcycle Maintenance & Repair Blog | Hamza Autos`,
-      contact: `Contact Hamza Autos | Workshop Location & Phone Badami Bagh`,
-      privacy: `Privacy Policy | Hamza Autos`,
-      terms: `Terms of Service | Hamza Autos`,
-      sitemap: `HTML Sitemap | Hamza Autos Badami Bagh Lahore`,
-      'track-repair': `Track Bike Repair Status | Hamza Autos Live Tracker`,
-      'customer-dashboard': `Customer Portal & Service History | Hamza Autos`,
-      'customer-portal': `Customer Portal & Service History | Hamza Autos`,
-      'not-found': `Page Not Found (404) | Hamza Autos`
-    };
-
-    document.title = titles[routeInfo.publicView] || baseTitle;
+    updatePageSeo(routeInfo);
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-  }, [routeInfo.publicView, routeInfo.publicSlug, routeInfo.isAdmin]);
+  }, [routeInfo]);
 
   const handleNavigate = (view: string, slug?: string) => {
     if (view === 'admin') {

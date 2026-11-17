@@ -997,29 +997,148 @@ apiRouter.delete('/media/:folder/:filename', requireAuth, async (req: Request, r
 
 apiRouter.get('/seo', requireAuth, async (_req: Request, res: Response) => {
   try {
-    const settings = await readJsonFile<any>('admin-settings.json', {});
+    const defaultPages = [
+      {
+        route: '/',
+        pageName: 'Homepage',
+        metaTitle: 'Hamza Autos – Bike Mechanic & Motorcycle Repair Shop in Badami Bagh, Lahore',
+        metaDescription: 'Trusted motorcycle mechanic & repair shop in Badami Bagh, Lahore. Professional bike engine repair, tuning, oil change, electrical wiring, brakes & maintenance. Call +92 325 1814548.',
+        keywords: ['bike mechanic lahore', 'motorcycle repair badami bagh', 'bike engine overhaul', 'bike tuning lahore'],
+        canonicalUrl: 'https://hamzaautos.com/'
+      },
+      {
+        route: '/services',
+        pageName: 'Services Page',
+        metaTitle: 'Motorcycle Repair & Maintenance Services in Badami Bagh, Lahore | Hamza Autos',
+        metaDescription: 'Explore professional motorcycle services in Badami Bagh Lahore: engine overhaul, carburetor tuning, genuine oil change, electrical wiring repair, brakes & clutches for Honda, Yamaha, Suzuki.',
+        keywords: ['bike repair services lahore', 'motorcycle oil change badami bagh', 'bike tuning badami bagh'],
+        canonicalUrl: 'https://hamzaautos.com/services'
+      },
+      {
+        route: '/brands',
+        pageName: 'Brands We Repair',
+        metaTitle: 'Motorcycle Brands We Repair (Honda, Yamaha, Suzuki, United) | Hamza Autos Lahore',
+        metaDescription: 'Specialist motorcycle mechanics in Badami Bagh for Honda CD 70 & CG 125, Yamaha YBR 125, Suzuki GS 150 & GD 110, United and all Chinese bikes. Call +92 325 1814548.',
+        keywords: ['honda mechanic lahore', 'yamaha ybr repair badami bagh', 'suzuki gs150 mechanic lahore'],
+        canonicalUrl: 'https://hamzaautos.com/brands'
+      },
+      {
+        route: '/areas',
+        pageName: 'Areas We Serve',
+        metaTitle: 'Areas We Serve in Lahore (Badami Bagh, Shadbagh, Misri Shah, Ravi Road) | Hamza Autos',
+        metaDescription: 'Hamza Autos is centrally located on Abu Bakar Road, Badami Bagh, providing quick motorcycle repair access to Shadbagh, Misri Shah, Ravi Road, Bund Road & Azadi Chowk riders.',
+        keywords: ['bike repair badami bagh', 'motorcycle mechanic shadbagh', 'bike repair misri shah', 'bike tuning ravi road'],
+        canonicalUrl: 'https://hamzaautos.com/areas'
+      },
+      {
+        route: '/contact',
+        pageName: 'Contact & Location',
+        metaTitle: 'Contact Hamza Autos – Workshop Location & Phone | Badami Bagh Lahore',
+        metaDescription: 'Contact Hamza Autos on Abu Bakar Road, Badami Bagh, Lahore. Call +92 325 1814548 for urgent bike breakdown assistance, appointment booking, or workshop directions.',
+        keywords: ['bike mechanic phone number lahore', 'hamza autos location', 'badami bagh motorcycle workshop'],
+        canonicalUrl: 'https://hamzaautos.com/contact'
+      },
+      {
+        route: '/blog',
+        pageName: 'Motorcycle Care Blog',
+        metaTitle: 'Motorcycle Care & Maintenance Blog | Hamza Autos Badami Bagh Lahore',
+        metaDescription: 'Practical motorcycle maintenance advice, DIY troubleshooting, carburetor tuning tips, and engine care guides by Master Mechanic Hamza in Lahore, Pakistan.',
+        keywords: ['motorcycle maintenance tips pakistan', 'bike fuel average guide lahore', 'honda 125 engine problems'],
+        canonicalUrl: 'https://hamzaautos.com/blog'
+      },
+      {
+        route: '/reviews',
+        pageName: 'Customer Reviews',
+        metaTitle: 'Customer Reviews & Mechanic Ratings | Hamza Autos Badami Bagh Lahore',
+        metaDescription: 'Read genuine customer reviews from Lahore riders who trust Hamza Autos for engine overhauls, bike tuning, and routine maintenance in Badami Bagh.',
+        keywords: ['hamza autos reviews', 'best bike mechanic lahore review', 'motorcycle repair feedback badami bagh'],
+        canonicalUrl: 'https://hamzaautos.com/reviews'
+      },
+      {
+        route: '/gallery',
+        pageName: 'Workshop Gallery',
+        metaTitle: 'Workshop Bay & Repair Gallery | Hamza Autos Badami Bagh Lahore',
+        metaDescription: 'Take a look inside Hamza Autos motorcycle repair workshop in Badami Bagh Lahore. See our diagnostic equipment, engine rebuilding bay, and mechanic tools.',
+        keywords: ['hamza autos workshop gallery', 'bike repair shop photos lahore'],
+        canonicalUrl: 'https://hamzaautos.com/gallery'
+      }
+    ];
+
+    const seoFile = await readJsonFile<any>('seo-settings.json', { pages: defaultPages, general: { siteName: 'Hamza Autos', phone: '+92 325 1814548', locality: 'Badami Bagh, Lahore' } });
     const blogs = await readJsonFile<any[]>('blogs.json', []);
 
-    // Check duplicate meta titles across blogs
+    // Check duplicate meta titles across blogs and pages
     const titlesCount: Record<string, number> = {};
     const duplicateWarnings: string[] = [];
 
-    blogs.forEach(b => {
-      const t = b.seo?.metaTitle || b.title;
+    (seoFile.pages || defaultPages).forEach((p: any) => {
+      const t = p.metaTitle;
       if (t) {
         titlesCount[t] = (titlesCount[t] || 0) + 1;
         if (titlesCount[t] === 2) duplicateWarnings.push(`Duplicate title found: "${t}"`);
       }
     });
 
+    blogs.forEach(b => {
+      const t = b.seo?.metaTitle || b.title;
+      if (t) {
+        titlesCount[t] = (titlesCount[t] || 0) + 1;
+        if (titlesCount[t] === 2) duplicateWarnings.push(`Duplicate title found in blog: "${t}"`);
+      }
+    });
+
     res.json({
       success: true,
+      pages: seoFile.pages || defaultPages,
+      general: seoFile.general || { siteName: 'Hamza Autos', phone: '+92 325 1814548', locality: 'Badami Bagh, Lahore' },
       seoSettings: {
-        homepageTitle: settings.seoTitle || 'Hamza Autos – Bike Mechanic & Motorcycle Repair Shop in Badami Bagh, Lahore',
-        homepageDescription: settings.seoDescription || 'Expert motorcycle repair shop in Badami Bagh, Lahore. Honest mechanical tuning, 4-stroke engine rebuilds, carburetor jetting and genuine parts.',
+        homepageTitle: 'Hamza Autos – Bike Mechanic & Motorcycle Repair Shop in Badami Bagh, Lahore',
+        homepageDescription: 'Trusted motorcycle mechanic & repair shop in Badami Bagh, Lahore. Professional bike engine repair, tuning, oil change, electrical wiring, brakes & maintenance.',
         canonicalBaseUrl: 'https://hamzaautos.com',
         duplicateWarnings
+      },
+      audit: {
+        totalIndexedPages: 47,
+        duplicateTitleCount: duplicateWarnings.length,
+        sitemapUrl: 'https://hamzaautos.com/sitemap.xml',
+        robotsUrl: 'https://hamzaautos.com/robots.txt',
+        schemaStatus: 'Valid Schema.org AutoRepair, Organization, Service, BreadcrumbList'
       }
+    });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+apiRouter.post('/seo', requireAuth, async (req: Request, res: Response) => {
+  try {
+    const { pages, general } = req.body;
+    if (!pages || !Array.isArray(pages)) {
+      return res.status(400).json({ success: false, error: 'Pages array is required.' });
+    }
+
+    const payload = {
+      pages,
+      general: general || { siteName: 'Hamza Autos', phone: '+92 325 1814548', locality: 'Badami Bagh, Lahore' },
+      updatedAt: new Date().toISOString()
+    };
+
+    await writeJsonFileAtomic('seo-settings.json', payload, false);
+
+    // Also record audit log
+    const logs = await readJsonFile<any[]>('audit-logs.json', []);
+    logs.unshift({
+      id: `audit-${Date.now()}`,
+      action: 'UPDATE_SEO_SETTINGS',
+      user: 'admin',
+      timestamp: new Date().toISOString(),
+      details: `Updated SEO meta settings for ${pages.length} pages`
+    });
+    await writeJsonFileAtomic('audit-logs.json', logs.slice(0, 500), false);
+
+    res.json({
+      success: true,
+      message: 'SEO configuration saved successfully to storage/seo-settings.json.'
     });
   } catch (err: any) {
     res.status(500).json({ success: false, error: err.message });

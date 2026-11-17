@@ -324,10 +324,17 @@ export const AdminView: React.FC<AdminViewProps> = ({
     }).catch(() => {});
   }, []);
 
-  // Update document title for admin
+  // Update document title and noindex robots for admin
   useEffect(() => {
     const meta = TAB_META[activeTab] || { label: 'Dashboard Overview', category: 'Overview' };
-    document.title = `${meta.label} | Hamza Autos Admin Portal`;
+    document.title = `${meta.label} | Hamza Autos Admin Operations`;
+    let robots = document.querySelector('meta[name="robots"]');
+    if (!robots) {
+      robots = document.createElement('meta');
+      robots.setAttribute('name', 'robots');
+      document.head.appendChild(robots);
+    }
+    robots.setAttribute('content', 'noindex, nofollow, noarchive');
   }, [activeTab]);
 
   const showNotification = (msg: string) => {

@@ -713,6 +713,28 @@ export const AREAS_LIST: AreaItem[] = [
     localIntro: "Commuters traveling daily between Shahdara and central Lahore rely on Hamza Autos for timely motorcycle tune-ups, oil servicing, and roadworthiness checks.",
     commuterContext: "Crossing the Ravi Bridge corridor exposes bikes to open-throttle high speed and river dust; regular oil and chain checks ensure reliability.",
     landmarks: ["Ravi Toll Plaza", "Shahdara Chowk", "Old Ravi Bridge", "Baradari Link"]
+  },
+  {
+    id: "sanda",
+    slug: "bike-mechanic-near-sanda-lahore",
+    name: "Sanda, Lahore",
+    distanceFromBadamiBagh: "Approx. 4.0 km",
+    estimatedDriveTime: "12-15 Minutes",
+    bestRouteDescription: "Take Rajgarh Road or Bund Road towards Circular Road, then proceed directly to Abu Bakar Road near Ali Hajvery Marriage Hall, Badami Bagh.",
+    localIntro: "Residents of Sanda and Rajgarh choose Hamza Autos in Badami Bagh for specialized 4-stroke engine rebuilds, carburetor tuning, and genuine replacement parts.",
+    commuterContext: "Daily commuter bikes from Sanda face intense inner-city stop-and-go traffic across Lower Mall. We ensure clutch assemblies and brakes are tuned for safety and longevity.",
+    landmarks: ["Sanda Road", "Rajgarh Chowk", "Babu Sabu Link", "Lower Mall Junction"]
+  },
+  {
+    id: "islampura",
+    slug: "motorcycle-repair-near-islampura-lahore",
+    name: "Islampura (Krishan Nagar), Lahore",
+    distanceFromBadamiBagh: "Approx. 4.2 km",
+    estimatedDriveTime: "12-16 Minutes",
+    bestRouteDescription: "Head north via Lower Mall or Secretariat Road onto Circular Road, continuing directly into Badami Bagh Abu Bakar Road.",
+    localIntro: "Motorcyclists from Islampura trust Hamza Autos in Badami Bagh for meticulous bike maintenance, electrical diagnostics, and carburetor fuel calibration.",
+    commuterContext: "Students, office commuters, and business couriers in Islampura rely on reliable daily transport; our quick-turnaround tuning prevents untimely roadside breakdowns.",
+    landmarks: ["Islampura Main Bazaar", "Krishan Nagar Chowk", "Secretariat Corridor", "Data Darbar Link"]
   }
 ];
 

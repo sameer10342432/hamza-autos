@@ -237,16 +237,32 @@ export function parseCurrentRoute(): RouteInfo {
     };
   }
 
-  // 3. Otherwise, it is a public website route (using hash router)
-  const parts = hash.split('/');
-  const view = parts[0] || 'home';
-  const slug = parts[1];
+  // 3. Otherwise, it is a public website route
+  // Check if legacy hash is present (e.g. #/services/bike-tuning or #services)
+  if (hash) {
+    const parts = hash.split('/');
+    const view = parts[0] || 'home';
+    const slug = parts[1];
+    return {
+      isAdmin: false,
+      adminTab: 'dashboard',
+      isLogin: false,
+      publicView: view,
+      publicSlug: slug
+    };
+  }
+
+  // Direct clean pathname (e.g. /services, /services/bike-tuning, /areas, /blog, /contact)
+  const cleanPath = pathname.replace(/^\/+/, '');
+  const pathParts = cleanPath.split('/');
+  const view = pathParts[0] || 'home';
+  const slug = pathParts[1];
 
   return {
     isAdmin: false,
     adminTab: 'dashboard',
     isLogin: false,
-    publicView: view,
+    publicView: view || 'home',
     publicSlug: slug
   };
 }
@@ -286,21 +302,15 @@ export function navigateAdmin(tabOrSubroute: string | AdminTab, replace = false)
 }
 
 /**
- * Navigate to a public website route
+ * Navigate to a public website route using clean HTML5 URLs
  */
 export function navigatePublic(view: string, slug?: string): void {
   if (typeof window === 'undefined') return;
 
   const base = getAppBasePath();
-  let targetHash = `#/${view}`;
-  if (slug) {
-    targetHash += `/${slug}`;
-  }
+  const cleanPath = `${base}/${view === 'home' ? '' : view}${slug ? `/${slug}` : ''}`.replace(/\/+/g, '/');
 
-  // If currently on /admin, reset pathname to root base with the hash
-  if (window.location.pathname.includes('/admin')) {
-    window.location.href = `${base}/${targetHash}`;
-  } else {
-    window.location.hash = targetHash;
-  }
+  // Push clean path and clear hash
+  window.history.pushState(null, '', cleanPath || '/');
+  window.dispatchEvent(new PopStateEvent('popstate'));
 }

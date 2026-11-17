@@ -1,6 +1,19 @@
+# Hamza Autos - Robots Exclusion Protocol
+# Website: https://hamzaautos.com
+# Workshop: Abu Bakar Road, Badami Bagh, Lahore, Pakistan
+
 User-agent: *
 Allow: /
-Disallow: /admin
-Disallow: /#/admin
+Allow: /assets/
+Allow: /uploads/
 
-Sitemap: https://hamzaautos.pk/sitemap.xml
+# Block Private Admin & Account Portals from Indexation
+Disallow: /admin
+Disallow: /admin/
+Disallow: /customer-dashboard
+Disallow: /customer-portal
+Disallow: /api/
+Disallow: /storage/
+
+# XML Sitemap
+Sitemap: https://hamzaautos.com/sitemap.xml

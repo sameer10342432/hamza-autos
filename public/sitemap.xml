@@ -1,108 +1,247 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Website Pages -->
   <url>
-    <loc>https://hamzaautos.pk/</loc>
+    <loc>https://hamzaautos.com/</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://hamzaautos.pk/#/services</loc>
+    <loc>https://hamzaautos.com/services</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://hamzaautos.pk/#/services/motorcycle-engine-repair</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/bike-tuning</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/bike-oil-change</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/general-bike-repair</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/motorcycle-electrical-repair</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/bike-wiring-repair</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/motorcycle-brake-repair</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/bike-clutch-repair</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/motorcycle-tyre-repair</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/bike-puncture-repair</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/motorcycle-spare-parts</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/bike-modification</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/services/motorcycle-general-maintenance</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.85</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/brands</loc>
+    <loc>https://hamzaautos.com/brands</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hamzaautos.pk/#/areas</loc>
-    <changefreq>monthly</changefreq>
+    <loc>https://hamzaautos.com/areas</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/reviews</loc>
+    <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://hamzaautos.pk/#/gallery</loc>
+    <loc>https://hamzaautos.com/gallery</loc>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://hamzaautos.pk/#/reviews</loc>
+    <loc>https://hamzaautos.com/blog</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://hamzaautos.pk/#/blog</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://hamzaautos.pk/#/contact</loc>
+    <loc>https://hamzaautos.com/contact</loc>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/sitemap</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/privacy</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/terms</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+
+  <!-- Service Landing Pages -->
+  <url>
+    <loc>https://hamzaautos.com/services/motorcycle-engine-repair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/bike-tuning</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/bike-oil-change</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/general-bike-repair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/motorcycle-electrical-repair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/bike-wiring-repair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/motorcycle-brake-repair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/bike-clutch-repair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/motorcycle-tyre-repair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/bike-puncture-repair</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/motorcycle-spare-parts</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/bike-modification</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/services/motorcycle-general-maintenance</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Motorcycle Brand Pages -->
+  <url>
+    <loc>https://hamzaautos.com/brands/honda-motorcycle-repair</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/brands/yamaha-motorcycle-repair</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/brands/suzuki-motorcycle-repair</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/brands/united-bike-repair</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/brands/road-prince-bike-repair</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/brands/super-power-motorcycle-repair</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/brands/chinese-bike-repair</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Local Service Area Pages (Badami Bagh + 11 Surrounding Lahore Neighborhoods) -->
+  <url>
+    <loc>https://hamzaautos.com/areas/bike-mechanic-badami-bagh-lahore</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/bike-repair-near-shadbagh-lahore</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/motorcycle-repair-near-misri-shah</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/bike-mechanic-near-ravi-road-lahore</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/bike-mechanic-near-azadi-chowk</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/bike-repair-near-timber-market</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/motorcycle-workshop-near-bund-road</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/bike-repair-near-garhi-shahu-lahore</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/bike-mechanic-near-bhatti-gate</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/motorcycle-repair-near-shahdara-lahore</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/bike-mechanic-near-sanda-lahore</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/areas/motorcycle-repair-near-islampura-lahore</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Technical Motorcycle Care Blog Posts -->
+  <url>
+    <loc>https://hamzaautos.com/blog/common-motorcycle-engine-problems-and-solutions</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/blog/how-often-should-you-change-motorcycle-engine-oil</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/blog/how-to-improve-motorcycle-fuel-average</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://hamzaautos.com/blog/signs-your-bike-clutch-plate-is-slipping</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
