@@ -1,0 +1,100 @@
+[
+  {
+    "id": "sp-1",
+    "partNumber": "SP-ENG-001",
+    "partName": "Piston Kit Complete 0.25 (70cc OHC)",
+    "category": "Engine & Mechanical",
+    "compatibleBrands": [
+      "Honda",
+      "United",
+      "Road Prince",
+      "Chinese Motorcycles"
+    ],
+    "compatibleModels": [
+      "CD 70",
+      "US 70",
+      "RP 70",
+      "All 70cc Chinese"
+    ],
+    "purchasePrice": 1200,
+    "sellingPrice": 1800,
+    "stockQuantity": 14,
+    "minStockAlert": 5,
+    "lastRestocked": "2026-11-01"
+  },
+  {
+    "id": "sp-2",
+    "partNumber": "SP-ENG-002",
+    "partName": "Piston Kit Complete 0.25 (CG 125 OHV)",
+    "category": "Engine & Mechanical",
+    "compatibleBrands": [
+      "Honda"
+    ],
+    "compatibleModels": [
+      "CG 125",
+      "CG 125 SE"
+    ],
+    "purchasePrice": 2100,
+    "sellingPrice": 2900,
+    "stockQuantity": 8,
+    "minStockAlert": 4,
+    "lastRestocked": "2026-11-04"
+  },
+  {
+    "id": "sp-3",
+    "partNumber": "SP-OIL-001",
+    "partName": "Caltex Havoline 4T 20W-50 Engine Oil (0.7L)",
+    "category": "Lubricants & Fluids",
+    "compatibleBrands": [
+      "Honda",
+      "United",
+      "Road Prince"
+    ],
+    "compatibleModels": [
+      "CD 70",
+      "CD 70 Dream",
+      "US 70"
+    ],
+    "purchasePrice": 850,
+    "sellingPrice": 1050,
+    "stockQuantity": 28,
+    "minStockAlert": 10,
+    "lastRestocked": "2026-11-08"
+  },
+  {
+    "id": "sp-4",
+    "partNumber": "SP-BRK-001",
+    "partName": "Yamaha Front Hydraulic Disc Brake Pads (YBR 125)",
+    "category": "Brakes & Safety",
+    "compatibleBrands": [
+      "Yamaha"
+    ],
+    "compatibleModels": [
+      "YBR 125",
+      "YBR 125G",
+      "YB 125Z-DX"
+    ],
+    "purchasePrice": 650,
+    "sellingPrice": 950,
+    "stockQuantity": 3,
+    "minStockAlert": 5,
+    "lastRestocked": "2026-10-20"
+  },
+  {
+    "id": "sp-5",
+    "partNumber": "CP-CG125-QA",
+    "partName": "QA Test Heavy Duty Clutch Plate CG125",
+    "category": "Clutch & Transmission",
+    "compatibleBrands": [
+      "Honda"
+    ],
+    "compatibleModels": [
+      "CG 125"
+    ],
+    "purchasePrice": 650,
+    "sellingPrice": 950,
+    "stockQuantity": 20,
+    "minStockAlert": 5,
+    "lastRestocked": "2026-11-17"
+  }
+]

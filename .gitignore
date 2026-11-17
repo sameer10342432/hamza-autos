@@ -6,3 +6,6 @@ coverage/
 *.log
 .env*
 !.env.example
+storage_safety_pre_qa_backup_*/
+storage/backups/
+qa-screenshots/

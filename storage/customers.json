@@ -1,5 +1,22 @@
 [
   {
+    "id": "cust-mwkcbpkp-x2rpo",
+    "name": "QA Test Customer A",
+    "phoneNumber": "0312-9988776",
+    "whatsapp": "0312-9988776",
+    "email": "",
+    "address": "Badami Bagh, Lahore",
+    "bikeBrand": "Honda",
+    "bikeModel": "CG 125",
+    "registrationNumber": "",
+    "firstContactDate": "2026-11-17",
+    "lastContactDate": "2026-11-17",
+    "totalInquiries": 1,
+    "totalBookings": 0,
+    "totalSpent": 0,
+    "notes": "Converted from CRM Lead (lead-mwkcbpfx-81k9s). Initial interest: Engine Overhaul & Tuning"
+  },
+  {
     "id": "cust-1",
     "name": "Muhammad Arshad",
     "phoneNumber": "0300 1234567",

@@ -1,9 +1,13 @@
 import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { pageTransitionVariants } from './utils/motion';
-import { Navbar } from './components/Navbar';
-import { Footer } from './components/Footer';
-import { FloatingActions } from './components/FloatingActions';
+import { PublicLayout } from './layouts/PublicLayout';
+import { 
+  parseCurrentRoute, 
+  navigateAdmin, 
+  navigatePublic, 
+  RouteInfo 
+} from './utils/adminRouter';
 
 // HomeView is eager for immediate first-paint LCP optimization
 import { HomeView } from './views/HomeView';
@@ -24,11 +28,6 @@ const CustomerDashboardView = lazy(() => import('./views/CustomerDashboardView')
 const NotFoundView = lazy(() => import('./views/NotFoundView').then(m => ({ default: m.NotFoundView })));
 const TrackRepairView = lazy(() => import('./views/TrackRepairView').then(m => ({ default: m.TrackRepairView })));
 
-// Lazy-load on-demand modals
-const BookingModal = lazy(() => import('./components/BookingModal').then(m => ({ default: m.BookingModal })));
-const SearchModal = lazy(() => import('./components/SearchModal').then(m => ({ default: m.SearchModal })));
-
-import { InitialLoader } from './components/interactive/InitialLoader';
 import { getStoredSettings } from './utils/businessLogic';
 
 // Lightweight fallback loader
@@ -39,8 +38,7 @@ const RouteLoader = () => (
 );
 
 export default function App() {
-  const [currentView, setCurrentView] = useState<string>('home');
-  const [currentSlug, setCurrentSlug] = useState<string | undefined>(undefined);
+  const [routeInfo, setRouteInfo] = useState<RouteInfo>(() => parseCurrentRoute());
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
   const [initialBookingService, setInitialBookingService] = useState<string | undefined>(undefined);
   const [searchModalOpen, setSearchModalOpen] = useState(false);
@@ -57,80 +55,27 @@ export default function App() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  // Sync with URL hash on load and popstate
+  // Sync with URL pathname and hash on load and popstate
   useEffect(() => {
-    const parseHash = () => {
-      const hash = window.location.hash.replace(/^#\/?/, '');
-      if (!hash) {
-        setCurrentView('home');
-        setCurrentSlug(undefined);
-        return;
-      }
-      const parts = hash.split('/');
-      const view = parts[0];
-      const slug = parts[1];
-
-      if (view === 'services' && slug) {
-        setCurrentView('service-detail');
-        setCurrentSlug(slug);
-        return;
-      }
-      if (view === 'brands' && slug) {
-        setCurrentView('brand-detail');
-        setCurrentSlug(slug);
-        return;
-      }
-      if (view === 'areas' && slug) {
-        setCurrentView('area-detail');
-        setCurrentSlug(slug);
-        return;
-      }
-      if (view === 'blog' && slug) {
-        setCurrentView('blog');
-        setCurrentSlug(slug);
-        return;
-      }
-
-      const validViews = [
-        'home', 
-        'about', 
-        'services', 
-        'service-detail', 
-        'brands', 
-        'brand-detail', 
-        'areas', 
-        'area-detail', 
-        'gallery', 
-        'reviews', 
-        'blog', 
-        'contact', 
-        'privacy', 
-        'terms', 
-        'sitemap', 
-        'admin',
-        'track-repair',
-        'customer-dashboard',
-        'customer-portal'
-      ];
-
-      if (validViews.includes(view)) {
-        setCurrentView(view);
-        setCurrentSlug(slug);
-      } else {
-        setCurrentView('not-found');
-        setCurrentSlug(undefined);
-      }
+    const handleLocationChange = () => {
+      const parsed = parseCurrentRoute();
+      setRouteInfo(parsed);
     };
 
-    parseHash();
-    window.addEventListener('popstate', parseHash);
-    return () => window.removeEventListener('popstate', parseHash);
+    window.addEventListener('popstate', handleLocationChange);
+    window.addEventListener('hashchange', handleLocationChange);
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+      window.removeEventListener('hashchange', handleLocationChange);
+    };
   }, []);
 
-  // Update document title and canonical tags dynamically
+  // Update public document title and canonical tags dynamically
   useEffect(() => {
+    if (routeInfo.isAdmin) return; // AdminView sets its own title
+
     const settings = getStoredSettings();
-    const baseTitle = settings.siteTitle || 'Hamza Autos – Bike Mechanic & Motorcycle Repair Shop Badami Bagh Lahore';
+    const baseTitle = (settings as any).siteTitle || settings.seoTitle || 'Hamza Autos – Bike Mechanic & Motorcycle Repair Shop Badami Bagh Lahore';
 
     const titles: Record<string, string> = {
       home: baseTitle,
@@ -148,23 +93,22 @@ export default function App() {
       privacy: `Privacy Policy | Hamza Autos`,
       terms: `Terms of Service | Hamza Autos`,
       sitemap: `HTML Sitemap | Hamza Autos Badami Bagh Lahore`,
-      admin: `Workshop Operations Portal | Hamza Autos Admin`,
       'track-repair': `Track Bike Repair Status | Hamza Autos Live Tracker`,
       'customer-dashboard': `Customer Portal & Service History | Hamza Autos`,
       'customer-portal': `Customer Portal & Service History | Hamza Autos`,
       'not-found': `Page Not Found (404) | Hamza Autos`
     };
 
-    document.title = titles[currentView] || baseTitle;
+    document.title = titles[routeInfo.publicView] || baseTitle;
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
-  }, [currentView, currentSlug]);
+  }, [routeInfo.publicView, routeInfo.publicSlug, routeInfo.isAdmin]);
 
   const handleNavigate = (view: string, slug?: string) => {
-    let targetHash = `#/${view}`;
-    if (slug) {
-      targetHash += `/${slug}`;
+    if (view === 'admin') {
+      navigateAdmin(slug || 'dashboard');
+      return;
     }
-    window.location.hash = targetHash;
+    navigatePublic(view, slug);
   };
 
   const handleOpenBooking = (serviceTitle?: string) => {
@@ -172,151 +116,136 @@ export default function App() {
     setBookingModalOpen(true);
   };
 
+  // ==============================================================
+  // 1. ADMIN PANEL LAYOUT & ROUTING (COMPLETELY INDEPENDENT)
+  // No public header, no public footer, no floating WhatsApp button
+  // ==============================================================
+  if (routeInfo.isAdmin) {
+    return (
+      <Suspense fallback={<RouteLoader />}>
+        <AdminView 
+          initialTab={routeInfo.adminTab} 
+          isLoginRoute={routeInfo.isLogin} 
+        />
+      </Suspense>
+    );
+  }
+
+  // ==============================================================
+  // 2. PUBLIC WEBSITE LAYOUT & ROUTING (ORIGINAL INTEGRITY PRESERVED)
+  // Includes public header, navigation, pages, footer, WhatsApp CTA
+  // ==============================================================
+  const currentView = routeInfo.publicView;
+  const currentSlug = routeInfo.publicSlug;
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 flex flex-col font-sans selection:bg-red-600 selection:text-white">
-      {/* Automotive Initial Splash sequence */}
-      <InitialLoader />
+    <PublicLayout
+      currentView={currentView}
+      onNavigate={handleNavigate}
+      bookingModalOpen={bookingModalOpen}
+      setBookingModalOpen={setBookingModalOpen}
+      initialBookingService={initialBookingService}
+      searchModalOpen={searchModalOpen}
+      setSearchModalOpen={setSearchModalOpen}
+      onOpenBooking={handleOpenBooking}
+    >
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentView + (currentSlug ? `-${currentSlug}` : '')}
+          variants={pageTransitionVariants}
+          initial="initial"
+          animate="animate"
+          exit="exit"
+          className="w-full"
+        >
+          <Suspense fallback={<RouteLoader />}>
+            {currentView === 'home' && (
+              <HomeView
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-      {/* Persistent Universal Navigation Header */}
-      <Navbar
-        currentView={currentView}
-        onNavigate={handleNavigate}
-        onOpenBooking={() => handleOpenBooking()}
-        onOpenSearch={() => setSearchModalOpen(true)}
-      />
+            {currentView === 'about' && (
+              <AboutView
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-      {/* Main View Router with Framer Motion Page Transitions */}
-      <main className="flex-1">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentView + (currentSlug ? `-${currentSlug}` : '')}
-            variants={pageTransitionVariants}
-            initial="initial"
-            animate="animate"
-            exit="exit"
-            className="w-full"
-          >
-            <Suspense fallback={<RouteLoader />}>
-              {currentView === 'home' && (
-                <HomeView
-                  onNavigate={handleNavigate}
-                  onOpenBooking={handleOpenBooking}
-                />
-              )}
+            {((currentView === 'services' && currentSlug) || (currentView === 'service-detail' && currentSlug)) ? (
+              <ServiceDetailView
+                slug={currentSlug}
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            ) : currentView === 'services' ? (
+              <ServicesView
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            ) : null}
 
-              {currentView === 'about' && (
-                <AboutView
-                  onNavigate={handleNavigate}
-                  onOpenBooking={handleOpenBooking}
-                />
-              )}
+            {(currentView === 'brands' || currentView === 'brand-detail') && (
+              <BrandsView
+                selectedSlug={currentSlug}
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-              {((currentView === 'services' && currentSlug) || (currentView === 'service-detail' && currentSlug)) ? (
-                <ServiceDetailView
-                  slug={currentSlug}
-                  onNavigate={handleNavigate}
-                  onOpenBooking={handleOpenBooking}
-                />
-              ) : currentView === 'services' ? (
-                <ServicesView
-                  onNavigate={handleNavigate}
-                  onOpenBooking={handleOpenBooking}
-                />
-              ) : null}
+            {(currentView === 'areas' || currentView === 'area-detail') && (
+              <AreasView
+                selectedSlug={currentSlug}
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-              {(currentView === 'brands' || currentView === 'brand-detail') && (
-                <BrandsView
-                  selectedSlug={currentSlug}
-                  onNavigate={handleNavigate}
-                  onOpenBooking={handleOpenBooking}
-                />
-              )}
+            {currentView === 'track-repair' && (
+              <TrackRepairView
+                initialJobCard={currentSlug}
+                onNavigate={handleNavigate}
+              />
+            )}
 
-              {(currentView === 'areas' || currentView === 'area-detail') && (
-                <AreasView
-                  selectedSlug={currentSlug}
-                  onNavigate={handleNavigate}
-                  onOpenBooking={handleOpenBooking}
-                />
-              )}
+            {currentView === 'gallery' && (
+              <GalleryView />
+            )}
 
-              {currentView === 'track-repair' && (
-                <TrackRepairView
-                  initialJobCard={currentSlug}
-                  onNavigate={handleNavigate}
-                />
-              )}
+            {currentView === 'reviews' && (
+              <ReviewsView />
+            )}
 
-              {currentView === 'gallery' && (
-                <GalleryView />
-              )}
+            {currentView === 'blog' && (
+              <BlogView
+                initialSlug={currentSlug}
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-              {currentView === 'reviews' && (
-                <ReviewsView />
-              )}
+            {currentView === 'contact' && (
+              <ContactView />
+            )}
 
-              {currentView === 'blog' && (
-                <BlogView
-                  initialSlug={currentSlug}
-                  onNavigate={handleNavigate}
-                  onOpenBooking={handleOpenBooking}
-                />
-              )}
+            {(currentView === 'privacy' || currentView === 'terms' || currentView === 'sitemap') && (
+              <LegalView type={currentView as 'privacy' | 'terms' | 'sitemap'} />
+            )}
 
-              {currentView === 'contact' && (
-                <ContactView />
-              )}
+            {(currentView === 'customer-dashboard' || currentView === 'customer-portal') && (
+              <CustomerDashboardView
+                onNavigate={handleNavigate}
+                onOpenBooking={handleOpenBooking}
+              />
+            )}
 
-              {(currentView === 'privacy' || currentView === 'terms' || currentView === 'sitemap') && (
-                <LegalView type={currentView as 'privacy' | 'terms' | 'sitemap'} />
-              )}
-
-              {(currentView === 'customer-dashboard' || currentView === 'customer-portal') && (
-                <CustomerDashboardView
-                  onNavigate={handleNavigate}
-                  onOpenBooking={handleOpenBooking}
-                />
-              )}
-
-              {currentView === 'admin' && (
-                <AdminView />
-              )}
-
-              {currentView === 'not-found' && (
-                <NotFoundView onNavigate={handleNavigate} />
-              )}
-            </Suspense>
-          </motion.div>
-        </AnimatePresence>
-      </main>
-
-      {/* Persistent Global Footer */}
-      <Footer onNavigate={handleNavigate} onOpenBooking={() => handleOpenBooking()} />
-
-      {/* Floating CTA Buttons: Call Now, WhatsApp, Track Repair, Quick Appointment */}
-      <FloatingActions onOpenBooking={() => handleOpenBooking()} />
-
-      {/* Global Appointment Booking Modal (Lazy-Loaded) */}
-      {bookingModalOpen && (
-        <Suspense fallback={null}>
-          <BookingModal
-            isOpen={bookingModalOpen}
-            initialService={initialBookingService}
-            onClose={() => setBookingModalOpen(false)}
-          />
-        </Suspense>
-      )}
-
-      {/* Global Instant Search Modal (Lazy-Loaded) */}
-      {searchModalOpen && (
-        <Suspense fallback={null}>
-          <SearchModal
-            isOpen={searchModalOpen}
-            onClose={() => setSearchModalOpen(false)}
-            onNavigate={handleNavigate}
-          />
-        </Suspense>
-      )}
-    </div>
+            {currentView === 'not-found' && (
+              <NotFoundView onNavigate={handleNavigate} />
+            )}
+          </Suspense>
+        </motion.div>
+      </AnimatePresence>
+    </PublicLayout>
   );
 }

@@ -13,6 +13,18 @@ import { UPLOADS_DIR } from './fileStore';
 export function createServerApp(): Express {
   const app = express();
 
+  // 0. Storage Access Block Guard: Never expose private JSON database files over HTTP
+  app.use((req: Request, res: Response, next: NextFunction) => {
+    const url = req.originalUrl || req.url;
+    if (url.startsWith('/storage') || url.includes('/storage/')) {
+      return res.status(403).json({ 
+        success: false, 
+        error: 'Access Denied: Direct access to internal storage files is strictly prohibited.' 
+      });
+    }
+    next();
+  });
+
   // 1. Built-in Gzip/Deflate HTTP Response Compression Middleware
   app.use((req: Request, res: Response, next: NextFunction) => {
     const acceptEncoding = (req.headers['accept-encoding'] as string) || '';

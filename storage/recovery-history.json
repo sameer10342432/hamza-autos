@@ -1,0 +1,15 @@
+[
+  {
+    "id": "recov-init",
+    "backupId": "initial_system_baseline",
+    "backupDate": "2026-11-17T06:15:37.210Z",
+    "restoreDate": "2026-11-17T06:15:37.210Z",
+    "adminUsername": "admin",
+    "restoreType": "full",
+    "modulesRestored": [
+      "All 26 JSON Stores"
+    ],
+    "result": "Success",
+    "preRestoreSafetyBackup": "baseline_verified"
+  }
+]

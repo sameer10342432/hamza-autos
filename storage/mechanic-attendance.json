@@ -1,0 +1,57 @@
+[
+  {
+    "id": "att-undefined-2026-11-17",
+    "date": "2026-11-17",
+    "checkInTime": "09:00 AM",
+    "checkOutTime": "",
+    "status": "Present",
+    "notes": "",
+    "recordedBy": "admin",
+    "updatedAt": "2026-11-17T07:05:49.101Z",
+    "createdAt": "2026-11-17T07:05:49.101Z"
+  },
+  {
+    "id": "att-1-2026-11-17",
+    "mechanicId": "mech-1",
+    "mechanicName": "Hamza Khan (Master Mechanic)",
+    "date": "2026-11-17",
+    "checkInTime": "08:45 AM",
+    "status": "Present",
+    "notes": "Morning briefing and engine overhaul allocations completed.",
+    "recordedBy": "admin",
+    "createdAt": "2026-11-17T08:45:00.000Z"
+  },
+  {
+    "id": "att-2-2026-11-17",
+    "mechanicId": "mech-2",
+    "mechanicName": "Bilal Ahmad",
+    "date": "2026-11-17",
+    "checkInTime": "09:00 AM",
+    "status": "Present",
+    "notes": "Assigned to Bay 2 for clutch & brake repairs.",
+    "recordedBy": "admin",
+    "createdAt": "2026-11-17T09:00:00.000Z"
+  },
+  {
+    "id": "att-3-2026-11-17",
+    "mechanicId": "mech-3",
+    "mechanicName": "Kamran Ali (Electrician)",
+    "date": "2026-11-17",
+    "checkInTime": "09:10 AM",
+    "status": "Present",
+    "notes": "Testing battery charging circuits.",
+    "recordedBy": "admin",
+    "createdAt": "2026-11-17T09:10:00.000Z"
+  },
+  {
+    "id": "att-4-2026-11-17",
+    "mechanicId": "mech-4",
+    "mechanicName": "Usman Tariq",
+    "date": "2026-11-17",
+    "checkInTime": "08:50 AM",
+    "status": "Present",
+    "notes": "Tyre bay opened.",
+    "recordedBy": "admin",
+    "createdAt": "2026-11-17T08:50:00.000Z"
+  }
+]

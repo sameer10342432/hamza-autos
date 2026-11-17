@@ -533,3 +533,355 @@ export interface AuditLogRecord {
   timestamp: string;
   user: string;
 }
+
+// ==========================================
+// 7 ADVANCED BUSINESS MANAGEMENT MODULES TYPES
+// ==========================================
+
+// 1. ADVANCED CRM & LEAD MANAGEMENT TYPES
+export type LeadPriority = 'Low' | 'Medium' | 'High' | 'Urgent';
+
+export type LeadStage = 
+  | 'New Lead'
+  | 'Contacted'
+  | 'Interested'
+  | 'Qualified'
+  | 'Booking Requested'
+  | 'Booking Confirmed'
+  | 'Converted to Customer'
+  | 'Lost'
+  | 'Archived';
+
+export interface LeadRecord {
+  id: string;
+  customerName: string;
+  phoneNumber: string;
+  whatsAppNumber?: string;
+  email?: string;
+  address?: string;
+  bikeBrand: string;
+  bikeModel: string;
+  registrationNumber?: string;
+  interestedService: string;
+  customerMessage?: string;
+  leadSource: 'Contact Form' | 'Booking Request' | 'Quotation Request' | 'Service Enquiry' | 'Direct Call' | 'Manual' | 'Other';
+  sourcePage?: string;
+  leadCreationDate: string;
+  assignedAdmin?: string;
+  priority: LeadPriority;
+  status: LeadStage;
+  estimatedValue?: number;
+  internalNotes?: string;
+  nextFollowUpDate?: string;
+  convertedCustomerId?: string;
+  convertedBookingId?: string;
+  convertedAt?: string;
+  convertedBy?: string;
+  updatedAt?: string;
+}
+
+export type FollowUpStatus = 'Pending' | 'Completed' | 'Rescheduled' | 'Missed' | 'Cancelled';
+export type FollowUpMethod = 'Call' | 'WhatsApp' | 'Email' | 'In-Person';
+
+export interface FollowUpRecord {
+  id: string;
+  leadId: string;
+  customerName: string;
+  phoneNumber: string;
+  followUpDate: string; // YYYY-MM-DD
+  followUpTime?: string; // HH:mm or AM/PM
+  followUpMethod: FollowUpMethod;
+  followUpNotes: string;
+  assignedAdmin: string;
+  status: FollowUpStatus;
+  completedAt?: string;
+  completionNotes?: string;
+  rescheduledTo?: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export type InteractionType = 
+  | 'Inquiry Received'
+  | 'Booking Created'
+  | 'Call Recorded'
+  | 'WhatsApp Contact Recorded'
+  | 'Follow-up Scheduled'
+  | 'Follow-up Completed'
+  | 'Quotation Created'
+  | 'Booking Confirmed'
+  | 'Job Card Created'
+  | 'Repair Completed';
+
+export interface CustomerInteraction {
+  id: string;
+  leadId?: string;
+  customerId?: string;
+  customerName: string;
+  type: InteractionType;
+  details: string;
+  timestamp: string;
+  adminName: string;
+  channel?: 'Phone' | 'WhatsApp' | 'Website' | 'In-Person';
+  metadata?: Record<string, any>;
+}
+
+// 2. MECHANIC MANAGEMENT TYPES
+export type MechanicStatus = 'Active' | 'Inactive' | 'On Leave' | 'Archived';
+
+export interface MechanicProfile {
+  id: string;
+  fullName: string;
+  phoneNumber: string;
+  whatsAppNumber?: string;
+  email?: string;
+  profilePhoto?: string;
+  address?: string;
+  joiningDate: string;
+  specializations: string[];
+  skills: string[];
+  employmentStatus: MechanicStatus;
+  internalNotes?: string;
+  assignedBays?: string[];
+  activeJobsCount?: number;
+  completedJobsCount?: number;
+  hourlyRate?: number;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export type AttendanceStatus = 'Present' | 'Absent' | 'Half Day' | 'Leave' | 'Holiday';
+
+export interface MechanicAttendance {
+  id: string;
+  mechanicId: string;
+  mechanicName: string;
+  date: string; // YYYY-MM-DD
+  checkInTime?: string;
+  checkOutTime?: string;
+  status: AttendanceStatus;
+  notes?: string;
+  recordedBy: string;
+  updatedBy?: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface MechanicAssignment {
+  id: string;
+  jobCardId: string;
+  jobCardNumber: string;
+  mechanicId: string;
+  mechanicName: string;
+  assignedDate: string;
+  assignedBy: string;
+  status: 'Assigned' | 'In Progress' | 'Completed' | 'Reassigned';
+  completionDate?: string;
+  internalNotes?: string;
+}
+
+// 3. EXPENSES & PROFIT MANAGEMENT TYPES
+export interface ExpenseCategory {
+  id: string;
+  name: string;
+  isSystem?: boolean;
+  description?: string;
+}
+
+export interface ExpenseRecord {
+  id: string;
+  expenseTitle: string;
+  expenseCategory: string;
+  amount: number;
+  expenseDate: string; // YYYY-MM-DD
+  paymentMethod: 'Cash' | 'Bank Transfer' | 'Easypaisa' | 'JazzCash' | 'Cheque';
+  paidTo: string;
+  description: string;
+  referenceNumber?: string;
+  receiptPhotoOrDoc?: string;
+  createdBy: string;
+  createdDate: string;
+  updatedAt?: string;
+  purchaseOrderId?: string;
+}
+
+export type FinancialTransactionType = 
+  | 'Customer Payment'
+  | 'Workshop Expense'
+  | 'Supplier Payment'
+  | 'Refund'
+  | 'Purchase Payment'
+  | 'Other';
+
+export interface FinancialTransaction {
+  id: string;
+  transactionType: FinancialTransactionType;
+  referenceType: 'Invoice' | 'Expense' | 'PurchaseOrder' | 'Manual';
+  referenceId: string;
+  amount: number;
+  date: string;
+  paymentMethod: string;
+  description: string;
+  createdBy: string;
+  status: 'Completed' | 'Reversed' | 'Pending';
+  customerOrPayee?: string;
+  createdAt: string;
+}
+
+export interface ProfitSummary {
+  collectedRevenue: number;
+  invoicedAmount: number;
+  outstandingReceivables: number;
+  totalExpenses: number;
+  partsDirectCost: number;
+  operatingExpenses: number;
+  grossProfitEstimate: number;
+  netProfitEstimate: number;
+  periodLabel: string;
+  isIncompleteData: boolean;
+  warningNotice?: string;
+}
+
+// 4. SUPPLIER & PURCHASE ORDER TYPES
+export type SupplierStatus = 'Active' | 'Inactive' | 'Archived';
+
+export interface SupplierRecord {
+  id: string;
+  supplierName: string;
+  contactPerson: string;
+  phoneNumber: string;
+  whatsAppNumber?: string;
+  email?: string;
+  businessAddress: string;
+  supplierCategory: string;
+  productsSupplied: string[];
+  paymentTerms: string;
+  notes?: string;
+  status: SupplierStatus;
+  totalPurchases: number;
+  totalPaid: number;
+  outstandingBalance: number;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export type PODeliveryStatus = 
+  | 'Draft'
+  | 'Sent'
+  | 'Confirmed'
+  | 'Partially Received'
+  | 'Received'
+  | 'Cancelled'
+  | 'Closed';
+
+export type POPaymentStatus = 'Unpaid' | 'Partially Paid' | 'Paid';
+
+export interface PurchaseOrderItem {
+  id: string;
+  partId?: string;
+  partName: string;
+  partSku?: string;
+  quantityOrdered: number;
+  quantityReceived: number;
+  unitPurchasePrice: number;
+  total: number;
+}
+
+export interface PurchaseOrder {
+  id: string;
+  poNumber: string; // e.g. "HA-PO-2026-001"
+  supplierId: string;
+  supplierName: string;
+  orderDate: string; // YYYY-MM-DD
+  expectedDeliveryDate: string;
+  items: PurchaseOrderItem[];
+  discount: number;
+  additionalCharges: number;
+  totalOrderValue: number;
+  paidAmount: number;
+  paymentStatus: POPaymentStatus;
+  deliveryStatus: PODeliveryStatus;
+  receivingNotes?: string;
+  receivedDate?: string;
+  notes?: string;
+  createdBy: string;
+  createdAt: string;
+  updatedAt?: string;
+}
+
+export interface SupplierPayment {
+  id: string;
+  supplierId: string;
+  supplierName: string;
+  purchaseOrderId?: string;
+  poNumber?: string;
+  paymentDate: string;
+  amount: number;
+  paymentMethod: 'Cash' | 'Bank Transfer' | 'Easypaisa' | 'JazzCash' | 'Cheque';
+  referenceNumber?: string;
+  notes?: string;
+  recordedBy: string;
+  createdAt: string;
+}
+
+// 5. SECURITY & DATA RECOVERY TYPES
+export interface SecurityEvent {
+  id: string;
+  eventType: 'LOGIN_SUCCESS' | 'LOGIN_FAILED' | 'LOGOUT' | 'PASSWORD_CHANGE' | 'UNAUTHORIZED_ACCESS' | 'INTEGRITY_WARNING' | 'BACKUP_CREATED' | 'RESTORE_EXECUTED';
+  severity: 'low' | 'medium' | 'high' | 'critical';
+  details: string;
+  ipAddress: string;
+  userAgent?: string;
+  adminUsername?: string;
+  timestamp: string;
+}
+
+export interface StorageFileHealth {
+  filename: string;
+  exists: boolean;
+  sizeBytes: number;
+  recordCount: number;
+  isValidJson: boolean;
+  lastModified: string;
+  error?: string;
+}
+
+export interface StorageHealthCheck {
+  overallStatus: 'Healthy' | 'Degraded' | 'Critical';
+  healthyFilesCount: number;
+  totalFilesCount: number;
+  files: StorageFileHealth[];
+  checkedAt: string;
+  backupAvailability: boolean;
+  lastBackupDate?: string;
+}
+
+export interface DataIntegrityIssue {
+  id: string;
+  severity: 'warning' | 'error';
+  entity: string;
+  recordId: string;
+  issueDescription: string;
+  suggestedAction?: string;
+}
+
+export interface DataIntegrityReport {
+  checkedAt: string;
+  totalRecordsChecked: number;
+  issuesCount: number;
+  issues: DataIntegrityIssue[];
+}
+
+export interface RecoveryHistoryRecord {
+  id: string;
+  backupId: string;
+  backupDate: string;
+  restoreDate: string;
+  adminUsername: string;
+  restoreType: 'full' | 'selected' | 'merge';
+  modulesRestored: string[];
+  result: 'Success' | 'Failed';
+  errorDetails?: string;
+  preRestoreSafetyBackup: string;
+}
+

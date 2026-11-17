@@ -1,0 +1,58 @@
+[
+  {
+    "id": "spay-mwkclzgy-jdew9",
+    "supplierId": "sup-mwkclz6q-xahnw",
+    "supplierName": "Crown Lifan Spares QA Partner",
+    "purchaseOrderId": "po-mwkclz8x-lt8m2",
+    "poNumber": "HA-PO-2026-003",
+    "paymentDate": "2026-11-17",
+    "amount": 6500,
+    "paymentMethod": "Bank Transfer (Meezan)",
+    "referenceNumber": "",
+    "notes": "Full payment cleared against PO",
+    "recordedBy": "admin",
+    "createdAt": "2026-11-17T07:05:49.522Z"
+  },
+  {
+    "id": "spay-mwkcjopp-qf3sd",
+    "supplierId": "sup-mwkcjogs-rbxsv",
+    "supplierName": "Crown Lifan Spares QA Partner",
+    "purchaseOrderId": "po-mwkcjoiq-0dik7",
+    "poNumber": "HA-PO-2026-004",
+    "paymentDate": "2026-11-17",
+    "amount": 6500,
+    "paymentMethod": "Bank Transfer (Meezan)",
+    "referenceNumber": "",
+    "notes": "Full payment cleared against PO",
+    "recordedBy": "admin",
+    "createdAt": "2026-11-17T07:04:02.269Z"
+  },
+  {
+    "id": "spay-1",
+    "supplierId": "sup-1",
+    "supplierName": "Crown Lifan Pakistan (Authorized Distributor)",
+    "purchaseOrderId": "po-101",
+    "poNumber": "HA-PO-2026-001",
+    "paymentDate": "2026-11-10",
+    "amount": 14000,
+    "paymentMethod": "Bank Transfer",
+    "referenceNumber": "HBL-9921008",
+    "notes": "Settled PO-2026-001 in full upon receiving goods.",
+    "recordedBy": "admin",
+    "createdAt": "2026-11-10T15:00:00.000Z"
+  },
+  {
+    "id": "spay-2",
+    "supplierId": "sup-2",
+    "supplierName": "Atlas Honda Genuine Parts Wholesale Agency",
+    "purchaseOrderId": "po-102",
+    "poNumber": "HA-PO-2026-002",
+    "paymentDate": "2026-11-15",
+    "amount": 20000,
+    "paymentMethod": "Cash",
+    "referenceNumber": "CSH-RECEIPT-441",
+    "notes": "Partial advance payment against PO-2026-002. Remaining 4000 due on balance delivery.",
+    "recordedBy": "admin",
+    "createdAt": "2026-11-15T12:00:00.000Z"
+  }
+]

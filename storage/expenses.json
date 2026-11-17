@@ -1,0 +1,80 @@
+[
+  {
+    "id": "exp-mwkbnvth-76vv8",
+    "amount": 4500,
+    "expenseDate": "2026-11-17",
+    "paymentMethod": "Cash",
+    "paidTo": "LESCO Badami Bagh",
+    "description": "Monthly air compressor electricity bill and generator fuel",
+    "referenceNumber": "",
+    "receiptPhotoOrDoc": "",
+    "createdBy": "admin",
+    "createdDate": "2026-11-17T06:39:18.485Z",
+    "purchaseOrderId": ""
+  },
+  {
+    "id": "exp-mwkbmyjb-67r93",
+    "amount": 4500,
+    "expenseDate": "2026-11-17",
+    "paymentMethod": "Cash",
+    "paidTo": "LESCO Badami Bagh",
+    "description": "Monthly air compressor electricity bill and generator fuel",
+    "referenceNumber": "",
+    "receiptPhotoOrDoc": "",
+    "createdBy": "admin",
+    "createdDate": "2026-11-17T06:38:35.351Z",
+    "purchaseOrderId": ""
+  },
+  {
+    "id": "exp-mwkbleqn-28jdr",
+    "amount": 4500,
+    "expenseDate": "2026-11-17",
+    "paymentMethod": "Cash",
+    "paidTo": "LESCO Badami Bagh",
+    "description": "Monthly air compressor electricity bill and generator fuel",
+    "referenceNumber": "",
+    "receiptPhotoOrDoc": "",
+    "createdBy": "admin",
+    "createdDate": "2026-11-17T06:37:23.039Z",
+    "purchaseOrderId": ""
+  },
+  {
+    "id": "exp-101",
+    "expenseTitle": "LESCO Commercial Power Bill",
+    "expenseCategory": "Electricity (LESCO)",
+    "amount": 14500,
+    "expenseDate": "2026-11-05",
+    "paymentMethod": "Bank Transfer",
+    "paidTo": "LESCO Sub-Division Badami Bagh",
+    "description": "Monthly commercial electricity bill for workshop lifts, ultrasonic cleaner & lighting.",
+    "referenceNumber": "LESCO-9921448",
+    "createdBy": "admin",
+    "createdDate": "2026-11-05T12:00:00.000Z"
+  },
+  {
+    "id": "exp-102",
+    "expenseTitle": "Air Compressor Synthetic Lubricant & Belt",
+    "expenseCategory": "Equipment Maintenance",
+    "amount": 2800,
+    "expenseDate": "2026-11-08",
+    "paymentMethod": "Cash",
+    "paidTo": "Lahore Machinery Store, Circular Road",
+    "description": "Replaced 3HP air compressor drive belt and synthetic oil.",
+    "referenceNumber": "INV-4412",
+    "createdBy": "admin",
+    "createdDate": "2026-11-08T16:30:00.000Z"
+  },
+  {
+    "id": "exp-103",
+    "expenseTitle": "Workshop A4 Job Card & Invoice Pads Printing",
+    "expenseCategory": "Marketing & Printing",
+    "amount": 4500,
+    "expenseDate": "2026-11-10",
+    "paymentMethod": "Cash",
+    "paidTo": "Urdu Bazaar Printing Press",
+    "description": "10 pads of 3-part carbonless A4 Job Cards and 10 pads of Customer Invoices.",
+    "referenceNumber": "UB-99120",
+    "createdBy": "admin",
+    "createdDate": "2026-11-10T14:00:00.000Z"
+  }
+]

@@ -217,7 +217,7 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div 
         className={`bg-slate-950 text-slate-300 text-xs border-b border-slate-800/80 transition-all duration-300 ease-in-out overflow-hidden w-full ${
           isScrolled ? 'max-h-0 opacity-0 py-0 border-b-0' : 'max-h-12 opacity-100 py-1.5 sm:py-2'
-        } hidden lg:block`}
+        } hidden xl:block`}
       >
         <div className="w-full max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
           {/* Left: Location & Hours */}
@@ -295,7 +295,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* CENTER: Main Desktop Navigation (Simplified, Zero Overflow, Pure Focus) */}
             <nav 
-              className="hidden lg:flex items-center gap-1 xl:gap-2 text-[13px] xl:text-[13.5px] font-semibold text-slate-700"
+              className="hidden xl:flex items-center gap-1 xl:gap-2 text-[13px] xl:text-[13.5px] font-semibold text-slate-700"
               aria-label="Main Navigation"
             >
               {/* Home */}
@@ -687,8 +687,8 @@ export const Navbar: React.FC<NavbarProps> = ({
               </button>
             </nav>
 
-            {/* MOBILE & TABLET HAMBURGER BUTTON (< 1024px) */}
-            <div className="flex lg:hidden items-center gap-2">
+            {/* MOBILE & TABLET HAMBURGER BUTTON (< 1280px) */}
+            <div className="flex xl:hidden items-center gap-2">
               <button
                 onClick={onOpenSearch}
                 className="p-2 text-slate-700 hover:text-[#E50914] hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
@@ -721,10 +721,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* 3. MOBILE SLIDE-IN ACCORDION DRAWER (< 1024px) */}
+      {/* 3. MOBILE & TABLET SLIDE-IN ACCORDION DRAWER (< 1280px) */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 lg:hidden">
+          <div className="fixed inset-0 z-50 xl:hidden">
             {/* Backdrop overlay with blur */}
             <motion.div
               initial={{ opacity: 0 }}

@@ -1,24 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { 
   getStoredLeads, 
-  updateLeadStatus, 
-  deleteLead,
   getStoredAnalytics, 
-  saveLead,
-  getStoredSettings,
-  saveStoredSettings,
-  getStoredServices,
-  saveStoredServices,
-  getStoredBlogs,
-  saveStoredBlogs,
-  getStoredGallery,
-  saveStoredGallery,
-  getStoredFAQs,
-  saveStoredFAQs,
-  getStoredReviews,
-  saveStoredReviews,
-  isAdminLoggedIn,
-  loginAdmin,
+  isAdminLoggedIn, 
+  loginAdmin, 
   logoutAdmin,
   assetUrl
 } from '../utils/businessLogic';
@@ -33,7 +18,6 @@ import {
   updateJobCard,
   getStoredCustomers, 
   saveStoredCustomers, 
-  upsertCustomerFromActivity,
   getStoredInventory, 
   saveStoredInventory, 
   adjustStockQuantity,
@@ -44,20 +28,11 @@ import {
   saveStoredStaff,
   getStoredReminders, 
   saveStoredReminders,
-  getModeratedReviews,
-  saveModeratedReviews,
   STORAGE_KEYS
 } from '../utils/workshopLogic';
-import { BUSINESS_INFO, SERVICES_LIST, BLOG_POSTS, GALLERY_ITEMS, FAQS, CUSTOMER_REVIEWS } from '../data/businessData';
 import { 
   InquiryLead, 
   AnalyticsSummary, 
-  ServiceItem, 
-  BlogPost, 
-  GalleryItem, 
-  FAQItem, 
-  CustomerReview, 
-  SiteSettings,
   JobCard,
   AppointmentBooking,
   CustomerProfile,
@@ -71,49 +46,19 @@ import {
   PaymentStatus
 } from '../types';
 import { 
-  Users, 
-  Phone, 
-  MessageCircle, 
-  MapPin, 
-  Clock, 
-  CheckCircle, 
-  AlertCircle, 
-  Save, 
-  Plus, 
-  Download,
-  Trash2, 
-  Edit, 
   Lock, 
-  LogOut, 
-  Wrench, 
-  FileText, 
-  Image as ImageIcon, 
-  HelpCircle, 
-  Star, 
-  Settings as SettingsIcon, 
-  Upload, 
-  Calendar, 
-  CreditCard, 
-  Package, 
-  Bell, 
-  Database, 
+  AlertCircle, 
+  ArrowLeft,
   ShieldCheck,
-  UserCheck,
-  Inbox,
-  Folder,
-  Tag,
-  Send,
-  Sliders,
-  Layout,
-  Globe,
-  BarChart3,
-  HardDrive,
-  FileArchive,
-  Menu,
-  X,
-  Compass,
-  FileCheck
+  CheckCircle
 } from 'lucide-react';
+
+import { AdminLayout } from '../layouts/AdminLayout';
+import { 
+  parseCurrentRoute, 
+  navigateAdmin, 
+  navigatePublic 
+} from '../utils/adminRouter';
 
 // Subcomponents
 import { DashboardTab } from '../components/admin/DashboardTab';
@@ -132,7 +77,7 @@ import { PrintJobCardModal } from '../components/admin/PrintJobCardModal';
 import { PrintInvoiceModal } from '../components/admin/PrintInvoiceModal';
 import { DatabaseBackupModal } from '../components/admin/DatabaseBackupModal';
 
-// Master 24-Section Components
+// Master Section Components
 import { CentralInquiryInbox } from '../components/admin/CentralInquiryInbox';
 import { BlogManagementSection } from '../components/admin/BlogManagementSection';
 import { BlogTaxonomySection } from '../components/admin/BlogTaxonomySection';
@@ -152,17 +97,52 @@ import { ActivityLogsSection } from '../components/admin/ActivityLogsSection';
 import { AdminSettingsSection } from '../components/admin/AdminSettingsSection';
 import { AdminApiService } from '../services/adminApiService';
 
+// New Advanced Business Management Sections
+import { CrmLeadsSection } from '../components/admin/CrmLeadsSection';
+import { FollowUpsSection } from '../components/admin/FollowUpsSection';
+import { MechanicManagementSection } from '../components/admin/MechanicManagementSection';
+import { MechanicAttendanceSection } from '../components/admin/MechanicAttendanceSection';
+import { ExpensesManagementSection } from '../components/admin/ExpensesManagementSection';
+import { FinancialTransactionsSection } from '../components/admin/FinancialTransactionsSection';
+import { ProfitReportsSection } from '../components/admin/ProfitReportsSection';
+import { SuppliersSection } from '../components/admin/SuppliersSection';
+import { PurchaseOrdersSection } from '../components/admin/PurchaseOrdersSection';
+import { GoodsReceivingSection } from '../components/admin/GoodsReceivingSection';
+import { SupplierPaymentsSection } from '../components/admin/SupplierPaymentsSection';
+import { GlobalSearchSection } from '../components/admin/GlobalSearchSection';
+import { SecurityCentreSection } from '../components/admin/SecurityCentreSection';
+import { StorageHealthSection } from '../components/admin/StorageHealthSection';
+
 export type AdminTab = 
   | 'dashboard' 
+  | 'analytics'
+  | 'global-search'
+  | 'notifications'
+  | 'inquiries'
+  | 'crm-leads'
+  | 'crm-followups'
+  | 'customers'
+  | 'bookings'
+  | 'jobcards'
+  | 'mechanics'
+  | 'attendance'
+  | 'inventory'
+  | 'reminders'
+  | 'expenses'
+  | 'transactions'
+  | 'profit-reports'
+  | 'quotations'
+  | 'invoices'
+  | 'suppliers'
+  | 'purchase-orders'
+  | 'goods-receiving'
+  | 'supplier-payments'
   | 'blogs'
   | 'blog-categories'
   | 'blog-tags'
-  | 'inquiries'
   | 'contact-submissions'
-  | 'bookings'
   | 'quotation-submissions'
   | 'feedback'
-  | 'customers'
   | 'form-management'
   | 'website-content'
   | 'services'
@@ -172,22 +152,86 @@ export type AdminTab =
   | 'testimonials'
   | 'media-library'
   | 'seo'
-  | 'notifications'
-  | 'analytics'
+  | 'security-centre'
+  | 'storage-health'
   | 'backup-restore'
-  | 'settings'
   | 'audit-logs'
-  // Workshop specific
-  | 'jobcards'
+  | 'settings'
   | 'inspections'
-  | 'quotations'
-  | 'invoices'
-  | 'inventory'
   | 'staff'
-  | 'reminders'
   | 'whatsapp';
 
-export const AdminView: React.FC = () => {
+const TAB_META: Record<AdminTab, { label: string; category: string }> = {
+  // 1. OVERVIEW
+  'dashboard': { label: 'Dashboard Overview', category: 'Overview' },
+  'analytics': { label: 'Reports & Analytics', category: 'Overview' },
+  'global-search': { label: 'Global Search', category: 'Overview' },
+  'notifications': { label: 'Notifications Center', category: 'Overview' },
+
+  // 2. CUSTOMER MANAGEMENT
+  'inquiries': { label: 'All Inquiries', category: 'Customer Management' },
+  'crm-leads': { label: 'CRM & Lead Pipeline', category: 'Customer Management' },
+  'crm-followups': { label: 'Follow-ups Queue', category: 'Customer Management' },
+  'customers': { label: 'Customer Directory', category: 'Customer Management' },
+
+  // 3. WORKSHOP OPERATIONS
+  'bookings': { label: 'Booking Requests', category: 'Workshop Operations' },
+  'jobcards': { label: 'Repair Job Cards', category: 'Workshop Operations' },
+  'mechanics': { label: 'Mechanic Directory', category: 'Workshop Operations' },
+  'attendance': { label: 'Mechanic Attendance', category: 'Workshop Operations' },
+  'inventory': { label: 'Spare Parts Inventory', category: 'Workshop Operations' },
+  'reminders': { label: 'Maintenance Reminders', category: 'Workshop Operations' },
+  'inspections': { label: 'Health Inspections', category: 'Workshop Operations' },
+  'staff': { label: 'Staff Management', category: 'Workshop Operations' },
+  'whatsapp': { label: 'WhatsApp Automation', category: 'Workshop Operations' },
+
+  // 4. FINANCIAL MANAGEMENT
+  'expenses': { label: 'Expenses Management', category: 'Financial Management' },
+  'transactions': { label: 'Income & Payments Ledger', category: 'Financial Management' },
+  'profit-reports': { label: 'Profit & Financial Reports', category: 'Financial Management' },
+  'quotations': { label: 'Workshop Quotations', category: 'Financial Management' },
+  'invoices': { label: 'Invoices & Billing', category: 'Financial Management' },
+
+  // 5. PURCHASING
+  'suppliers': { label: 'Supplier Directory', category: 'Purchasing' },
+  'purchase-orders': { label: 'Purchase Orders', category: 'Purchasing' },
+  'goods-receiving': { label: 'Goods Receiving', category: 'Purchasing' },
+  'supplier-payments': { label: 'Supplier Payments', category: 'Purchasing' },
+
+  // 6. WEBSITE MANAGEMENT
+  'blogs': { label: 'Blog Articles', category: 'Website Management' },
+  'blog-categories': { label: 'Blog Categories', category: 'Website Management' },
+  'blog-tags': { label: 'Blog Tags', category: 'Website Management' },
+  'contact-submissions': { label: 'Contact Submissions', category: 'Website Management' },
+  'quotation-submissions': { label: 'Online Quote Requests', category: 'Website Management' },
+  'feedback': { label: 'Customer Feedback', category: 'Website Management' },
+  'form-management': { label: 'Form Management', category: 'Website Management' },
+  'website-content': { label: 'CMS Content Blocks', category: 'Website Management' },
+  'services': { label: 'Services CMS', category: 'Website Management' },
+  'brands': { label: 'Motorcycle Brands CMS', category: 'Website Management' },
+  'areas': { label: 'Areas We Serve CMS', category: 'Website Management' },
+  'faqs': { label: 'FAQ Management CMS', category: 'Website Management' },
+  'testimonials': { label: 'Testimonials CMS', category: 'Website Management' },
+  'media-library': { label: 'Media Library', category: 'Website Management' },
+  'seo': { label: 'SEO Management', category: 'Website Management' },
+
+  // 7. SYSTEM MANAGEMENT
+  'security-centre': { label: 'Security Centre', category: 'System Management' },
+  'storage-health': { label: 'File Storage Health', category: 'System Management' },
+  'backup-restore': { label: 'Data Backup & Recovery', category: 'System Management' },
+  'audit-logs': { label: 'Activity Logs', category: 'System Management' },
+  'settings': { label: 'System Settings', category: 'System Management' }
+};
+
+interface AdminViewProps {
+  initialTab?: AdminTab;
+  isLoginRoute?: boolean;
+}
+
+export const AdminView: React.FC<AdminViewProps> = ({ 
+  initialTab,
+  isLoginRoute = false
+}) => {
   // Authentication State
   const [authenticated, setAuthenticated] = useState<boolean>(() => {
     return isAdminLoggedIn() || !!AdminApiService.getToken();
@@ -198,9 +242,13 @@ export const AdminView: React.FC = () => {
   const [loginError, setLoginError] = useState<string | null>(null);
   const [loginLoading, setLoginLoading] = useState(false);
 
-  // Tab State & Sidebar
-  const [activeTab, setActiveTab] = useState<AdminTab>('dashboard');
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  // Active Tab State
+  const [activeTab, setActiveTab] = useState<AdminTab>(() => {
+    if (initialTab) return initialTab;
+    const r = parseCurrentRoute();
+    return r.adminTab;
+  });
+
   const [unreadNotesCount, setUnreadNotesCount] = useState(0);
 
   // Workshop Data States
@@ -211,6 +259,7 @@ export const AdminView: React.FC = () => {
   const [invoices, setInvoices] = useState<WorkshopInvoice[]>(getStoredInvoices());
   const [staff, setStaff] = useState<StaffMember[]>(getStoredStaff());
   const [reminders, setReminders] = useState<ServiceReminder[]>(getStoredReminders());
+  const [inquiries, setInquiries] = useState<InquiryLead[]>(getStoredLeads());
   const [movements, setMovements] = useState<StockMovement[]>([]);
   const [analytics, setAnalytics] = useState<AnalyticsSummary>(getStoredAnalytics());
 
@@ -239,30 +288,58 @@ export const AdminView: React.FC = () => {
     setInvoices(getStoredInvoices());
     setStaff(getStoredStaff());
     setReminders(getStoredReminders());
+    setInquiries(getStoredLeads());
     setAnalytics(getStoredAnalytics());
 
     try {
       const rawM = localStorage.getItem(STORAGE_KEYS.MOVEMENTS);
       if (rawM) setMovements(JSON.parse(rawM));
-    } catch (e) {}
+    } catch {}
   };
 
+  // Sync tab with browser URL history and handle popstate
+  useEffect(() => {
+    const handlePopState = () => {
+      const route = parseCurrentRoute();
+      if (route.isAdmin) {
+        setActiveTab(route.adminTab);
+      }
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Check auth and notifications on load
   useEffect(() => {
     reloadAllData();
-    AdminApiService.checkAuth().then(res => {
-      if (res.authenticated) setAuthenticated(true);
-    }).catch(() => {});
 
-    AdminApiService.getNotifications().then(res => {
-      if (res.success) setUnreadNotesCount(res.unreadCount || 0);
+    AdminApiService.checkAuth().then(res => {
+      if (res.authenticated) {
+        setAuthenticated(true);
+        AdminApiService.getNotifications().then(nRes => {
+          if (nRes.success) setUnreadNotesCount(nRes.unreadCount || 0);
+        }).catch(() => {});
+      }
     }).catch(() => {});
   }, []);
+
+  // Update document title for admin
+  useEffect(() => {
+    const meta = TAB_META[activeTab] || { label: 'Dashboard Overview', category: 'Overview' };
+    document.title = `${meta.label} | Hamza Autos Admin Portal`;
+  }, [activeTab]);
 
   const showNotification = (msg: string) => {
     setSuccessNotice(msg);
     setTimeout(() => {
       setSuccessNotice(null);
     }, 4000);
+  };
+
+  const handleSelectTab = (tab: AdminTab) => {
+    setActiveTab(tab);
+    navigateAdmin(tab);
   };
 
   // Auth Handlers
@@ -275,19 +352,21 @@ export const AdminView: React.FC = () => {
       // 1. Try server PBKDF2 API
       const res = await AdminApiService.login(usernameInput, passwordInput, rememberMe);
       if (res.success) {
-        loginAdmin(passwordInput); // also mark legacy localStorage
+        loginAdmin(passwordInput);
         setAuthenticated(true);
         setPasswordInput('');
+        navigateAdmin('dashboard');
         return;
       }
     } catch (err: any) {
       // 2. Fallback to client check if server failed
-      if (loginAdmin(passwordInput) || passwordInput === 'HamzaAutos2026!' || passwordInput === 'hamza12345') {
+      if (loginAdmin(passwordInput).success || passwordInput === 'HamzaAutos2026!' || passwordInput === 'hamza12345') {
         setAuthenticated(true);
         setPasswordInput('');
+        navigateAdmin('dashboard');
         return;
       }
-      setLoginError(err.message || 'Invalid credentials. Please verify your username and password.');
+      setLoginError(err.message || 'Invalid credentials. Please verify username and password.');
     } finally {
       setLoginLoading(false);
     }
@@ -299,13 +378,14 @@ export const AdminView: React.FC = () => {
     } catch {}
     logoutAdmin();
     setAuthenticated(false);
+    navigateAdmin('login');
   };
 
   // Workshop Handlers
   const handleSaveJobCard = (cardData: any) => {
     if (cardData.id) {
       updateJobCard(cardData.id, cardData);
-      showNotification(`Job card ${cardData.jobCardNumber} updated`);
+      showNotification(`Job card ${cardData.jobCardNumber} updated successfully`);
     } else {
       const newCard = createJobCard(cardData);
       showNotification(`Created Job Card ${newCard.jobCardNumber}`);
@@ -339,7 +419,7 @@ export const AdminView: React.FC = () => {
       registrationNumber: card.registrationNumber,
       estimatedCost: card.finalCost || card.estimatedCost
     });
-    setActiveTab('invoices');
+    handleSelectTab('invoices');
   };
 
   const handleUpdateBookingStatus = (id: string, status: BookingStatus, notes?: string) => {
@@ -381,7 +461,7 @@ export const AdminView: React.FC = () => {
       photosAfter: []
     });
     setJobCards(getStoredJobCards());
-    setActiveTab('jobcards');
+    handleSelectTab('jobcards');
     showNotification('Converted booking into active job card');
   };
 
@@ -390,7 +470,7 @@ export const AdminView: React.FC = () => {
     setInvoices(getStoredInvoices());
     setInventory(getStoredInventory());
     setCustomers(getStoredCustomers());
-    showNotification('Invoice generated and printed');
+    showNotification('Invoice generated and saved');
   };
 
   const handleUpdatePayment = (id: string, paymentStatus: PaymentStatus, paymentMethod: any, amountPaid: number) => {
@@ -486,23 +566,25 @@ export const AdminView: React.FC = () => {
     showNotification('Reminder removed');
   };
 
-  // LOGIN SCREEN
-  if (!authenticated) {
+  // ==============================================================
+  // STANDALONE ADMIN LOGIN SCREEN (NO PUBLIC NAVBAR / FOOTER / CTA)
+  // ==============================================================
+  if (!authenticated || isLoginRoute) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center px-4 py-12">
+      <div className="min-h-screen bg-slate-950 flex flex-col justify-center items-center px-4 py-12 font-sans selection:bg-red-600 selection:text-white">
         <div className="w-full max-w-md bg-slate-900 border border-slate-800 rounded-3xl p-8 shadow-2xl space-y-6">
           <div className="text-center space-y-2">
-            <div className="w-14 h-14 rounded-2xl bg-red-600 text-white flex items-center justify-center mx-auto shadow-lg shadow-red-600/30">
-              <Lock className="w-7 h-7" />
+            <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-red-600 to-red-700 text-white flex items-center justify-center mx-auto shadow-xl shadow-red-900/40">
+              <span className="text-2xl font-black">HA</span>
             </div>
-            <h1 className="text-2xl font-extrabold text-white tracking-tight">Hamza Autos Admin</h1>
+            <h1 className="text-2xl font-black text-white tracking-tight">Hamza Autos Admin</h1>
             <p className="text-xs text-slate-400">
-              Central File-Based Management Portal • Abu Bakar Road, Badami Bagh
+              Workshop Operations Portal • Abu Bakar Road, Badami Bagh
             </p>
           </div>
 
           {loginError && (
-            <div className="p-3 bg-red-500/10 border border-red-500/30 text-red-400 text-xs rounded-xl flex items-center gap-2">
+            <div className="p-3.5 bg-red-500/10 border border-red-500/30 text-red-400 text-xs rounded-xl flex items-center gap-2.5">
               <AlertCircle className="w-4 h-4 shrink-0" />
               <span>{loginError}</span>
             </div>
@@ -510,26 +592,26 @@ export const AdminView: React.FC = () => {
 
           <form onSubmit={handleLogin} className="space-y-4 text-xs">
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">Username</label>
+              <label className="block font-semibold text-slate-300 mb-1.5">Username</label>
               <input
                 type="text"
                 required
                 value={usernameInput}
                 onChange={(e) => setUsernameInput(e.target.value)}
                 placeholder="admin"
-                className="w-full py-2.5 px-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 focus:outline-none"
+                className="w-full py-2.5 px-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 focus:outline-none transition-colors"
               />
             </div>
 
             <div>
-              <label className="block font-semibold text-slate-300 mb-1">Password</label>
+              <label className="block font-semibold text-slate-300 mb-1.5">Password</label>
               <input
                 type="password"
                 required
                 value={passwordInput}
                 onChange={(e) => setPasswordInput(e.target.value)}
                 placeholder="••••••••••••"
-                className="w-full py-2.5 px-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 focus:outline-none"
+                className="w-full py-2.5 px-3.5 rounded-xl bg-slate-950 border border-slate-800 text-white focus:border-red-500 focus:outline-none transition-colors"
               />
             </div>
 
@@ -541,9 +623,11 @@ export const AdminView: React.FC = () => {
                   onChange={(e) => setRememberMe(e.target.checked)}
                   className="rounded border-slate-700 bg-slate-800 text-red-600 focus:ring-0"
                 />
-                <span>Remember session (7 days)</span>
+                <span className="text-[11px]">Remember session (7 days)</span>
               </label>
-              <span className="text-[11px] text-slate-500">PBKDF2 Protected</span>
+              <span className="text-[11px] text-slate-500 flex items-center gap-1">
+                <ShieldCheck className="w-3 h-3 text-emerald-400" /> PBKDF2
+              </span>
             </div>
 
             <button
@@ -561,375 +645,242 @@ export const AdminView: React.FC = () => {
               <span>Username: <strong className="text-slate-200">admin</strong></span>
               <span>Password: <strong className="text-slate-200">hamza12345</strong></span>
             </div>
-            <p className="text-[10px] text-slate-500 pt-1">Data is stored directly in <code>storage/*.json</code> with zero external database.</p>
+            <p className="text-[10px] text-slate-500 pt-1">File-based JSON storage verified in <code>storage/*.json</code>.</p>
+          </div>
+
+          <div className="pt-1 text-center">
+            <button
+              onClick={() => navigatePublic('home')}
+              className="inline-flex items-center gap-1 text-xs text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="w-3.5 h-3.5" />
+              <span>Return to Public Website</span>
+            </button>
           </div>
         </div>
       </div>
     );
   }
 
-  // Active Job count for tab badges
+  // Active counts for sidebar and topbar badges
   const activeJobsCount = jobCards.filter(j => !['Delivered', 'Completed'].includes(j.repairStatus)).length;
   const pendingBookingsCount = bookings.filter(b => ['New Request', 'Pending Confirmation', 'pending'].includes(b.status)).length;
   const lowStockCount = inventory.filter(p => p.stockQuantity <= p.minStockAlert).length;
-
-  // Sidebar navigation menu sections (24 Distinct Sections)
-  const navSections = [
-    {
-      title: 'Overview & Intelligence',
-      items: [
-        { id: 'dashboard', label: '1. Dashboard', icon: Wrench, badge: null },
-        { id: 'analytics', label: '21. Reports & Analytics', icon: BarChart3, badge: null },
-        { id: 'notifications', label: '20. Notifications', icon: Bell, badge: unreadNotesCount > 0 ? unreadNotesCount : null },
-        { id: 'audit-logs', label: '24. Activity Logs', icon: ShieldCheck, badge: null }
-      ]
-    },
-    {
-      title: 'Inquiries & Leads',
-      items: [
-        { id: 'inquiries', label: '5. All Inquiries (Inbox)', icon: Inbox, badge: 'Live' },
-        { id: 'contact-submissions', label: '6. Contact Form Submissions', icon: Send, badge: null },
-        { id: 'bookings', label: '7. Booking Requests', icon: Calendar, badge: pendingBookingsCount > 0 ? pendingBookingsCount : null },
-        { id: 'quotation-submissions', label: '8. Quotation Requests', icon: FileCheck, badge: null },
-        { id: 'feedback', label: '9. Customer Feedback', icon: Star, badge: null },
-        { id: 'form-management', label: '11. Form Management', icon: Sliders, badge: null }
-      ]
-    },
-    {
-      title: 'Content & Publishing',
-      items: [
-        { id: 'blogs', label: '2. Blog Management', icon: FileText, badge: null },
-        { id: 'blog-categories', label: '3. Blog Categories', icon: Folder, badge: null },
-        { id: 'blog-tags', label: '4. Blog Tags', icon: Tag, badge: null },
-        { id: 'media-library', label: '18. Media Library', icon: ImageIcon, badge: null }
-      ]
-    },
-    {
-      title: 'Website CMS & SEO',
-      items: [
-        { id: 'website-content', label: '12. Website Content', icon: Layout, badge: null },
-        { id: 'services', label: '13. Services Management', icon: Wrench, badge: null },
-        { id: 'brands', label: '14. Motorcycle Brands', icon: ShieldCheck, badge: null },
-        { id: 'areas', label: '15. Areas We Serve', icon: Compass, badge: null },
-        { id: 'faqs', label: '16. FAQ Management', icon: HelpCircle, badge: null },
-        { id: 'testimonials', label: '17. Testimonials', icon: Star, badge: null },
-        { id: 'seo', label: '19. SEO Management', icon: Globe, badge: null }
-      ]
-    },
-    {
-      title: 'Workshop Operations & CRM',
-      items: [
-        { id: 'customers', label: '10. Customer Directory', icon: Users, badge: customers.length },
-        { id: 'jobcards', label: 'Digital Job Cards', icon: FileText, badge: activeJobsCount > 0 ? activeJobsCount : null },
-        { id: 'inspections', label: '16-Pt Inspections', icon: ShieldCheck, badge: null },
-        { id: 'quotations', label: 'Repair Quotations', icon: FileText, badge: null },
-        { id: 'invoices', label: 'Invoices & Billing', icon: CreditCard, badge: invoices.length },
-        { id: 'inventory', label: 'Spare Parts Inventory', icon: Package, badge: lowStockCount > 0 ? 'Low' : null },
-        { id: 'staff', label: 'Staff & Mechanics', icon: UserCheck, badge: staff.length },
-        { id: 'reminders', label: 'Service Reminders', icon: Bell, badge: reminders.length },
-        { id: 'whatsapp', label: 'WhatsApp Templates', icon: MessageCircle, badge: null }
-      ]
-    },
-    {
-      title: 'System & Security',
-      items: [
-        { id: 'backup-restore', label: '22. Data Backup & Restore', icon: Database, badge: 'JSON' },
-        { id: 'settings', label: '23. Admin Settings', icon: SettingsIcon, badge: null }
-      ]
-    }
-  ];
+  const meta = TAB_META[activeTab] || { label: 'Dashboard Overview', category: 'Overview' };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
-      {/* Top Mobile & Global Header */}
-      <header className="bg-slate-900 border-b border-slate-800 sticky top-0 z-40 px-4 py-3 flex items-center justify-between">
-        <div className="flex items-center gap-3">
-          <button
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-xl bg-slate-800 text-slate-300 hover:text-white md:hidden"
-          >
-            {sidebarOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
+    <AdminLayout
+      activeTab={activeTab}
+      onSelectTab={handleSelectTab}
+      onLogout={handleLogout}
+      unreadNotesCount={unreadNotesCount}
+      inquiryCount={inquiries.filter(i => i.status === 'new').length}
+      activeJobsCount={activeJobsCount}
+      pendingBookingsCount={pendingBookingsCount}
+      lowStockCount={lowStockCount}
+      invoicesCount={invoices.length}
+      customersCount={customers.length}
+      successNotice={successNotice}
+      tabLabel={meta.label}
+      categoryLabel={meta.category}
+    >
+      {/* SECTION 1: DASHBOARD */}
+      {activeTab === 'dashboard' && (
+        <DashboardTab
+          jobCards={jobCards}
+          bookings={bookings}
+          customers={customers}
+          inventory={inventory}
+          invoices={invoices}
+          analytics={analytics}
+          inquiries={inquiries}
+          reminders={reminders}
+          onNavigateTab={handleSelectTab}
+          onOpenNewJobCard={() => handleSelectTab('jobcards')}
+          onOpenNewBooking={() => handleSelectTab('bookings')}
+          onOpenNewInvoice={() => handleSelectTab('invoices')}
+          onPrintJobCard={setPrintingJobCard}
+        />
+      )}
 
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-red-600 flex items-center justify-center text-white font-extrabold text-sm shadow">
-              HA
-            </div>
-            <div>
-              <div className="text-sm font-bold text-white leading-tight">Hamza Autos Admin</div>
-              <div className="text-[10px] text-slate-400 hidden sm:block">File-Based Master Dashboard • Badami Bagh</div>
-            </div>
-          </div>
-        </div>
+      {/* SECTION 2: BLOG MANAGEMENT */}
+      {activeTab === 'blogs' && <BlogManagementSection />}
 
-        <div className="flex items-center gap-2">
-          <button
-            onClick={() => setActiveTab('inquiries')}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold"
-          >
-            <Inbox className="w-3.5 h-3.5 text-red-400" />
-            <span className="hidden sm:inline">Central Inbox</span>
-          </button>
+      {/* SECTION 3: BLOG CATEGORIES */}
+      {activeTab === 'blog-categories' && <BlogTaxonomySection type="categories" />}
 
-          <button
-            onClick={() => setActiveTab('notifications')}
-            className="relative p-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300"
-            title="Notifications"
-          >
-            <Bell className="w-4 h-4" />
-            {unreadNotesCount > 0 && (
-              <span className="absolute top-1 right-1 w-2 h-2 rounded-full bg-red-500" />
-            )}
-          </button>
+      {/* SECTION 4: BLOG TAGS */}
+      {activeTab === 'blog-tags' && <BlogTaxonomySection type="tags" />}
 
-          <button
-            onClick={handleLogout}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-red-600/20 text-red-400 hover:bg-red-600/30 text-xs font-semibold"
-          >
-            <LogOut className="w-3.5 h-3.5" />
-            <span className="hidden sm:inline">Sign Out</span>
-          </button>
-        </div>
-      </header>
+      {/* SECTION 5: ALL INQUIRIES (CENTRAL INBOX) */}
+      {activeTab === 'inquiries' && <CentralInquiryInbox />}
 
-      {/* Main Container: Sidebar + Content */}
-      <div className="flex-1 flex overflow-hidden">
-        {/* Sidebar Navigation */}
-        <aside
-          className={`fixed md:static inset-y-0 left-0 z-30 w-72 bg-slate-900 border-r border-slate-800 p-4 overflow-y-auto transform transition-transform duration-200 ease-in-out ${
-            sidebarOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
-          }`}
-          style={{ top: '57px' }}
-        >
-          <div className="space-y-6">
-            {navSections.map((sec) => (
-              <div key={sec.title} className="space-y-1">
-                <span className="text-[10px] uppercase font-bold text-slate-500 px-3 tracking-wider block">
-                  {sec.title}
-                </span>
+      {/* SECTION 6: CONTACT FORM SUBMISSIONS */}
+      {activeTab === 'contact-submissions' && <ContactSubmissionsSection />}
 
-                <div className="space-y-0.5 pt-1">
-                  {sec.items.map((item) => {
-                    const Icon = item.icon;
-                    const isActive = activeTab === item.id;
-                    return (
-                      <button
-                        key={item.id}
-                        onClick={() => {
-                          setActiveTab(item.id as AdminTab);
-                          setSidebarOpen(false);
-                        }}
-                        className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium transition-all ${
-                          isActive
-                            ? 'bg-red-600 text-white font-bold shadow-sm'
-                            : 'text-slate-400 hover:bg-slate-800/80 hover:text-white'
-                        }`}
-                      >
-                        <div className="flex items-center gap-2.5 truncate">
-                          <Icon className={`w-4 h-4 shrink-0 ${isActive ? 'text-white' : 'text-slate-500'}`} />
-                          <span className="truncate">{item.label}</span>
-                        </div>
+      {/* SECTION 7: BOOKING REQUESTS */}
+      {activeTab === 'bookings' && (
+        <BookingsTab
+          bookings={bookings}
+          onUpdateStatus={handleUpdateBookingStatus}
+          onReschedule={handleRescheduleBooking}
+          onCreateBooking={handleCreateBooking}
+          onConvertToJobCard={handleConvertBookingToJob}
+        />
+      )}
 
-                        {item.badge !== null && item.badge !== undefined && (
-                          <span
-                            className={`px-1.5 py-0.5 rounded text-[10px] font-bold ${
-                              isActive
-                                ? 'bg-white/20 text-white'
-                                : 'bg-slate-800 text-slate-400 border border-slate-700'
-                            }`}
-                          >
-                            {item.badge}
-                          </span>
-                        )}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-            ))}
-          </div>
-        </aside>
+      {/* SECTION 8: QUOTATION REQUESTS */}
+      {activeTab === 'quotation-submissions' && <QuotationRequestsSection />}
 
-        {/* Content Area */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 lg:p-8">
-          {successNotice && (
-            <div className="mb-6 p-4 bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-semibold rounded-xl flex items-center gap-2 shadow">
-              <CheckCircle className="w-4 h-4 shrink-0" />
-              <span>{successNotice}</span>
-            </div>
-          )}
+      {/* SECTION 9: CUSTOMER FEEDBACK */}
+      {activeTab === 'feedback' && <CustomerFeedbackSection />}
 
-          {/* SECTION 1: DASHBOARD */}
-          {activeTab === 'dashboard' && (
-            <DashboardTab
-              jobCards={jobCards}
-              bookings={bookings}
-              customers={customers}
-              inventory={inventory}
-              invoices={invoices}
-              analytics={analytics}
-              onNavigateTab={(tab) => setActiveTab(tab as AdminTab)}
-              onOpenNewJobCard={() => setActiveTab('jobcards')}
-              onOpenNewBooking={() => setActiveTab('bookings')}
-              onOpenNewInvoice={() => setActiveTab('invoices')}
-              onPrintJobCard={setPrintingJobCard}
-            />
-          )}
+      {/* SECTION 10: CUSTOMER DIRECTORY CRM */}
+      {activeTab === 'customers' && (
+        <CustomersTab
+          customers={customers}
+          jobCards={jobCards}
+          invoices={invoices}
+          bookings={bookings}
+          onUpdateCustomer={handleUpdateCustomer}
+        />
+      )}
 
-          {/* SECTION 2: BLOG MANAGEMENT */}
-          {activeTab === 'blogs' && <BlogManagementSection />}
+      {/* SECTION 11: FORM MANAGEMENT */}
+      {activeTab === 'form-management' && <FormManagementSection />}
 
-          {/* SECTION 3: BLOG CATEGORIES */}
-          {activeTab === 'blog-categories' && <BlogTaxonomySection type="categories" />}
+      {/* SECTION 12: WEBSITE CONTENT */}
+      {activeTab === 'website-content' && <WebsiteContentCmsSection sectionType="hero" />}
 
-          {/* SECTION 4: BLOG TAGS */}
-          {activeTab === 'blog-tags' && <BlogTaxonomySection type="tags" />}
+      {/* SECTION 13: SERVICES MANAGEMENT */}
+      {activeTab === 'services' && <WebsiteContentCmsSection sectionType="services" />}
 
-          {/* SECTION 5: ALL INQUIRIES (CENTRAL INBOX) */}
-          {activeTab === 'inquiries' && <CentralInquiryInbox />}
+      {/* SECTION 14: MOTORCYCLE BRANDS */}
+      {activeTab === 'brands' && <WebsiteContentCmsSection sectionType="brands" />}
 
-          {/* SECTION 6: CONTACT FORM SUBMISSIONS */}
-          {activeTab === 'contact-submissions' && <ContactSubmissionsSection />}
+      {/* SECTION 15: AREAS WE SERVE */}
+      {activeTab === 'areas' && <WebsiteContentCmsSection sectionType="areas" />}
 
-          {/* SECTION 7: BOOKING REQUESTS */}
-          {activeTab === 'bookings' && (
-            <BookingsTab
-              bookings={bookings}
-              onUpdateStatus={handleUpdateBookingStatus}
-              onReschedule={handleRescheduleBooking}
-              onCreateBooking={handleCreateBooking}
-              onConvertToJobCard={handleConvertBookingToJob}
-            />
-          )}
+      {/* SECTION 16: FAQ MANAGEMENT */}
+      {activeTab === 'faqs' && <WebsiteContentCmsSection sectionType="faqs" />}
 
-          {/* SECTION 8: QUOTATION REQUESTS */}
-          {activeTab === 'quotation-submissions' && <QuotationRequestsSection />}
+      {/* SECTION 17: TESTIMONIALS */}
+      {activeTab === 'testimonials' && <WebsiteContentCmsSection sectionType="testimonials" />}
 
-          {/* SECTION 9: CUSTOMER FEEDBACK */}
-          {activeTab === 'feedback' && <CustomerFeedbackSection />}
+      {/* SECTION 18: MEDIA LIBRARY */}
+      {activeTab === 'media-library' && <MediaLibrarySection />}
 
-          {/* SECTION 10: CUSTOMER DIRECTORY CRM */}
-          {activeTab === 'customers' && (
-            <CustomersTab
-              customers={customers}
-              jobCards={jobCards}
-              invoices={invoices}
-              bookings={bookings}
-              onUpdateCustomer={handleUpdateCustomer}
-            />
-          )}
+      {/* SECTION 19: SEO MANAGEMENT */}
+      {activeTab === 'seo' && <SeoManagementSection />}
 
-          {/* SECTION 11: FORM MANAGEMENT */}
-          {activeTab === 'form-management' && <FormManagementSection />}
+      {/* SECTION 20: NOTIFICATIONS */}
+      {activeTab === 'notifications' && <NotificationsCenterSection />}
 
-          {/* SECTION 12: WEBSITE CONTENT (HERO & CTAS) */}
-          {activeTab === 'website-content' && <WebsiteContentCmsSection sectionType="hero" />}
+      {/* SECTION 21: REPORTS & ANALYTICS */}
+      {activeTab === 'analytics' && <ReportsAnalyticsSection />}
 
-          {/* SECTION 13: SERVICES MANAGEMENT */}
-          {activeTab === 'services' && <WebsiteContentCmsSection sectionType="services" />}
+      {/* SECTION 22: DATA BACKUP & RESTORE */}
+      {activeTab === 'backup-restore' && <BackupRestoreSection />}
 
-          {/* SECTION 14: MOTORCYCLE BRANDS */}
-          {activeTab === 'brands' && <WebsiteContentCmsSection sectionType="brands" />}
+      {/* SECTION 23: ADMIN SETTINGS */}
+      {activeTab === 'settings' && <AdminSettingsSection />}
 
-          {/* SECTION 15: AREAS WE SERVE */}
-          {activeTab === 'areas' && <WebsiteContentCmsSection sectionType="areas" />}
+      {/* SECTION 24: ACTIVITY LOGS */}
+      {activeTab === 'audit-logs' && <ActivityLogsSection />}
 
-          {/* SECTION 16: FAQ MANAGEMENT */}
-          {activeTab === 'faqs' && <WebsiteContentCmsSection sectionType="faqs" />}
+      {/* WORKSHOP SPECIFIC TABS */}
+      {activeTab === 'jobcards' && (
+        <JobCardsTab
+          jobCards={jobCards}
+          staff={staff}
+          onSaveJobCard={handleSaveJobCard}
+          onUpdateStatus={handleUpdateJobStatus}
+          onDeleteJobCard={handleDeleteJobCard}
+          onPrintJobCard={setPrintingJobCard}
+          onGenerateInvoiceFromJob={handleGenerateInvoiceFromJob}
+        />
+      )}
 
-          {/* SECTION 17: TESTIMONIALS */}
-          {activeTab === 'testimonials' && <WebsiteContentCmsSection sectionType="testimonials" />}
+      {activeTab === 'inspections' && <InspectionsTab onRefreshStats={reloadAllData} />}
 
-          {/* SECTION 18: MEDIA LIBRARY */}
-          {activeTab === 'media-library' && <MediaLibrarySection />}
+      {activeTab === 'quotations' && (
+        <QuotationsTab
+          onRefreshStats={reloadAllData}
+          onNavigateToInvoice={() => handleSelectTab('invoices')}
+        />
+      )}
 
-          {/* SECTION 19: SEO MANAGEMENT */}
-          {activeTab === 'seo' && <SeoManagementSection />}
+      {activeTab === 'invoices' && (
+        <InvoicesTab
+          invoices={invoices}
+          inventory={inventory}
+          onCreateInvoice={handleCreateInvoice}
+          onUpdatePayment={handleUpdatePayment}
+          onPrintInvoice={setPrintingInvoice}
+          initialJobCardPrefill={invoicePrefill}
+          onClearPrefill={() => setInvoicePrefill(null)}
+        />
+      )}
 
-          {/* SECTION 20: NOTIFICATIONS */}
-          {activeTab === 'notifications' && <NotificationsCenterSection />}
+      {activeTab === 'inventory' && (
+        <InventoryTab
+          inventory={inventory}
+          movements={movements}
+          onSavePart={handleSavePart}
+          onAdjustStock={handleAdjustStock}
+          onDeletePart={handleDeletePart}
+        />
+      )}
 
-          {/* SECTION 21: REPORTS & ANALYTICS */}
-          {activeTab === 'analytics' && <ReportsAnalyticsSection />}
+      {activeTab === 'staff' && (
+        <StaffTab
+          staff={staff}
+          jobCards={jobCards}
+          onSaveStaff={handleSaveStaff}
+          onDeleteStaff={handleDeleteStaff}
+          activeRoleView="Super Admin"
+          onSelectRoleView={() => {}}
+        />
+      )}
 
-          {/* SECTION 22: DATA BACKUP & RESTORE */}
-          {activeTab === 'backup-restore' && <BackupRestoreSection />}
+      {activeTab === 'reminders' && (
+        <RemindersTab
+          reminders={reminders}
+          onSaveReminder={handleSaveReminder}
+          onUpdateStatus={handleUpdateReminderStatus}
+          onDeleteReminder={handleDeleteReminder}
+        />
+      )}
 
-          {/* SECTION 23: ADMIN SETTINGS */}
-          {activeTab === 'settings' && <AdminSettingsSection />}
+      {activeTab === 'whatsapp' && <WhatsAppTemplatesTab onNotify={showNotification} />}
 
-          {/* SECTION 24: ACTIVITY LOGS */}
-          {activeTab === 'audit-logs' && <ActivityLogsSection />}
+      {/* ADVANCED MODULE 1: CRM & LEADS MANAGEMENT */}
+      {activeTab === 'crm-leads' && <CrmLeadsSection />}
+      {activeTab === 'crm-followups' && <FollowUpsSection />}
 
-          {/* WORKSHOP SPECIFIC TABS */}
-          {activeTab === 'jobcards' && (
-            <JobCardsTab
-              jobCards={jobCards}
-              staff={staff}
-              onSaveJobCard={handleSaveJobCard}
-              onUpdateStatus={handleUpdateJobStatus}
-              onDeleteJobCard={handleDeleteJobCard}
-              onPrintJobCard={setPrintingJobCard}
-              onGenerateInvoiceFromJob={handleGenerateInvoiceFromJob}
-            />
-          )}
+      {/* ADVANCED MODULE 2: MECHANIC MANAGEMENT SYSTEM */}
+      {activeTab === 'mechanics' && <MechanicManagementSection />}
+      {activeTab === 'attendance' && <MechanicAttendanceSection />}
 
-          {activeTab === 'inspections' && <InspectionsTab onRefreshStats={reloadAllData} />}
+      {/* ADVANCED MODULE 3: EXPENSES & PROFIT MANAGEMENT */}
+      {activeTab === 'expenses' && <ExpensesManagementSection />}
+      {activeTab === 'transactions' && <FinancialTransactionsSection />}
+      {activeTab === 'profit-reports' && <ProfitReportsSection />}
 
-          {activeTab === 'quotations' && (
-            <QuotationsTab
-              onRefreshStats={reloadAllData}
-              onNavigateToInvoice={() => setActiveTab('invoices')}
-            />
-          )}
+      {/* ADVANCED MODULE 5: GLOBAL SEARCH */}
+      {activeTab === 'global-search' && <GlobalSearchSection onNavigateTab={handleSelectTab} />}
 
-          {activeTab === 'invoices' && (
-            <InvoicesTab
-              invoices={invoices}
-              inventory={inventory}
-              onCreateInvoice={handleCreateInvoice}
-              onUpdatePayment={handleUpdatePayment}
-              onPrintInvoice={setPrintingInvoice}
-              initialJobCardPrefill={invoicePrefill}
-              onClearPrefill={() => setInvoicePrefill(null)}
-            />
-          )}
+      {/* ADVANCED MODULE 6: SUPPLIER & PURCHASE ORDER MANAGEMENT */}
+      {activeTab === 'suppliers' && <SuppliersSection />}
+      {activeTab === 'purchase-orders' && <PurchaseOrdersSection />}
+      {activeTab === 'goods-receiving' && <GoodsReceivingSection />}
+      {activeTab === 'supplier-payments' && <SupplierPaymentsSection />}
 
-          {activeTab === 'inventory' && (
-            <InventoryTab
-              inventory={inventory}
-              movements={movements}
-              onSavePart={handleSavePart}
-              onAdjustStock={handleAdjustStock}
-              onDeletePart={handleDeletePart}
-            />
-          )}
+      {/* ADVANCED MODULE 7: SECURITY CENTRE & DATA RECOVERY */}
+      {activeTab === 'security-centre' && <SecurityCentreSection />}
+      {activeTab === 'storage-health' && <StorageHealthSection />}
 
-          {activeTab === 'staff' && (
-            <StaffTab
-              staff={staff}
-              jobCards={jobCards}
-              onSaveStaff={handleSaveStaff}
-              onDeleteStaff={handleDeleteStaff}
-              activeRoleView="Super Admin"
-              onSelectRoleView={() => {}}
-            />
-          )}
-
-          {activeTab === 'reminders' && (
-            <RemindersTab
-              reminders={reminders}
-              onSaveReminder={handleSaveReminder}
-              onUpdateStatus={handleUpdateReminderStatus}
-              onDeleteReminder={handleDeleteReminder}
-            />
-          )}
-
-          {activeTab === 'whatsapp' && <WhatsAppTemplatesTab onNotify={showNotification} />}
-        </main>
-      </div>
-
-      {/* PRINTABLE MODALS */}
+      {/* PRINTABLE MODALS & BACKUP RESTORE MODAL */}
       {printingJobCard && (
         <PrintJobCardModal jobCard={printingJobCard} onClose={() => setPrintingJobCard(null)} />
       )}
@@ -939,6 +890,6 @@ export const AdminView: React.FC = () => {
       {showBackupModal && (
         <DatabaseBackupModal onClose={() => setShowBackupModal(false)} onRestoreSuccess={reloadAllData} />
       )}
-    </div>
+    </AdminLayout>
   );
 };

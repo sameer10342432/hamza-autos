@@ -1,0 +1,64 @@
+[
+  {
+    "id": "flw-mwkclyvs-vjo1o",
+    "leadId": "lead-mwkclysi-us7du",
+    "customerName": "QA Test Customer A",
+    "phoneNumber": "0312-9988776",
+    "followUpTime": "11:00 AM",
+    "followUpMethod": "Call",
+    "followUpNotes": "",
+    "assignedAdmin": "admin",
+    "status": "Pending",
+    "createdAt": "2026-11-17T07:05:48.760Z"
+  },
+  {
+    "id": "flw-mwkcjo7e-c0yjx",
+    "leadId": "lead-mwkcjo4n-5a9q5",
+    "customerName": "QA Test Customer A",
+    "phoneNumber": "0312-9988776",
+    "followUpTime": "11:00 AM",
+    "followUpMethod": "Call",
+    "followUpNotes": "",
+    "assignedAdmin": "admin",
+    "status": "Pending",
+    "createdAt": "2026-11-17T07:04:01.610Z"
+  },
+  {
+    "id": "flw-mwkcbpim-knvfk",
+    "leadId": "lead-mwkcbpfx-81k9s",
+    "customerName": "QA Test Customer A",
+    "phoneNumber": "0312-9988776",
+    "followUpTime": "11:00 AM",
+    "followUpMethod": "Call",
+    "followUpNotes": "",
+    "assignedAdmin": "admin",
+    "status": "Pending",
+    "createdAt": "2026-11-17T06:57:50.062Z"
+  },
+  {
+    "id": "flw-1",
+    "leadId": "lead-101",
+    "customerName": "Muhammad Salman",
+    "phoneNumber": "0300 4567891",
+    "followUpDate": "2026-11-17",
+    "followUpTime": "04:00 PM",
+    "followUpMethod": "WhatsApp",
+    "followUpNotes": "Send quote confirmation for CD 70 piston cylinder hone and timing chain.",
+    "assignedAdmin": "Master Mechanic Hamza",
+    "status": "Pending",
+    "createdAt": "2026-11-14T11:00:00.000Z"
+  },
+  {
+    "id": "flw-2",
+    "leadId": "lead-102",
+    "customerName": "Khurram Shehzad",
+    "phoneNumber": "0321 8765432",
+    "followUpDate": "2026-11-18",
+    "followUpTime": "11:30 AM",
+    "followUpMethod": "Call",
+    "followUpNotes": "Follow up on YBR 125 front shock fork seals availability and Saturday booking.",
+    "assignedAdmin": "Master Mechanic Hamza",
+    "status": "Pending",
+    "createdAt": "2026-11-15T15:00:00.000Z"
+  }
+]

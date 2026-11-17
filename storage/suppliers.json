@@ -1,0 +1,73 @@
+[
+  {
+    "id": "sup-1",
+    "supplierName": "Crown Lifan Pakistan (Authorized Distributor)",
+    "contactPerson": "Haji Farooq Ahmad",
+    "phoneNumber": "0300 8421900",
+    "whatsAppNumber": "0300 8421900",
+    "email": "sales@crownlifanlahore.pk",
+    "businessAddress": "Main Auto Market, Badami Bagh, Lahore",
+    "supplierCategory": "OEM & Aftermarket Spare Parts",
+    "productsSupplied": [
+      "Pistons",
+      "Cylinder Kits",
+      "Clutch Plates",
+      "Chain Sprockets",
+      "Valve Sets"
+    ],
+    "paymentTerms": "15 Days Net Credit",
+    "notes": "Primary supplier for Crown Lifan certified replacement parts.",
+    "status": "Active",
+    "totalPurchases": 45000,
+    "totalPaid": 35000,
+    "outstandingBalance": 10000,
+    "createdAt": "2026-01-15T08:00:00.000Z"
+  },
+  {
+    "id": "sup-2",
+    "supplierName": "Atlas Honda Genuine Parts Wholesale Agency",
+    "contactPerson": "Malik Zafar Iqbal",
+    "phoneNumber": "0321 4455667",
+    "whatsAppNumber": "0321 4455667",
+    "email": "orders@atlashondasparez.com",
+    "businessAddress": "Ravi Auto Plaza, Badami Bagh, Lahore",
+    "supplierCategory": "Genuine OEM Parts",
+    "productsSupplied": [
+      "Genuine CD 70 / CG 125 Oil",
+      "OEM Brake Shoes",
+      "Genuine Cables",
+      "Air Filters",
+      "Gaskets"
+    ],
+    "paymentTerms": "Cash on Delivery / 7 Days",
+    "notes": "Supplies 100% genuine sealed Atlas Honda packaging with barcode verification.",
+    "status": "Active",
+    "totalPurchases": 62000,
+    "totalPaid": 58000,
+    "outstandingBalance": 4000,
+    "createdAt": "2026-02-01T08:00:00.000Z"
+  },
+  {
+    "id": "sup-3",
+    "supplierName": "Guard Filters & Automotive Lubricants",
+    "contactPerson": "Sheikh Nabeel",
+    "phoneNumber": "0333 9988112",
+    "whatsAppNumber": "0333 9988112",
+    "email": "guard.lahore@gmail.com",
+    "businessAddress": "Circular Road, Near Bhati Gate, Lahore",
+    "supplierCategory": "Filters & Lubricants",
+    "productsSupplied": [
+      "Guard Air Filters",
+      "Engine Oil Filters",
+      "Havoline 4T 20W-50",
+      "Brake Fluid DOT 3"
+    ],
+    "paymentTerms": "Cash on Delivery",
+    "notes": "Direct distributor for Guard and Caltex Havoline motorcycle engine oils.",
+    "status": "Active",
+    "totalPurchases": 28000,
+    "totalPaid": 28000,
+    "outstandingBalance": 0,
+    "createdAt": "2026-03-10T08:00:00.000Z"
+  }
+]

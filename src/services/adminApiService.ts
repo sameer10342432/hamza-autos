@@ -454,4 +454,236 @@ export class AdminApiService {
       body: JSON.stringify({ settings })
     });
   }
+
+  // ==========================================
+  // ADVANCED CRM & LEADS
+  // ==========================================
+  static async getCrmLeads(params?: { status?: string; priority?: string; search?: string }): Promise<{ success: boolean; leads: any[]; total: number }> {
+    const qs = new URLSearchParams(params as any).toString();
+    return this.request(`/crm/leads${qs ? `?${qs}` : ''}`);
+  }
+
+  static async createCrmLead(leadData: any): Promise<{ success: boolean; lead: any }> {
+    return this.request('/crm/leads', {
+      method: 'POST',
+      body: JSON.stringify(leadData)
+    });
+  }
+
+  static async updateCrmLead(id: string, leadData: any): Promise<{ success: boolean; lead: any }> {
+    return this.request(`/crm/leads/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(leadData)
+    });
+  }
+
+  static async deleteCrmLead(id: string): Promise<{ success: boolean; message: string }> {
+    return this.request(`/crm/leads/${id}`, { method: 'DELETE' });
+  }
+
+  static async convertCrmLead(id: string, options: { createBooking?: boolean; appointmentDate?: string; appointmentTime?: string }): Promise<{ success: boolean; customer: any; bookingId?: string; lead: any }> {
+    return this.request(`/crm/leads/${id}/convert`, {
+      method: 'POST',
+      body: JSON.stringify(options)
+    });
+  }
+
+  static async getCrmFollowups(): Promise<{ success: boolean; followups: any[] }> {
+    return this.request('/crm/followups');
+  }
+
+  static async createCrmFollowup(data: any): Promise<{ success: boolean; followup: any }> {
+    return this.request('/crm/followups', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async updateCrmFollowup(id: string, data: any): Promise<{ success: boolean; followup: any }> {
+    return this.request(`/crm/followups/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async deleteCrmFollowup(id: string): Promise<{ success: boolean; message: string }> {
+    return this.request(`/crm/followups/${id}`, { method: 'DELETE' });
+  }
+
+  static async getCrmInteractions(params?: { leadId?: string; customerId?: string }): Promise<{ success: boolean; interactions: any[] }> {
+    const qs = new URLSearchParams(params as any).toString();
+    return this.request(`/crm/interactions${qs ? `?${qs}` : ''}`);
+  }
+
+  static async createCrmInteraction(data: any): Promise<{ success: boolean; interaction: any }> {
+    return this.request('/crm/interactions', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  // ==========================================
+  // MECHANIC MANAGEMENT
+  // ==========================================
+  static async getMechanics(): Promise<{ success: boolean; mechanics: any[] }> {
+    return this.request('/mechanics');
+  }
+
+  static async createMechanic(data: any): Promise<{ success: boolean; mechanic: any }> {
+    return this.request('/mechanics', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async updateMechanic(id: string, data: any): Promise<{ success: boolean; mechanic: any }> {
+    return this.request(`/mechanics/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async deleteMechanic(id: string): Promise<{ success: boolean; message: string }> {
+    return this.request(`/mechanics/${id}`, { method: 'DELETE' });
+  }
+
+  static async getMechanicAttendance(params?: { date?: string; mechanicId?: string }): Promise<{ success: boolean; attendance: any[] }> {
+    const qs = new URLSearchParams(params as any).toString();
+    return this.request(`/mechanics/attendance${qs ? `?${qs}` : ''}`);
+  }
+
+  static async recordMechanicAttendance(data: any): Promise<{ success: boolean; attendanceRecord: any }> {
+    return this.request('/mechanics/attendance', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  // ==========================================
+  // EXPENSES & FINANCIAL TRANSACTIONS
+  // ==========================================
+  static async getExpenses(params?: { category?: string; search?: string }): Promise<{ success: boolean; expenses: any[]; totalAmount: number }> {
+    const qs = new URLSearchParams(params as any).toString();
+    return this.request(`/expenses${qs ? `?${qs}` : ''}`);
+  }
+
+  static async createExpense(data: any): Promise<{ success: boolean; expense: any }> {
+    return this.request('/expenses', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async updateExpense(id: string, data: any): Promise<{ success: boolean; expense: any }> {
+    return this.request(`/expenses/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async deleteExpense(id: string): Promise<{ success: boolean; message: string }> {
+    return this.request(`/expenses/${id}`, { method: 'DELETE' });
+  }
+
+  static async getExpenseCategories(): Promise<{ success: boolean; categories: any[] }> {
+    return this.request('/expenses/categories');
+  }
+
+  static async createExpenseCategory(data: any): Promise<{ success: boolean; category: any }> {
+    return this.request('/expenses/categories', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async getFinancialTransactions(params?: { type?: string; search?: string }): Promise<{ success: boolean; transactions: any[] }> {
+    const qs = new URLSearchParams(params as any).toString();
+    return this.request(`/financial/transactions${qs ? `?${qs}` : ''}`);
+  }
+
+  static async getProfitSummary(): Promise<{ success: boolean; profitSummary: any }> {
+    return this.request('/financial/profit-summary');
+  }
+
+  // ==========================================
+  // SUPPLIERS & PURCHASE ORDERS
+  // ==========================================
+  static async getSuppliers(): Promise<{ success: boolean; suppliers: any[] }> {
+    return this.request('/suppliers');
+  }
+
+  static async createSupplier(data: any): Promise<{ success: boolean; supplier: any }> {
+    return this.request('/suppliers', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async updateSupplier(id: string, data: any): Promise<{ success: boolean; supplier: any }> {
+    return this.request(`/suppliers/${id}`, {
+      method: 'PUT',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async deleteSupplier(id: string): Promise<{ success: boolean; message: string }> {
+    return this.request(`/suppliers/${id}`, { method: 'DELETE' });
+  }
+
+  static async getPurchaseOrders(): Promise<{ success: boolean; purchaseOrders: any[] }> {
+    return this.request('/purchase-orders');
+  }
+
+  static async createPurchaseOrder(data: any): Promise<{ success: boolean; purchaseOrder: any }> {
+    return this.request('/purchase-orders', {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async receivePurchaseOrder(id: string, data: { receivedItems: Array<{ id: string; quantityReceivedNow: number }>; receivingNotes?: string }): Promise<{ success: boolean; purchaseOrder: any; message: string }> {
+    return this.request(`/purchase-orders/${id}/receive`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async payPurchaseOrder(id: string, data: { amount: number; paymentMethod: string; referenceNumber?: string; notes?: string }): Promise<{ success: boolean; purchaseOrder: any; paymentRecord: any }> {
+    return this.request(`/purchase-orders/${id}/pay`, {
+      method: 'POST',
+      body: JSON.stringify(data)
+    });
+  }
+
+  static async getSupplierPayments(): Promise<{ success: boolean; payments: any[] }> {
+    return this.request('/supplier-payments');
+  }
+
+  // ==========================================
+  // GLOBAL SEARCH API
+  // ==========================================
+  static async globalSearch(query: string): Promise<{ success: boolean; query: string; total: number; results: any[] }> {
+    return this.request(`/search/global?q=${encodeURIComponent(query)}`);
+  }
+
+  // ==========================================
+  // SECURITY & STORAGE HEALTH API
+  // ==========================================
+  static async getSecurityEvents(): Promise<{ success: boolean; events: any[] }> {
+    return this.request('/security/events');
+  }
+
+  static async getStorageHealth(): Promise<{ success: boolean; storageHealth: any }> {
+    return this.request('/security/storage-health');
+  }
+
+  static async getDataIntegrityReport(): Promise<{ success: boolean; integrityReport: any }> {
+    return this.request('/security/integrity-check');
+  }
+
+  static async getRecoveryHistory(): Promise<{ success: boolean; history: any[] }> {
+    return this.request('/security/recovery-history');
+  }
 }
+
+export const adminApiService = AdminApiService;

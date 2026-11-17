@@ -1,0 +1,50 @@
+[
+  {
+    "id": "exp-cat-rent",
+    "name": "Shop Rent",
+    "isSystem": true,
+    "description": "Monthly workshop premises rent on Abu Bakar Road"
+  },
+  {
+    "id": "exp-cat-elec",
+    "name": "Electricity (LESCO)",
+    "isSystem": true,
+    "description": "Commercial LESCO power bill for compressors and lighting"
+  },
+  {
+    "id": "exp-cat-parts",
+    "name": "Spare Parts Purchases",
+    "isSystem": true,
+    "description": "Direct stock procurement from Badami Bagh wholesale market"
+  },
+  {
+    "id": "exp-cat-tools",
+    "name": "Workshop Tools & Machinery",
+    "isSystem": true,
+    "description": "Tappet gauges, impact wrenches, socket sets, ultrasonic cleaners"
+  },
+  {
+    "id": "exp-cat-salary",
+    "name": "Staff Salaries & Daily Wages",
+    "isSystem": true,
+    "description": "Mechanic compensation and workshop helper wages"
+  },
+  {
+    "id": "exp-cat-maint",
+    "name": "Equipment Maintenance",
+    "isSystem": false,
+    "description": "Air compressor oil change, lift repairs, hydraulic jack servicing"
+  },
+  {
+    "id": "exp-cat-tea",
+    "name": "Staff Tea & Refreshments",
+    "isSystem": false,
+    "description": "Daily workshop tea, clean drinking water, and meals"
+  },
+  {
+    "id": "exp-cat-mktg",
+    "name": "Marketing & Printing",
+    "isSystem": false,
+    "description": "Job card printing, visiting cards, banner maintenance"
+  }
+]

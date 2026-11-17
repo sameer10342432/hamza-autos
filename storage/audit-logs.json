@@ -1,5 +1,437 @@
 [
   {
+    "id": "audit-mwkclzwd-fyj9n",
+    "action": "PURCHASE_ORDER_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "purchase-orders.json/po-mwkclz8x-lt8m2",
+    "timestamp": "2026-11-17T07:05:50.077Z",
+    "metadata": "Deleted HA-PO-2026-003"
+  },
+  {
+    "id": "audit-mwkclzue-xikkx",
+    "action": "EXPENSE_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkclzle-a0url",
+    "timestamp": "2026-11-17T07:05:50.006Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkclzse-tnvqu",
+    "action": "MECHANIC_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkclz32-0kdf6",
+    "timestamp": "2026-11-17T07:05:49.934Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkclzqk-qqgv4",
+    "action": "LEAD_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkclysi-us7du",
+    "timestamp": "2026-11-17T07:05:49.868Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkclznp-9srqv",
+    "action": "EXPENSE_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkclzle-a0url",
+    "timestamp": "2026-11-17T07:05:49.765Z",
+    "metadata": "PKR 1500 for undefined"
+  },
+  {
+    "id": "audit-mwkclzkh-dt9nr",
+    "action": "SUPPLIER_PAYMENT_RECORDED",
+    "performedBy": "admin",
+    "affectedRecord": "supplier-payments.json/spay-mwkclzgy-jdew9",
+    "timestamp": "2026-11-17T07:05:49.649Z",
+    "metadata": "PKR 6500 to Crown Lifan Spares QA Partner"
+  },
+  {
+    "id": "audit-mwkclzew-h5ze2",
+    "action": "STOCK_RECEIVED",
+    "performedBy": "admin",
+    "affectedRecord": "purchase-orders.json/po-mwkclz8x-lt8m2",
+    "timestamp": "2026-11-17T07:05:49.448Z",
+    "metadata": "Received items on HA-PO-2026-003"
+  },
+  {
+    "id": "audit-mwkclzbo-ksb8o",
+    "action": "PURCHASE_ORDER_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "purchase-orders.json/po-mwkclz8x-lt8m2",
+    "timestamp": "2026-11-17T07:05:49.332Z",
+    "metadata": "HA-PO-2026-003 value PKR 6500"
+  },
+  {
+    "id": "audit-mwkclz7z-xvb73",
+    "action": "SUPPLIER_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "suppliers.json/sup-mwkclz6q-xahnw",
+    "timestamp": "2026-11-17T07:05:49.199Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkclz4b-d1605",
+    "action": "MECHANIC_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkclz32-0kdf6",
+    "timestamp": "2026-11-17T07:05:49.067Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkclz25-molq8",
+    "action": "LEAD_CONVERTED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkclysi-us7du",
+    "timestamp": "2026-11-17T07:05:48.989Z",
+    "metadata": "Converted to Customer cust-mwkcbpkp-x2rpo"
+  },
+  {
+    "id": "audit-mwkclyuw-mpifi",
+    "action": "LEAD_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkclysi-us7du",
+    "timestamp": "2026-11-17T07:05:48.728Z",
+    "metadata": "Created lead for QA Test Customer A"
+  },
+  {
+    "id": "audit-mwkclyof-1b7rb",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T07:05:48.495Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkck1in-atymw",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T07:04:18.863Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkcjp2t-9szo2",
+    "action": "EXPENSE_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkcjou5-gf228",
+    "timestamp": "2026-11-17T07:04:02.741Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcjp12-hdga7",
+    "action": "MECHANIC_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkcjodo-gif1s",
+    "timestamp": "2026-11-17T07:04:02.678Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcjoz9-1klu3",
+    "action": "LEAD_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkcjo4n-5a9q5",
+    "timestamp": "2026-11-17T07:04:02.613Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcjowd-fwrs6",
+    "action": "EXPENSE_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkcjou5-gf228",
+    "timestamp": "2026-11-17T07:04:02.509Z",
+    "metadata": "PKR 1500 for undefined"
+  },
+  {
+    "id": "audit-mwkcjot9-n4ws4",
+    "action": "SUPPLIER_PAYMENT_RECORDED",
+    "performedBy": "admin",
+    "affectedRecord": "supplier-payments.json/spay-mwkcjopp-qf3sd",
+    "timestamp": "2026-11-17T07:04:02.397Z",
+    "metadata": "PKR 6500 to Crown Lifan Spares QA Partner"
+  },
+  {
+    "id": "audit-mwkcjonv-j0ezr",
+    "action": "STOCK_RECEIVED",
+    "performedBy": "admin",
+    "affectedRecord": "purchase-orders.json/po-mwkcjoiq-0dik7",
+    "timestamp": "2026-11-17T07:04:02.203Z",
+    "metadata": "Received items on HA-PO-2026-004"
+  },
+  {
+    "id": "audit-mwkcjoku-96s91",
+    "action": "PURCHASE_ORDER_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "purchase-orders.json/po-mwkcjoiq-0dik7",
+    "timestamp": "2026-11-17T07:04:02.094Z",
+    "metadata": "HA-PO-2026-004 value PKR 6500"
+  },
+  {
+    "id": "audit-mwkcjohu-iwb9u",
+    "action": "SUPPLIER_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "suppliers.json/sup-mwkcjogs-rbxsv",
+    "timestamp": "2026-11-17T07:04:01.986Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcjoeq-qohce",
+    "action": "MECHANIC_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkcjodo-gif1s",
+    "timestamp": "2026-11-17T07:04:01.874Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcjocr-pboha",
+    "action": "LEAD_CONVERTED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkcjo4n-5a9q5",
+    "timestamp": "2026-11-17T07:04:01.803Z",
+    "metadata": "Converted to Customer cust-mwkcbpkp-x2rpo"
+  },
+  {
+    "id": "audit-mwkcjo6k-qp3p6",
+    "action": "LEAD_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkcjo4n-5a9q5",
+    "timestamp": "2026-11-17T07:04:01.580Z",
+    "metadata": "Created lead for QA Test Customer A"
+  },
+  {
+    "id": "audit-mwkcjo09-8ookb",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T07:04:01.353Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkcbq56-ln5ou",
+    "action": "EXPENSE_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkcbpw1-8ea8u",
+    "timestamp": "2026-11-17T06:57:50.874Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcbq36-ut58c",
+    "action": "MECHANIC_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkcbpoc-5d0o2",
+    "timestamp": "2026-11-17T06:57:50.802Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcbq15-79o82",
+    "action": "LEAD_DELETED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkcbpfx-81k9s",
+    "timestamp": "2026-11-17T06:57:50.729Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcbpy3-5w5m3",
+    "action": "EXPENSE_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkcbpw1-8ea8u",
+    "timestamp": "2026-11-17T06:57:50.619Z",
+    "metadata": "PKR 1500 for undefined"
+  },
+  {
+    "id": "audit-mwkcbpuz-4076b",
+    "action": "PURCHASE_ORDER_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "purchase-orders.json/po-mwkcbpsz-u5lfo",
+    "timestamp": "2026-11-17T06:57:50.507Z",
+    "metadata": "HA-PO-2026-003 value PKR 0"
+  },
+  {
+    "id": "audit-mwkcbps5-726dl",
+    "action": "SUPPLIER_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "suppliers.json/sup-mwkcbpr6-6yb5n",
+    "timestamp": "2026-11-17T06:57:50.405Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcbpp8-k13f4",
+    "action": "MECHANIC_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkcbpoc-5d0o2",
+    "timestamp": "2026-11-17T06:57:50.300Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkcbpnh-bhvku",
+    "action": "LEAD_CONVERTED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkcbpfx-81k9s",
+    "timestamp": "2026-11-17T06:57:50.237Z",
+    "metadata": "Converted to Customer cust-mwkcbpkp-x2rpo"
+  },
+  {
+    "id": "audit-mwkcbphs-761z3",
+    "action": "LEAD_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkcbpfx-81k9s",
+    "timestamp": "2026-11-17T06:57:50.032Z",
+    "metadata": "Created lead for QA Test Customer A"
+  },
+  {
+    "id": "audit-mwkcbpd0-abusj",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:57:49.860Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkcapqk-0vnwr",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:57:03.692Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkc1d27-5voss",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:49:47.359Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkbo5z0-rlxdu",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:39:31.644Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkbnvv9-padnl",
+    "action": "EXPENSE_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkbnvth-76vv8",
+    "timestamp": "2026-11-17T06:39:18.549Z",
+    "metadata": "PKR 4500 for undefined"
+  },
+  {
+    "id": "audit-mwkbnvsj-1qhs0",
+    "action": "MECHANIC_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkbnvrl-kk5xy",
+    "timestamp": "2026-11-17T06:39:18.451Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkbnvqk-om6pi",
+    "action": "LEAD_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkbnvoq-2ql7p",
+    "timestamp": "2026-11-17T06:39:18.380Z",
+    "metadata": "Created lead for Tariq Mehmood"
+  },
+  {
+    "id": "audit-mwkbnvnt-8top3",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:39:18.281Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkbmylc-1x9e4",
+    "action": "EXPENSE_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkbmyjb-67r93",
+    "timestamp": "2026-11-17T06:38:35.424Z",
+    "metadata": "PKR 4500 for undefined"
+  },
+  {
+    "id": "audit-mwkbmyi8-rmgc0",
+    "action": "MECHANIC_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkbmyha-wm6cm",
+    "timestamp": "2026-11-17T06:38:35.312Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkbmygg-uoifp",
+    "action": "LEAD_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkbmyeg-t29qv",
+    "timestamp": "2026-11-17T06:38:35.248Z",
+    "metadata": "Created lead for Tariq Mehmood"
+  },
+  {
+    "id": "audit-mwkbmyda-1iaat",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:38:35.134Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkblljg-n8hg9",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:37:31.852Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkblevq-6pqfj",
+    "action": "EXPENSE_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "expenses.json/exp-mwkbleqn-28jdr",
+    "timestamp": "2026-11-17T06:37:23.222Z",
+    "metadata": "PKR 4500 for undefined"
+  },
+  {
+    "id": "audit-mwkblepk-14gq0",
+    "action": "MECHANIC_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "mechanics.json/mech-mwkblelw-pb94n",
+    "timestamp": "2026-11-17T06:37:23.000Z",
+    "metadata": ""
+  },
+  {
+    "id": "audit-mwkblekm-5yu0a",
+    "action": "LEAD_CREATED",
+    "performedBy": "admin",
+    "affectedRecord": "crm-leads.json/lead-mwkblef3-kvvru",
+    "timestamp": "2026-11-17T06:37:22.822Z",
+    "metadata": "Created lead for Tariq Mehmood"
+  },
+  {
+    "id": "audit-mwkblebt-abfuo",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:37:22.506Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkbk6yc-5zxgs",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:36:26.292Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
+    "id": "audit-mwkbjglr-o5udj",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-17T06:35:52.143Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
     "id": "audit-mwj044zq-y3jsc",
     "action": "BACKUP_CREATED",
     "performedBy": "admin",

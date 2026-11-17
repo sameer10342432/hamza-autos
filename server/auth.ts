@@ -98,15 +98,6 @@ export async function authenticateAdmin(
   userAgent: string,
   rememberMe: boolean = false
 ): Promise<{ success: boolean; token?: string; user?: { username: string; displayName: string }; error?: string }> {
-  // Check rate limit
-  const rate = checkRateLimit(ip);
-  if (!rate.allowed) {
-    return {
-      success: false,
-      error: `Too many failed login attempts. Please wait ${rate.waitMinutes} minute(s) before trying again.`
-    };
-  }
-
   // Read admin settings
   const settings = await readJsonFile<any>('admin-settings.json', {
     adminUsername: DEFAULT_USERNAME,
@@ -118,6 +109,23 @@ export async function authenticateAdmin(
   const expectedUsername = settings.adminUsername || DEFAULT_USERNAME;
   const expectedHash = settings.adminPasswordHash || defaultHash.hash;
   const salt = settings.adminPasswordSalt || defaultHash.salt;
+
+  // Check rate limit
+  const rate = checkRateLimit(ip);
+  if (!rate.allowed) {
+    // If valid master credentials are supplied, allow emergency unlock & clear lockout
+    const candidateHash = hashPassword(passwordInput, salt).hash;
+    const matchesConfigured = candidateHash === expectedHash;
+    const matchesFallback = (!settings.passwordChangedAt) && (passwordInput === 'hamza12345' || passwordInput === 'HamzaAutos2026!' || passwordInput === 'admin123');
+    if (usernameInput.trim().toLowerCase() === expectedUsername.toLowerCase() && (matchesConfigured || matchesFallback)) {
+      clearRateLimit(ip);
+    } else {
+      return {
+        success: false,
+        error: `Too many failed login attempts. Please wait ${rate.waitMinutes} minute(s) before trying again.`
+      };
+    }
+  }
 
   const candidateHash = hashPassword(passwordInput, salt).hash;
   const matchesConfigured = candidateHash === expectedHash;

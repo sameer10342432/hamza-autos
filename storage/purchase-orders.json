@@ -1,0 +1,76 @@
+[
+  {
+    "id": "po-101",
+    "poNumber": "HA-PO-2026-001",
+    "supplierId": "sup-1",
+    "supplierName": "Crown Lifan Pakistan (Authorized Distributor)",
+    "orderDate": "2026-11-08",
+    "expectedDeliveryDate": "2026-11-10",
+    "items": [
+      {
+        "id": "item-1",
+        "partName": "Crown CD 70 Piston & Ring Kit (0.25mm)",
+        "quantityOrdered": 10,
+        "quantityReceived": 10,
+        "unitPurchasePrice": 850,
+        "total": 8500
+      },
+      {
+        "id": "item-2",
+        "partName": "Crown CG 125 Heavy-Duty Clutch Plates Set",
+        "quantityOrdered": 8,
+        "quantityReceived": 8,
+        "unitPurchasePrice": 750,
+        "total": 6000
+      }
+    ],
+    "discount": 500,
+    "additionalCharges": 0,
+    "totalOrderValue": 14000,
+    "paidAmount": 14000,
+    "paymentStatus": "Paid",
+    "deliveryStatus": "Received",
+    "receivedDate": "2026-11-10",
+    "receivingNotes": "All 10 piston kits and 8 clutch plate sets verified and placed on Shelf B-2.",
+    "notes": "Restock for November overhaul jobs.",
+    "createdBy": "admin",
+    "createdAt": "2026-11-08T10:00:00.000Z"
+  },
+  {
+    "id": "po-102",
+    "poNumber": "HA-PO-2026-002",
+    "supplierId": "sup-2",
+    "supplierName": "Atlas Honda Genuine Parts Wholesale Agency",
+    "orderDate": "2026-11-14",
+    "expectedDeliveryDate": "2026-11-18",
+    "items": [
+      {
+        "id": "item-3",
+        "partName": "Atlas Honda Genuine CD 70 Brake Shoes",
+        "quantityOrdered": 20,
+        "quantityReceived": 10,
+        "unitPurchasePrice": 380,
+        "total": 7600
+      },
+      {
+        "id": "item-4",
+        "partName": "Genuine Havoline 4T 20W-50 0.7L Oil Can",
+        "quantityOrdered": 24,
+        "quantityReceived": 24,
+        "unitPurchasePrice": 720,
+        "total": 17280
+      }
+    ],
+    "discount": 880,
+    "additionalCharges": 0,
+    "totalOrderValue": 24000,
+    "paidAmount": 20000,
+    "paymentStatus": "Partially Paid",
+    "deliveryStatus": "Partially Received",
+    "receivedDate": "2026-11-16",
+    "receivingNotes": "Received all 24 Havoline oil cans. 10 brake shoes delivered, remaining 10 arriving Friday.",
+    "notes": "Urgent oil restock.",
+    "createdBy": "admin",
+    "createdAt": "2026-11-14T11:30:00.000Z"
+  }
+]

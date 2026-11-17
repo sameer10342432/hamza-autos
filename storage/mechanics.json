@@ -1,0 +1,167 @@
+[
+  {
+    "id": "mech-1",
+    "fullName": "Hamza Khan (Master Mechanic)",
+    "phoneNumber": "0325 1814548",
+    "whatsAppNumber": "0325 1814548",
+    "email": "hamzaautos.lahore@gmail.com",
+    "address": "Abu Bakar Road, Badami Bagh, Lahore",
+    "joiningDate": "2019-03-01",
+    "specializations": [
+      "Engine Repair",
+      "Motorcycle Tuning",
+      "Motorcycle Modification"
+    ],
+    "skills": [
+      "Cylinder Boring Calibration",
+      "Ultrasonic Carburetor Cleansing",
+      "4-Stroke Overhaul"
+    ],
+    "employmentStatus": "Active",
+    "internalNotes": "Chief Workshop Foreman & Master Technician. Oversees all major engine builds.",
+    "assignedBays": [
+      "Bay 1 - Engine Bay"
+    ],
+    "activeJobsCount": 2,
+    "completedJobsCount": 420,
+    "hourlyRate": 800,
+    "createdAt": "2019-03-01T08:00:00.000Z"
+  },
+  {
+    "id": "mech-2",
+    "fullName": "Bilal Ahmad",
+    "phoneNumber": "0301 7788990",
+    "whatsAppNumber": "0301 7788990",
+    "address": "Misri Shah, Lahore",
+    "joiningDate": "2021-06-15",
+    "specializations": [
+      "Brake Repair",
+      "Clutch Repair",
+      "General Maintenance"
+    ],
+    "skills": [
+      "Hydraulic Disc Brake Bleeding",
+      "Clutch Plate Replacement",
+      "Chain Sprocket Alignment"
+    ],
+    "employmentStatus": "Active",
+    "internalNotes": "Fast diagnostic specialist for Honda CD 70 and CG 125 transmission & brakes.",
+    "assignedBays": [
+      "Bay 2 - Quick Service Bay"
+    ],
+    "activeJobsCount": 1,
+    "completedJobsCount": 310,
+    "hourlyRate": 500,
+    "createdAt": "2021-06-15T08:00:00.000Z"
+  },
+  {
+    "id": "mech-3",
+    "fullName": "Kamran Ali (Electrician)",
+    "phoneNumber": "0312 3344556",
+    "whatsAppNumber": "0312 3344556",
+    "address": "Shadbagh, Lahore",
+    "joiningDate": "2022-09-01",
+    "specializations": [
+      "Electrical Work",
+      "Motorcycle Modification"
+    ],
+    "skills": [
+      "Stator Coil Rewinding",
+      "CDI Unit Diagnostics",
+      "LED Headlight Conversion",
+      "Self Starter Overhaul"
+    ],
+    "employmentStatus": "Active",
+    "internalNotes": "Specialist in 12V wiring harnesses and Suzuki/Yamaha electrical troubleshooting.",
+    "assignedBays": [
+      "Bay 3 - Electrical & Diagnostics Bay"
+    ],
+    "activeJobsCount": 1,
+    "completedJobsCount": 185,
+    "hourlyRate": 550,
+    "createdAt": "2022-09-01T08:00:00.000Z"
+  },
+  {
+    "id": "mech-4",
+    "fullName": "Usman Tariq",
+    "phoneNumber": "0345 9988776",
+    "address": "Ravi Road, Lahore",
+    "joiningDate": "2023-01-10",
+    "specializations": [
+      "Tyre & Puncture",
+      "Spare Parts Installation",
+      "General Maintenance"
+    ],
+    "skills": [
+      "Tubeless Tyre Patching",
+      "Wheel Rim Truing / Spokes Alignment",
+      "Oil & Filter Servicing"
+    ],
+    "employmentStatus": "Active",
+    "internalNotes": "Skilled in wheel balancing, puncture vulcanizing, and routine fast oil changes.",
+    "assignedBays": [
+      "Bay 4 - Wash & Wheel Bay"
+    ],
+    "activeJobsCount": 0,
+    "completedJobsCount": 240,
+    "hourlyRate": 400,
+    "createdAt": "2023-01-10T08:00:00.000Z"
+  },
+  {
+    "id": "mech-mwkblelw-pb94n",
+    "fullName": "Ustad Rashid Minhas",
+    "email": "",
+    "address": "Badami Bagh, Lahore",
+    "joiningDate": "2026-11-17",
+    "specializations": [
+      "Engine Overhauling",
+      "Clutch Tuning"
+    ],
+    "skills": [],
+    "employmentStatus": "Active",
+    "internalNotes": "",
+    "assignedBays": [],
+    "activeJobsCount": 0,
+    "completedJobsCount": 0,
+    "hourlyRate": 500,
+    "createdAt": "2026-11-17T06:37:22.868Z"
+  },
+  {
+    "id": "mech-mwkbmyha-wm6cm",
+    "fullName": "Ustad Rashid Minhas",
+    "email": "",
+    "address": "Badami Bagh, Lahore",
+    "joiningDate": "2026-11-17",
+    "specializations": [
+      "Engine Overhauling",
+      "Clutch Tuning"
+    ],
+    "skills": [],
+    "employmentStatus": "Active",
+    "internalNotes": "",
+    "assignedBays": [],
+    "activeJobsCount": 0,
+    "completedJobsCount": 0,
+    "hourlyRate": 500,
+    "createdAt": "2026-11-17T06:38:35.278Z"
+  },
+  {
+    "id": "mech-mwkbnvrl-kk5xy",
+    "fullName": "Ustad Rashid Minhas",
+    "email": "",
+    "address": "Badami Bagh, Lahore",
+    "joiningDate": "2026-11-17",
+    "specializations": [
+      "Engine Overhauling",
+      "Clutch Tuning"
+    ],
+    "skills": [],
+    "employmentStatus": "Active",
+    "internalNotes": "",
+    "assignedBays": [],
+    "activeJobsCount": 0,
+    "completedJobsCount": 0,
+    "hourlyRate": 500,
+    "createdAt": "2026-11-17T06:39:18.417Z"
+  }
+]
