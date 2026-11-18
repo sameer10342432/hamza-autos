@@ -9,3 +9,5 @@ coverage/
 storage_safety_pre_qa_backup_*/
 storage/backups/
 qa-screenshots/
+scripts/*.jpg
+scripts/*.json

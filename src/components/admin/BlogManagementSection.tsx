@@ -426,7 +426,7 @@ export const BlogManagementSection: React.FC = () => {
                   type="text"
                   value={formData.featuredImage}
                   onChange={(e) => setFormData(p => ({ ...p, featuredImage: e.target.value }))}
-                  placeholder="/assets/images/home/hero.jpg"
+                  placeholder="/assets/images/home/motorcycle-workshop-hero.jpg"
                   className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono"
                 />
 
