@@ -21,6 +21,10 @@ import {
   updateAdminProfile,
   logAuditEvent
 } from './auth';
+import {
+  checkImageBufferForDuplicates,
+  checkImageUrlForAssignment
+} from './duplicatePrevention';
 
 export const apiRouter = Router();
 
@@ -921,10 +925,32 @@ apiRouter.get('/media', requireAuth, async (_req: Request, res: Response) => {
   }
 });
 
-// Secure Base64/Binary File Upload
+// Pre-Upload / Pre-Assignment Duplicate Check Endpoint
+apiRouter.post('/media/check-duplicate', requireAuth, async (req: Request, res: Response) => {
+  try {
+    const { base64Data, url, filename } = req.body;
+    if (base64Data) {
+      const base64Clean = base64Data.replace(/^data:[^;]+;base64,/, '');
+      const buffer = Buffer.from(base64Clean, 'base64');
+      const result = await checkImageBufferForDuplicates(buffer, filename);
+      return res.json({ success: true, ...result });
+    }
+    if (url) {
+      const result = checkImageUrlForAssignment(url);
+      return res.json({ success: true, ...result });
+    }
+    return res.status(400).json({ success: false, error: 'base64Data or url is required for duplicate checking.' });
+  } catch (err: any) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// Secure Base64/Binary File Upload with Built-in Duplicate Prevention
 apiRouter.post('/media/upload', requireAuth, async (req: Request, res: Response) => {
   try {
-    const { filename, base64Data, folder = 'blogs', altText } = req.body;
+    const filename = req.body.filename || req.body.fileName;
+    const base64Data = req.body.base64Data || req.body.fileData;
+    const { folder = 'blogs', altText, forceDuplicate = false } = req.body;
     if (!filename || !base64Data) {
       return res.status(400).json({ success: false, error: 'Filename and base64Data are required.' });
     }
@@ -940,11 +966,6 @@ apiRouter.post('/media/upload', requireAuth, async (req: Request, res: Response)
       return res.status(400).json({ success: false, error: `Invalid file extension (${ext}). Allowed: ${allowedExts.join(', ')}` });
     }
 
-    // Clean safe filename
-    const baseName = path.parse(filename).name.replace(/[^a-zA-Z0-9_-]/g, '_');
-    const safeFilename = `${baseName}_${Date.now()}${ext}`;
-    const targetPath = path.join(UPLOADS_DIR, targetFolder, safeFilename);
-
     // Decode base64
     const base64Clean = base64Data.replace(/^data:[^;]+;base64,/, '');
     const buffer = Buffer.from(base64Clean, 'base64');
@@ -953,6 +974,26 @@ apiRouter.post('/media/upload', requireAuth, async (req: Request, res: Response)
     if (buffer.length > 15 * 1024 * 1024) {
       return res.status(400).json({ success: false, error: 'File exceeds maximum 15MB size limit.' });
     }
+
+    // Strict Duplicate Prevention Guard
+    if (['.jpg', '.jpeg', '.png', '.webp'].includes(ext)) {
+      const dupCheck = await checkImageBufferForDuplicates(buffer, filename);
+      if (dupCheck.isDuplicate && !forceDuplicate) {
+        return res.status(409).json({
+          success: false,
+          duplicateDetected: true,
+          matchType: dupCheck.matchType,
+          matchedRecord: dupCheck.matchedRecord,
+          distance: dupCheck.distance,
+          message: dupCheck.message
+        });
+      }
+    }
+
+    // Clean safe filename
+    const baseName = path.parse(filename).name.replace(/[^a-zA-Z0-9_-]/g, '_');
+    const safeFilename = `${baseName}_${Date.now()}${ext}`;
+    const targetPath = path.join(UPLOADS_DIR, targetFolder, safeFilename);
 
     await fs.promises.writeFile(targetPath, buffer);
     const publicUrl = `/uploads/${targetFolder}/${safeFilename}`;

@@ -10,4 +10,10 @@ storage_safety_pre_qa_backup_*/
 storage/backups/
 qa-screenshots/
 scripts/*.jpg
+scripts/*.JPG
+scripts/*.png
 scripts/*.json
+scripts/rel_candidates/
+scripts/test_series/
+__pycache__/
+*.pyc

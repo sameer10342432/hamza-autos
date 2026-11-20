@@ -358,7 +358,14 @@ export class AdminApiService {
     return this.request(`/media${qs}`);
   }
 
-  static async uploadMediaFile(filePayload: { fileName: string; fileData: string; folder?: string }): Promise<{ success: boolean; file: any }> {
+  static async checkDuplicateMedia(payload: { base64Data?: string; url?: string; filename?: string }): Promise<any> {
+    return this.request('/media/check-duplicate', {
+      method: 'POST',
+      body: JSON.stringify(payload)
+    });
+  }
+
+  static async uploadMediaFile(filePayload: { fileName: string; fileData: string; folder?: string; forceDuplicate?: boolean }): Promise<{ success: boolean; file?: any; duplicateDetected?: boolean; message?: string; matchedRecord?: any }> {
     return this.request('/media/upload', {
       method: 'POST',
       body: JSON.stringify(filePayload)

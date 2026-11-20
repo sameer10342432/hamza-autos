@@ -11,7 +11,9 @@ import {
   Eye, 
   File, 
   X,
-  Plus
+  Plus,
+  AlertTriangle,
+  ShieldAlert
 } from 'lucide-react';
 import { AdminApiService } from '../../services/adminApiService';
 
@@ -33,6 +35,14 @@ export const MediaLibrarySection: React.FC = () => {
   const [previewFile, setPreviewFile] = useState<MediaFile | null>(null);
   const [copiedUrl, setCopiedUrl] = useState<string | null>(null);
   const [uploadProgress, setUploadProgress] = useState(false);
+  const [duplicateWarning, setDuplicateWarning] = useState<{
+    isDuplicate: boolean;
+    matchType?: string;
+    matchedRecord?: any;
+    distance?: number;
+    message?: string;
+    pendingUpload?: { name: string; base64: string; folder: string };
+  } | null>(null);
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const fetchFiles = async () => {
@@ -68,6 +78,34 @@ export const MediaLibrarySection: React.FC = () => {
     reader.onload = async () => {
       try {
         const base64 = reader.result as string;
+
+        // Multi-level Duplicate Detection Check before upload
+        try {
+          const dupRes = await AdminApiService.checkDuplicateMedia({
+            base64Data: base64,
+            filename: selected.name
+          });
+
+          if (dupRes && dupRes.isDuplicate) {
+            setDuplicateWarning({
+              isDuplicate: true,
+              matchType: dupRes.matchType,
+              matchedRecord: dupRes.matchedRecord,
+              distance: dupRes.distance,
+              message: dupRes.message,
+              pendingUpload: {
+                name: selected.name,
+                base64,
+                folder: selectedFolder || 'general'
+              }
+            });
+            setUploadProgress(false);
+            return;
+          }
+        } catch (e) {
+          console.warn('Duplicate pre-check failed, proceeding with server-side check:', e);
+        }
+
         const res = await AdminApiService.uploadMediaFile({
           fileName: selected.name,
           fileData: base64,
@@ -75,6 +113,17 @@ export const MediaLibrarySection: React.FC = () => {
         });
         if (res.success) {
           fetchFiles();
+        } else if (res.duplicateDetected) {
+          setDuplicateWarning({
+            isDuplicate: true,
+            matchedRecord: res.matchedRecord,
+            message: res.message,
+            pendingUpload: {
+              name: selected.name,
+              base64,
+              folder: selectedFolder || 'general'
+            }
+          });
         }
       } catch (err: any) {
         alert(`Upload error: ${err.message}`);
@@ -84,6 +133,28 @@ export const MediaLibrarySection: React.FC = () => {
       }
     };
     reader.readAsDataURL(selected);
+  };
+
+  const handleConfirmForceUpload = async () => {
+    if (!duplicateWarning?.pendingUpload) return;
+    setUploadProgress(true);
+    try {
+      const res = await AdminApiService.uploadMediaFile({
+        fileName: duplicateWarning.pendingUpload.name,
+        fileData: duplicateWarning.pendingUpload.base64,
+        folder: duplicateWarning.pendingUpload.folder,
+        forceDuplicate: true
+      });
+      if (res.success) {
+        fetchFiles();
+        setDuplicateWarning(null);
+      }
+    } catch (err: any) {
+      alert(`Force upload error: ${err.message}`);
+    } finally {
+      setUploadProgress(false);
+      if (fileInputRef.current) fileInputRef.current.value = '';
+    }
   };
 
   const handleDelete = async (filePath: string) => {
@@ -313,6 +384,77 @@ export const MediaLibrarySection: React.FC = () => {
                   </button>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Duplicate Image Warning & Prevention Modal */}
+      {duplicateWarning && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-sm animate-fade-in">
+          <div className="bg-slate-900 border-2 border-amber-500/60 rounded-2xl w-full max-w-lg shadow-2xl p-6 space-y-4">
+            <div className="flex items-center gap-3 border-b border-slate-800 pb-3">
+              <div className="p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/30 text-amber-400">
+                <AlertTriangle className="w-6 h-6" />
+              </div>
+              <div className="flex-1">
+                <h3 className="text-base font-bold text-white">Duplicate Image Detected</h3>
+                <p className="text-xs text-amber-400/90 font-medium">100% Unique Image Policy Enforced</p>
+              </div>
+              <button
+                onClick={() => setDuplicateWarning(null)}
+                className="p-1 rounded bg-slate-800 text-slate-400 hover:text-white"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
+
+            <div className="p-3.5 bg-amber-950/20 border border-amber-500/20 rounded-xl space-y-2 text-xs">
+              <p className="text-slate-200">
+                {duplicateWarning.message || 'This photograph is already in use elsewhere on the public website.'}
+              </p>
+              {duplicateWarning.matchedRecord && (
+                <div className="bg-slate-950/80 p-2.5 rounded-lg border border-slate-800 space-y-1">
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-slate-400">Assigned Page/Section:</span>
+                    <span className="text-amber-400 font-semibold">{duplicateWarning.matchedRecord.section}</span>
+                  </div>
+                  <div className="flex items-center justify-between text-[11px]">
+                    <span className="text-slate-400">Public Route:</span>
+                    <span className="text-blue-400 font-mono">{duplicateWarning.matchedRecord.route}</span>
+                  </div>
+                  {duplicateWarning.distance !== undefined && (
+                    <div className="flex items-center justify-between text-[11px]">
+                      <span className="text-slate-400">Similarity Metric:</span>
+                      <span className="text-slate-300 font-mono">
+                        {duplicateWarning.distance === 0 ? 'Exact Match (0 bits)' : `Perceptual Match (${duplicateWarning.distance} bits)`}
+                      </span>
+                    </div>
+                  )}
+                </div>
+              )}
+            </div>
+
+            <p className="text-xs text-slate-400 leading-relaxed">
+              To protect brand credibility, SEO authority, and customer trust, every service card, blog article, and showcase must have a unique, genuine photograph.
+            </p>
+
+            <div className="flex items-center justify-end gap-3 pt-2">
+              <button
+                onClick={() => {
+                  setDuplicateWarning(null);
+                  if (fileInputRef.current) fileInputRef.current.click();
+                }}
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold shadow-lg shadow-emerald-950/40"
+              >
+                Choose Genuinely Different Photo
+              </button>
+              <button
+                onClick={handleConfirmForceUpload}
+                className="px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-400 hover:text-white rounded-xl text-xs font-medium"
+              >
+                Override & Upload Anyway
+              </button>
             </div>
           </div>
         </div>

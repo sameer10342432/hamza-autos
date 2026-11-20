@@ -15,9 +15,11 @@ import {
   Save, 
   X,
   ExternalLink,
-  Sparkles
+  Sparkles,
+  AlertTriangle
 } from 'lucide-react';
 import { AdminApiService } from '../../services/adminApiService';
+import { checkDuplicateAssignment } from '../../utils/imageRegistry';
 
 export interface BlogPostData {
   id: string;
@@ -59,7 +61,7 @@ export const BlogManagementSection: React.FC = () => {
     slug: '',
     excerpt: '',
     content: '',
-    featuredImage: '/assets/images/home/motorcycle-workshop-hero.jpg',
+    featuredImage: '',
     category: 'Engine Repair',
     tags: ['Engine', 'Maintenance'],
     status: 'draft',
@@ -99,7 +101,7 @@ export const BlogManagementSection: React.FC = () => {
       slug: '',
       excerpt: '',
       content: '## Overview\n\nWrite your informative motorcycle guide here.\n\n### Key Tips\n- Regular oil changes\n- Check spark plugs\n- Proper chain lubrication',
-      featuredImage: '/assets/images/home/motorcycle-workshop-hero.jpg',
+      featuredImage: '',
       category: categories[0]?.name || 'Engine Repair',
       tags: ['Maintenance'],
       status: 'draft',
@@ -144,6 +146,14 @@ export const BlogManagementSection: React.FC = () => {
     if (!formData.title?.trim()) {
       alert('Blog title is required.');
       return;
+    }
+
+    if (formData.featuredImage) {
+      const dup = checkDuplicateAssignment(formData.featuredImage, activeBlog?.id);
+      if (dup.isDuplicate) {
+        const proceed = window.confirm(`Warning: This photograph is already assigned to "${dup.matchedItem?.section}" (${dup.matchedItem?.route}).\n\nTo ensure 100% unique imagery, each section must have a distinct photograph.\n\nDo you want to save anyway?`);
+        if (!proceed) return;
+      }
     }
 
     const payload = {
@@ -415,20 +425,47 @@ export const BlogManagementSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Featured Image */}
+              {/* Featured Image with Live Duplicate Detection */}
               <div className="bg-slate-950 border border-slate-800 rounded-xl p-4 space-y-3">
-                <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
-                  <ImageIcon className="w-3.5 h-3.5 text-blue-500" />
-                  Featured Image
-                </h4>
+                <div className="flex items-center justify-between">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                    <ImageIcon className="w-3.5 h-3.5 text-blue-500" />
+                    Featured Image
+                  </h4>
+                  <span className="text-[10px] text-slate-500">100% Unique Rule Enforced</span>
+                </div>
 
                 <input
                   type="text"
                   value={formData.featuredImage}
                   onChange={(e) => setFormData(p => ({ ...p, featuredImage: e.target.value }))}
-                  placeholder="/assets/images/home/motorcycle-workshop-hero.jpg"
+                  placeholder="/assets/images/blog/blog-engine-problems.jpg"
                   className="w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-1.5 text-xs text-white font-mono"
                 />
+
+                {(() => {
+                  const dupCheck = formData.featuredImage 
+                    ? checkDuplicateAssignment(formData.featuredImage, activeBlog?.id)
+                    : { isDuplicate: false, message: '' };
+
+                  return dupCheck.isDuplicate ? (
+                    <div className="p-3 rounded-lg bg-amber-950/40 border border-amber-500/50 text-amber-300 text-xs space-y-1">
+                      <div className="flex items-center gap-1.5 font-bold text-amber-400">
+                        <AlertTriangle className="w-4 h-4" />
+                        Duplicate Image Detected
+                      </div>
+                      <p className="text-[11px] leading-relaxed">
+                        This photograph is already assigned to:
+                        <span className="text-white font-semibold block mt-0.5">
+                          {dupCheck.matchedItem?.section} ({dupCheck.matchedItem?.route})
+                        </span>
+                      </p>
+                      <p className="text-[10px] text-amber-400/80">
+                        Strict No-Duplicate Rule: Every blog article must have its own distinct photograph.
+                      </p>
+                    </div>
+                  ) : null;
+                })()}
 
                 {formData.featuredImage && (
                   <div className="rounded-lg overflow-hidden border border-slate-800 aspect-video bg-black/40">
@@ -437,7 +474,7 @@ export const BlogManagementSection: React.FC = () => {
                       alt="Preview"
                       className="w-full h-full object-cover"
                       onError={(e) => {
-                        (e.target as any).src = '/assets/images/home/motorcycle-workshop-hero.jpg';
+                        (e.target as any).src = '/assets/images/blog/blog-engine-problems.jpg';
                       }}
                     />
                   </div>

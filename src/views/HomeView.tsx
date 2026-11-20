@@ -344,7 +344,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
             <div className="lg:col-span-5 grid grid-cols-2 gap-4">
               <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-sm">
                 <img
-                  src={assetUrl("assets/images/about/engine-overhaul-workbench.jpg")}
+                  src={assetUrl("assets/images/home/home-engine-diagnostics-showcase.jpg")}
                   alt="Motorcycle Engine Overhaul and Precision Cylinder Head Repair at Hamza Autos"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
@@ -355,7 +355,7 @@ export const HomeView: React.FC<HomeViewProps> = ({ onNavigate, onOpenBooking })
               </div>
               <div className="group rounded-2xl overflow-hidden border border-slate-200 aspect-square shadow-sm">
                 <img
-                  src={assetUrl("assets/images/about/tuning-carburetor-setup.jpg")}
+                  src={assetUrl("assets/images/home/home-precision-tuning-showcase.jpg")}
                   alt="Professional Motorcycle Carburetor Tuning and Fuel System Calibration"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   loading="lazy"
