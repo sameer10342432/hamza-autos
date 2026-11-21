@@ -2,11 +2,11 @@ import React, { useState, useEffect, Suspense, lazy } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { pageTransitionVariants } from './utils/motion';
 import { PublicLayout } from './layouts/PublicLayout';
-import { 
-  parseCurrentRoute, 
-  navigateAdmin, 
-  navigatePublic, 
-  RouteInfo 
+import {
+  parseCurrentRoute,
+  navigateAdmin,
+  navigatePublic,
+  RouteInfo
 } from './utils/adminRouter';
 import { updatePageSeo } from './utils/seoHeadManager';
 
@@ -29,7 +29,17 @@ const CustomerDashboardView = lazy(() => import('./views/CustomerDashboardView')
 const NotFoundView = lazy(() => import('./views/NotFoundView').then(m => ({ default: m.NotFoundView })));
 const TrackRepairView = lazy(() => import('./views/TrackRepairView').then(m => ({ default: m.TrackRepairView })));
 
+// Shop Lazy-loaded Views
+const ShopHomeView = lazy(() => import('./views/shop/ShopHomeView').then(m => ({ default: m.ShopHomeView })));
+const ShopProductsView = lazy(() => import('./views/shop/ShopProductsView').then(m => ({ default: m.ShopProductsView })));
+const ShopProductDetailView = lazy(() => import('./views/shop/ShopProductDetailView').then(m => ({ default: m.ShopProductDetailView })));
+const ShopCartView = lazy(() => import('./views/shop/ShopCartView').then(m => ({ default: m.ShopCartView })));
+const ShopCheckoutView = lazy(() => import('./views/shop/ShopCheckoutView').then(m => ({ default: m.ShopCheckoutView })));
+const ShopOrderConfirmationView = lazy(() => import('./views/shop/ShopOrderConfirmationView').then(m => ({ default: m.ShopOrderConfirmationView })));
+const ShopTrackOrderView = lazy(() => import('./views/shop/ShopTrackOrderView').then(m => ({ default: m.ShopTrackOrderView })));
+
 import { getStoredSettings } from './utils/businessLogic';
+import { CartProvider } from './context/CartContext';
 
 // Lightweight fallback loader
 const RouteLoader = () => (
@@ -97,9 +107,9 @@ export default function App() {
   if (routeInfo.isAdmin) {
     return (
       <Suspense fallback={<RouteLoader />}>
-        <AdminView 
-          initialTab={routeInfo.adminTab} 
-          isLoginRoute={routeInfo.isLogin} 
+        <AdminView
+          initialTab={routeInfo.adminTab}
+          isLoginRoute={routeInfo.isLogin}
         />
       </Suspense>
     );
@@ -113,113 +123,144 @@ export default function App() {
   const currentSlug = routeInfo.publicSlug;
 
   return (
-    <PublicLayout
-      currentView={currentView}
-      onNavigate={handleNavigate}
-      bookingModalOpen={bookingModalOpen}
-      setBookingModalOpen={setBookingModalOpen}
-      initialBookingService={initialBookingService}
-      searchModalOpen={searchModalOpen}
-      setSearchModalOpen={setSearchModalOpen}
-      onOpenBooking={handleOpenBooking}
-    >
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={currentView + (currentSlug ? `-${currentSlug}` : '')}
-          variants={pageTransitionVariants}
-          initial="initial"
-          animate="animate"
-          exit="exit"
-          className="w-full"
-        >
-          <Suspense fallback={<RouteLoader />}>
-            {currentView === 'home' && (
-              <HomeView
-                onNavigate={handleNavigate}
-                onOpenBooking={handleOpenBooking}
-              />
-            )}
+    <CartProvider>
+      <PublicLayout
+        currentView={currentView}
+        onNavigate={handleNavigate}
+        bookingModalOpen={bookingModalOpen}
+        setBookingModalOpen={setBookingModalOpen}
+        initialBookingService={initialBookingService}
+        searchModalOpen={searchModalOpen}
+        setSearchModalOpen={setSearchModalOpen}
+        onOpenBooking={handleOpenBooking}
+      >
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={currentView + (currentSlug ? `-${currentSlug}` : '')}
+            variants={pageTransitionVariants}
+            initial="initial"
+            animate="animate"
+            exit="exit"
+            className="w-full"
+          >
+            <Suspense fallback={<RouteLoader />}>
+              {currentView === 'home' && (
+                <HomeView
+                  onNavigate={handleNavigate}
+                  onOpenBooking={handleOpenBooking}
+                />
+              )}
 
-            {currentView === 'about' && (
-              <AboutView
-                onNavigate={handleNavigate}
-                onOpenBooking={handleOpenBooking}
-              />
-            )}
+              {/* ONLINE SHOP SECTION */}
+              {currentView === 'shop' && (
+                <ShopHomeView onNavigate={handleNavigate} />
+              )}
 
-            {((currentView === 'services' && currentSlug) || (currentView === 'service-detail' && currentSlug)) ? (
-              <ServiceDetailView
-                slug={currentSlug}
-                onNavigate={handleNavigate}
-                onOpenBooking={handleOpenBooking}
-              />
-            ) : currentView === 'services' ? (
-              <ServicesView
-                onNavigate={handleNavigate}
-                onOpenBooking={handleOpenBooking}
-              />
-            ) : null}
+              {(currentView === 'shop-products' || currentView === 'shop-categories') && (
+                <ShopProductsView onNavigate={handleNavigate} />
+              )}
 
-            {(currentView === 'brands' || currentView === 'brand-detail') && (
-              <BrandsView
-                selectedSlug={currentSlug}
-                onNavigate={handleNavigate}
-                onOpenBooking={handleOpenBooking}
-              />
-            )}
+              {currentView === 'shop-product' && (
+                <ShopProductDetailView slug={currentSlug || ''} onNavigate={handleNavigate} />
+              )}
 
-            {(currentView === 'areas' || currentView === 'area-detail') && (
-              <AreasView
-                selectedSlug={currentSlug}
-                onNavigate={handleNavigate}
-                onOpenBooking={handleOpenBooking}
-              />
-            )}
+              {currentView === 'shop-cart' && (
+                <ShopCartView onNavigate={handleNavigate} />
+              )}
 
-            {currentView === 'track-repair' && (
-              <TrackRepairView
-                initialJobCard={currentSlug}
-                onNavigate={handleNavigate}
-              />
-            )}
+              {currentView === 'shop-checkout' && (
+                <ShopCheckoutView onNavigate={handleNavigate} />
+              )}
 
-            {currentView === 'gallery' && (
-              <GalleryView />
-            )}
+              {currentView === 'shop-order-confirmation' && (
+                <ShopOrderConfirmationView orderNumber={currentSlug || ''} onNavigate={handleNavigate} />
+              )}
 
-            {currentView === 'reviews' && (
-              <ReviewsView />
-            )}
+              {currentView === 'shop-track-order' && (
+                <ShopTrackOrderView onNavigate={handleNavigate} />
+              )}
 
-            {currentView === 'blog' && (
-              <BlogView
-                initialSlug={currentSlug}
-                onNavigate={handleNavigate}
-                onOpenBooking={handleOpenBooking}
-              />
-            )}
+              {currentView === 'about' && (
+                <AboutView
+                  onNavigate={handleNavigate}
+                  onOpenBooking={handleOpenBooking}
+                />
+              )}
 
-            {currentView === 'contact' && (
-              <ContactView />
-            )}
+              {((currentView === 'services' && currentSlug) || (currentView === 'service-detail' && currentSlug)) ? (
+                <ServiceDetailView
+                  slug={currentSlug}
+                  onNavigate={handleNavigate}
+                  onOpenBooking={handleOpenBooking}
+                />
+              ) : currentView === 'services' ? (
+                <ServicesView
+                  onNavigate={handleNavigate}
+                  onOpenBooking={handleOpenBooking}
+                />
+              ) : null}
 
-            {(currentView === 'privacy' || currentView === 'terms' || currentView === 'sitemap') && (
-              <LegalView type={currentView as 'privacy' | 'terms' | 'sitemap'} />
-            )}
+              {(currentView === 'brands' || currentView === 'brand-detail') && (
+                <BrandsView
+                  selectedSlug={currentSlug}
+                  onNavigate={handleNavigate}
+                  onOpenBooking={handleOpenBooking}
+                />
+              )}
 
-            {(currentView === 'customer-dashboard' || currentView === 'customer-portal') && (
-              <CustomerDashboardView
-                onNavigate={handleNavigate}
-                onOpenBooking={handleOpenBooking}
-              />
-            )}
+              {(currentView === 'areas' || currentView === 'area-detail') && (
+                <AreasView
+                  selectedSlug={currentSlug}
+                  onNavigate={handleNavigate}
+                  onOpenBooking={handleOpenBooking}
+                />
+              )}
 
-            {currentView === 'not-found' && (
-              <NotFoundView onNavigate={handleNavigate} />
-            )}
-          </Suspense>
-        </motion.div>
-      </AnimatePresence>
-    </PublicLayout>
+              {currentView === 'track-repair' && (
+                <TrackRepairView
+                  initialJobCard={currentSlug}
+                  onNavigate={handleNavigate}
+                />
+              )}
+
+              {currentView === 'gallery' && (
+                <GalleryView />
+              )}
+
+              {currentView === 'reviews' && (
+                <ReviewsView />
+              )}
+
+              {currentView === 'blog' && (
+                <BlogView
+                  initialSlug={currentSlug}
+                  onNavigate={handleNavigate}
+                  onOpenBooking={handleOpenBooking}
+                />
+              )}
+
+              {currentView === 'contact' && (
+                <ContactView />
+              )}
+
+              {(currentView === 'privacy' || currentView === 'terms' || currentView === 'sitemap') && (
+                <LegalView type={currentView as 'privacy' | 'terms' | 'sitemap'} />
+              )}
+
+              {(currentView === 'customer-dashboard' || currentView === 'customer-portal') && (
+                <CustomerDashboardView
+                  onNavigate={handleNavigate}
+                  onOpenBooking={handleOpenBooking}
+                />
+              )}
+
+              {currentView === 'not-found' && (
+                <NotFoundView onNavigate={handleNavigate} />
+              )}
+            </Suspense>
+          </motion.div>
+        </AnimatePresence>
+      </PublicLayout>
+    </CartProvider>
   );
 }

@@ -1,0 +1,121 @@
+[
+  {
+    "id": "ord-mwqx2x65-b78uj",
+    "orderNumber": "HA-SHOP-2026-1002",
+    "customer": {
+      "fullName": "Muhammad Tariq",
+      "mobileNumber": "03001234567",
+      "whatsappNumber": "03001234567",
+      "deliveryAddress": "Street 4, Sector G-9/2",
+      "city": "Islamabad",
+      "province": "Islamabad Capital Territory",
+      "postalCode": "44000",
+      "orderNotes": "Please call before delivery"
+    },
+    "items": [
+      {
+        "productId": "prod-cd70-cylinder-kit",
+        "sku": "HA-ENG-CD70-01",
+        "name": "Crown Lifan Complete Cylinder Block & Piston Kit – 70cc",
+        "slug": "crown-lifan-cylinder-block-piston-kit-70cc",
+        "image": "/assets/images/about/engine-overhaul-workbench.webp",
+        "unitPrice": 2650,
+        "quantity": 2,
+        "maxStock": 18,
+        "totalPrice": 5300
+      }
+    ],
+    "pricing": {
+      "subtotal": 5300,
+      "shippingFee": 0,
+      "discount": 0,
+      "total": 5300
+    },
+    "paymentMethod": "Bank Transfer / Manual Payment",
+    "paymentStatus": "Pending Verification",
+    "paymentReference": "TXN-ISB-8837192",
+    "shipping": {
+      "courier": "TCS Express Pakistan",
+      "estimatedDeliveryDays": "2 – 4 Business Days Across Pakistan via TCS / Leopards / M&P",
+      "trackingNumber": "TCS-99112233",
+      "trackingUrl": "https://www.tcsexpress.com/track/TCS-99112233",
+      "cancelledAt": "2026-11-21T21:25:29.423Z"
+    },
+    "orderStatus": "Cancelled",
+    "statusHistory": [
+      {
+        "status": "Cancelled",
+        "timestamp": "2026-11-21T21:25:29.423Z",
+        "updatedBy": "admin",
+        "note": "Customer cancelled order before dispatch."
+      },
+      {
+        "status": "Confirmed",
+        "timestamp": "2026-11-21T21:25:29.183Z",
+        "updatedBy": "admin",
+        "note": "Customer payment verified via Meezan Bank statement."
+      },
+      {
+        "status": "New Order",
+        "timestamp": "2026-11-21T21:25:29.069Z",
+        "updatedBy": "Customer (Online Checkout)",
+        "note": "Order placed via online shop with Bank Transfer / Manual Payment"
+      }
+    ],
+    "stockAdjusted": false,
+    "createdAt": "2026-11-21T21:25:29.069Z",
+    "updatedAt": "2026-11-21T21:25:29.423Z"
+  },
+  {
+    "id": "ord-mwqx2jkv-4elb7",
+    "orderNumber": "HA-SHOP-2026-1001",
+    "customer": {
+      "fullName": "Muhammad Tariq",
+      "mobileNumber": "03001234567",
+      "whatsappNumber": "03001234567",
+      "deliveryAddress": "Street 4, Sector G-9/2",
+      "city": "Islamabad",
+      "province": "Islamabad Capital Territory",
+      "postalCode": "44000",
+      "orderNotes": "Please call before delivery"
+    },
+    "items": [
+      {
+        "productId": "prod-cd70-cylinder-kit",
+        "sku": "HA-ENG-CD70-01",
+        "name": "Crown Lifan Complete Cylinder Block & Piston Kit – 70cc",
+        "slug": "crown-lifan-cylinder-block-piston-kit-70cc",
+        "image": "/assets/images/about/engine-overhaul-workbench.webp",
+        "unitPrice": 2650,
+        "quantity": 2,
+        "maxStock": 18,
+        "totalPrice": 5300
+      }
+    ],
+    "pricing": {
+      "subtotal": 5300,
+      "shippingFee": 0,
+      "discount": 0,
+      "total": 5300
+    },
+    "paymentMethod": "Bank Transfer / Manual Payment",
+    "paymentStatus": "Pending Verification",
+    "paymentReference": "TXN-ISB-8837192",
+    "shipping": {
+      "courier": "TCS Courier",
+      "estimatedDeliveryDays": "2 – 4 Business Days Across Pakistan via TCS / Leopards / M&P"
+    },
+    "orderStatus": "New Order",
+    "statusHistory": [
+      {
+        "status": "New Order",
+        "timestamp": "2026-11-21T21:25:11.455Z",
+        "updatedBy": "Customer (Online Checkout)",
+        "note": "Order placed via online shop with Bank Transfer / Manual Payment"
+      }
+    ],
+    "stockAdjusted": false,
+    "createdAt": "2026-11-21T21:25:11.455Z",
+    "updatedAt": "2026-11-21T21:25:11.455Z"
+  }
+]

@@ -1,5 +1,37 @@
 [
   {
+    "id": "audit-mwqx2xki-clca9",
+    "action": "SHOP_ORDER_STATUS_UPDATED",
+    "performedBy": "admin",
+    "affectedRecord": "shop-orders.json/ord-mwqx2x65-b78uj",
+    "timestamp": "2026-11-21T21:25:29.586Z",
+    "metadata": "Order HA-SHOP-2026-1002 status changed to Cancelled"
+  },
+  {
+    "id": "audit-mwqx2xf3-xml1h",
+    "action": "SHOP_ORDER_SHIPPING_UPDATED",
+    "performedBy": "admin",
+    "affectedRecord": "shop-orders.json/ord-mwqx2x65-b78uj",
+    "timestamp": "2026-11-21T21:25:29.391Z",
+    "metadata": "Shipping updated for HA-SHOP-2026-1002: Courier TCS Express Pakistan, Tracking TCS-99112233"
+  },
+  {
+    "id": "audit-mwqx2xcz-498ab",
+    "action": "SHOP_ORDER_STATUS_UPDATED",
+    "performedBy": "admin",
+    "affectedRecord": "shop-orders.json/ord-mwqx2x65-b78uj",
+    "timestamp": "2026-11-21T21:25:29.315Z",
+    "metadata": "Order HA-SHOP-2026-1002 status changed to Confirmed"
+  },
+  {
+    "id": "audit-mwqx2x8h-8jx9w",
+    "action": "ADMIN_LOGIN",
+    "performedBy": "admin",
+    "affectedRecord": "auth/login",
+    "timestamp": "2026-11-21T21:25:29.153Z",
+    "metadata": "Admin logged in from IP 127.0.0.1"
+  },
+  {
     "id": "audit-mwkclzwd-fyj9n",
     "action": "PURCHASE_ORDER_DELETED",
     "performedBy": "admin",

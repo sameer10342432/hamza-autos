@@ -326,6 +326,63 @@ export function updatePageSeo(routeInfo: RouteInfo): void {
     pageTitle = 'Track Motorcycle Repair Status Live | Hamza Autos Workshop';
     metaDescription = 'Track your bike repair progress live with your Job Card or Phone Number at Hamza Autos Badami Bagh, Lahore.';
     canonicalPath = '/track-repair';
+  } else if (view === 'shop') {
+    pageTitle = 'Online Motorcycle Spare Parts Shop Pakistan | Genuine Bike Parts | Hamza Autos';
+    metaDescription = 'Buy genuine motorcycle spare parts online with cash on delivery across Pakistan. Engine parts, clutch plates, brake shoes, cables & accessories for Honda CD70, CG125, Yamaha YBR, Suzuki & Chinese bikes.';
+    canonicalPath = '/shop';
+    dynamicSchema = {
+      "@context": "https://schema.org",
+      "@type": "AutoPartsStore",
+      "name": "Hamza Autos Spare Parts Online Store",
+      "description": "Nationwide Pakistan motorcycle spare parts and accessories store for Honda, Yamaha, Suzuki, and Chinese bikes.",
+      "url": `${BASE_URL}/shop`,
+      "telephone": "+923251814548",
+      "priceRange": "PKR 150 - 25000",
+      "currenciesAccepted": "PKR",
+      "paymentAccepted": "Cash on Delivery, Bank Transfer",
+      "areaServed": "PK",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Shop Near Ali Hajvery Marriage Hall, Abu Bakar Road",
+        "addressLocality": "Badami Bagh",
+        "addressRegion": "Lahore, Punjab",
+        "postalCode": "54000",
+        "addressCountry": "PK"
+      }
+    };
+  } else if (view === 'shop-products' || view === 'shop-categories') {
+    pageTitle = 'All Motorcycle Spare Parts & Accessories Catalog | Hamza Autos Pakistan';
+    metaDescription = 'Explore authentic motorcycle spare parts for Atlas Honda CD70, CG125, Yamaha YBR 125, Suzuki GD110, GS150 & Chinese bikes. Filter by bike brand and model. Delivery all over Pakistan.';
+    canonicalPath = '/shop/products';
+    dynamicSchema = {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "Motorcycle Spare Parts Catalog Pakistan",
+      "url": `${BASE_URL}/shop/products`,
+      "description": "Comprehensive motorcycle spare parts catalog for Pakistani riders."
+    };
+  } else if (view === 'shop-product') {
+    pageTitle = 'Motorcycle Spare Part Details & Fitment | Hamza Autos Pakistan';
+    metaDescription = 'Genuine motorcycle spare part specification, verified bike compatibility, prices in PKR, and fast nationwide delivery from Hamza Autos.';
+    canonicalPath = slug ? `/shop/product/${slug}` : '/shop/products';
+  } else if (view === 'shop-cart') {
+    pageTitle = 'Shopping Cart | Hamza Autos Online Spare Parts';
+    metaDescription = 'Review selected motorcycle spare parts in your cart, calculate nationwide Pakistan shipping charges, and proceed to checkout.';
+    canonicalPath = '/shop/cart';
+  } else if (view === 'shop-checkout') {
+    pageTitle = 'Secure Checkout | Cash on Delivery & Bank Transfer | Hamza Autos';
+    metaDescription = 'Complete your motorcycle spare parts order with nationwide Pakistan delivery, Cash on Delivery (COD) or Meezan Bank transfer.';
+    canonicalPath = '/shop/checkout';
+    setMetaTag('robots', 'noindex, nofollow');
+  } else if (view === 'shop-order-confirmation') {
+    pageTitle = 'Order Confirmed | Hamza Autos Spare Parts Pakistan';
+    metaDescription = 'Thank you for your order! Your motorcycle spare parts order has been received and is being prepared for dispatch.';
+    canonicalPath = '/shop/order-confirmation';
+    setMetaTag('robots', 'noindex, nofollow');
+  } else if (view === 'shop-track-order') {
+    pageTitle = 'Track Spare Parts Courier Order Online | Hamza Autos Pakistan';
+    metaDescription = 'Track your motorcycle spare parts parcel in real-time across Pakistan using your Order Number (HA-XXXXXX) or mobile phone number.';
+    canonicalPath = '/shop/track-order';
   } else if (view === 'sitemap') {
     pageTitle = 'HTML Sitemap & Complete Directory | Hamza Autos Badami Bagh Lahore';
     metaDescription = 'Browse all motorcycle repair services, brands, local service area pages, and maintenance blog articles at Hamza Autos.';

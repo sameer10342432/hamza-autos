@@ -1,0 +1,34 @@
+{
+  "defaultShippingFee": 250,
+  "freeShippingThreshold": 3500,
+  "lahoreExpressDeliveryFee": 150,
+  "allowedProvinces": [
+    "Punjab",
+    "Sindh",
+    "Khyber Pakhtunkhwa",
+    "Balochistan",
+    "Islamabad Capital Territory",
+    "Gilgit-Baltistan",
+    "Azad Jammu & Kashmir"
+  ],
+  "estimatedDeliveryText": "2 – 4 Business Days Across Pakistan via TCS / Leopards / M&P",
+  "courierPartners": [
+    "TCS Courier",
+    "Leopards Courier",
+    "M&P Express",
+    "Trax Logistics",
+    "PostEx",
+    "Call Courier",
+    "Hamza Autos Express (Lahore)"
+  ],
+  "specialCityRates": {
+    "Lahore": 150,
+    "Rawalpindi": 250,
+    "Islamabad": 250,
+    "Faisalabad": 250,
+    "Multan": 250,
+    "Karachi": 300,
+    "Peshawar": 280,
+    "Quetta": 350
+  }
+}

@@ -130,7 +130,7 @@ export const BrandLogo: React.FC<BrandLogoProps> = ({
                 : 'text-slate-500 group-hover:text-red-600'
             }`}
           >
-            Motorcycle Repair <span className="text-[#E50914] hidden min-[380px]:inline">· Badami Bagh</span>
+            Motorcycle Repair <span className="text-[#E50914] hidden sm:inline">· Badami Bagh</span>
           </span>
         </div>
       )}

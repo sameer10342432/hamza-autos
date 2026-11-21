@@ -1,0 +1,32 @@
+[
+  {
+    "id": "mov-mwqx2xg0-qwzfa",
+    "productId": "prod-cd70-cylinder-kit",
+    "sku": "HA-ENG-CD70-01",
+    "productName": "Crown Lifan Complete Cylinder Block & Piston Kit – 70cc",
+    "changeType": "ORDER_CANCELLED",
+    "previousQuantity": 16,
+    "changeAmount": 2,
+    "newQuantity": 18,
+    "reason": "Order HA-SHOP-2026-1002 cancelled – stock restored",
+    "orderId": "ord-mwqx2x65-b78uj",
+    "orderNumber": "HA-SHOP-2026-1002",
+    "performedBy": "admin",
+    "timestamp": "2026-11-21T21:25:29.423Z"
+  },
+  {
+    "id": "mov-mwqx2x9d-3014j",
+    "productId": "prod-cd70-cylinder-kit",
+    "sku": "HA-ENG-CD70-01",
+    "productName": "Crown Lifan Complete Cylinder Block & Piston Kit – 70cc",
+    "changeType": "ORDER_CONFIRMED",
+    "previousQuantity": 18,
+    "changeAmount": -2,
+    "newQuantity": 16,
+    "reason": "Order HA-SHOP-2026-1002 confirmed",
+    "orderId": "ord-mwqx2x65-b78uj",
+    "orderNumber": "HA-SHOP-2026-1002",
+    "performedBy": "admin",
+    "timestamp": "2026-11-21T21:25:29.183Z"
+  }
+]
