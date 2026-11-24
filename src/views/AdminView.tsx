@@ -113,6 +113,17 @@ import { GlobalSearchSection } from '../components/admin/GlobalSearchSection';
 import { SecurityCentreSection } from '../components/admin/SecurityCentreSection';
 import { StorageHealthSection } from '../components/admin/StorageHealthSection';
 
+// Shop Management Components
+import { ShopDashboardTab } from '../components/admin/shop/ShopDashboardTab';
+import { ShopProductsTab } from '../components/admin/shop/ShopProductsTab';
+import { ShopCategoriesTab } from '../components/admin/shop/ShopCategoriesTab';
+import { ShopBrandsModelsTab } from '../components/admin/shop/ShopBrandsModelsTab';
+import { ShopInventoryTab } from '../components/admin/shop/ShopInventoryTab';
+import { ShopOrdersTab } from '../components/admin/shop/ShopOrdersTab';
+import { ShopPaymentsTab } from '../components/admin/shop/ShopPaymentsTab';
+import { ShopShippingTab } from '../components/admin/shop/ShopShippingTab';
+import { ShopSettingsTab } from '../components/admin/shop/ShopSettingsTab';
+
 export type AdminTab = 
   | 'dashboard' 
   | 'analytics'
@@ -159,7 +170,17 @@ export type AdminTab =
   | 'settings'
   | 'inspections'
   | 'staff'
-  | 'whatsapp';
+  | 'whatsapp'
+  // Shop Management
+  | 'shop-dashboard'
+  | 'shop-products'
+  | 'shop-categories'
+  | 'shop-brands'
+  | 'shop-inventory'
+  | 'shop-orders'
+  | 'shop-payments'
+  | 'shop-shipping'
+  | 'shop-settings';
 
 const TAB_META: Record<AdminTab, { label: string; category: string }> = {
   // 1. OVERVIEW
@@ -220,7 +241,18 @@ const TAB_META: Record<AdminTab, { label: string; category: string }> = {
   'storage-health': { label: 'File Storage Health', category: 'System Management' },
   'backup-restore': { label: 'Data Backup & Recovery', category: 'System Management' },
   'audit-logs': { label: 'Activity Logs', category: 'System Management' },
-  'settings': { label: 'System Settings', category: 'System Management' }
+  'settings': { label: 'System Settings', category: 'System Management' },
+
+  // 8. ONLINE SHOP & SPARE PARTS
+  'shop-dashboard': { label: 'Shop Dashboard', category: 'Shop Management' },
+  'shop-products': { label: 'Products & Spare Parts', category: 'Shop Management' },
+  'shop-categories': { label: 'Product Categories', category: 'Shop Management' },
+  'shop-brands': { label: 'Bike Compatibility', category: 'Shop Management' },
+  'shop-inventory': { label: 'Shop Stock & Movements', category: 'Shop Management' },
+  'shop-orders': { label: 'Customer Orders', category: 'Shop Management' },
+  'shop-payments': { label: 'Payments & Verification', category: 'Shop Management' },
+  'shop-shipping': { label: 'Shipping & Delivery', category: 'Shop Management' },
+  'shop-settings': { label: 'Storefront Settings', category: 'Shop Management' }
 };
 
 interface AdminViewProps {
@@ -886,6 +918,17 @@ export const AdminView: React.FC<AdminViewProps> = ({
       {/* ADVANCED MODULE 7: SECURITY CENTRE & DATA RECOVERY */}
       {activeTab === 'security-centre' && <SecurityCentreSection />}
       {activeTab === 'storage-health' && <StorageHealthSection />}
+
+      {/* SHOP MANAGEMENT (SEPARATE E-COMMERCE SECTION) */}
+      {activeTab === 'shop-dashboard' && <ShopDashboardTab onNavigateTab={handleSelectTab} />}
+      {activeTab === 'shop-products' && <ShopProductsTab />}
+      {activeTab === 'shop-categories' && <ShopCategoriesTab />}
+      {activeTab === 'shop-brands' && <ShopBrandsModelsTab />}
+      {activeTab === 'shop-inventory' && <ShopInventoryTab />}
+      {activeTab === 'shop-orders' && <ShopOrdersTab />}
+      {activeTab === 'shop-payments' && <ShopPaymentsTab />}
+      {activeTab === 'shop-shipping' && <ShopShippingTab />}
+      {activeTab === 'shop-settings' && <ShopSettingsTab />}
 
       {/* PRINTABLE MODALS & BACKUP RESTORE MODAL */}
       {printingJobCard && (

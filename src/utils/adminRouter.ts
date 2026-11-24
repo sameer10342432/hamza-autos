@@ -74,7 +74,18 @@ export const TAB_ROUTE_MAP: Record<AdminTab, string> = {
   'storage-health': 'storage-health',
   'backup-restore': 'backup',
   'audit-logs': 'activity-logs',
-  'settings': 'settings'
+  'settings': 'settings',
+
+  // 8. Online Shop & Spare Parts E-Commerce Management
+  'shop-dashboard': 'shop-dashboard',
+  'shop-products': 'shop-products',
+  'shop-categories': 'shop-categories',
+  'shop-brands': 'shop-brands',
+  'shop-inventory': 'shop-inventory',
+  'shop-orders': 'shop-orders',
+  'shop-payments': 'shop-payments',
+  'shop-shipping': 'shop-shipping',
+  'shop-settings': 'shop-settings'
 };
 
 // Reverse map: URL slug / alias to AdminTab
@@ -155,7 +166,27 @@ export const ROUTE_TAB_MAP: Record<string, AdminTab> = {
   'backup-restore': 'backup-restore',
   'activity-logs': 'audit-logs',
   'audit-logs': 'audit-logs',
-  'settings': 'settings'
+  'settings': 'settings',
+
+  // Shop Management
+  'shop': 'shop-dashboard',
+  'shop-dashboard': 'shop-dashboard',
+  'shop/products': 'shop-products',
+  'shop-products': 'shop-products',
+  'shop/categories': 'shop-categories',
+  'shop-categories': 'shop-categories',
+  'shop/brands': 'shop-brands',
+  'shop-brands': 'shop-brands',
+  'shop/inventory': 'shop-inventory',
+  'shop-inventory': 'shop-inventory',
+  'shop/orders': 'shop-orders',
+  'shop-orders': 'shop-orders',
+  'shop/payments': 'shop-payments',
+  'shop-payments': 'shop-payments',
+  'shop/shipping': 'shop-shipping',
+  'shop-shipping': 'shop-shipping',
+  'shop/settings': 'shop-settings',
+  'shop-settings': 'shop-settings'
 };
 
 /**
@@ -252,9 +283,39 @@ export function parseCurrentRoute(): RouteInfo {
     };
   }
 
-  // Direct clean pathname (e.g. /services, /services/bike-tuning, /areas, /blog, /contact)
+  // Direct clean pathname (e.g. /services, /services/bike-tuning, /areas, /blog, /contact, /shop)
   const cleanPath = pathname.replace(/^\/+/, '');
   const pathParts = cleanPath.split('/');
+
+  // Shop clean route parsing: /shop, /shop/products, /shop/product/:slug, /shop/cart, etc.
+  if (pathParts[0] === 'shop') {
+    const sub = pathParts[1];
+    if (!sub) {
+      return { isAdmin: false, adminTab: 'dashboard', isLogin: false, publicView: 'shop' };
+    }
+    if (sub === 'products') {
+      return { isAdmin: false, adminTab: 'dashboard', isLogin: false, publicView: 'shop-products' };
+    }
+    if (sub === 'categories') {
+      return { isAdmin: false, adminTab: 'dashboard', isLogin: false, publicView: 'shop-categories' };
+    }
+    if (sub === 'product') {
+      return { isAdmin: false, adminTab: 'dashboard', isLogin: false, publicView: 'shop-product', publicSlug: pathParts[2] || '' };
+    }
+    if (sub === 'cart') {
+      return { isAdmin: false, adminTab: 'dashboard', isLogin: false, publicView: 'shop-cart' };
+    }
+    if (sub === 'checkout') {
+      return { isAdmin: false, adminTab: 'dashboard', isLogin: false, publicView: 'shop-checkout' };
+    }
+    if (sub === 'order-confirmation') {
+      return { isAdmin: false, adminTab: 'dashboard', isLogin: false, publicView: 'shop-order-confirmation', publicSlug: pathParts[2] || '' };
+    }
+    if (sub === 'track-order') {
+      return { isAdmin: false, adminTab: 'dashboard', isLogin: false, publicView: 'shop-track-order' };
+    }
+  }
+
   const view = pathParts[0] || 'home';
   const slug = pathParts[1];
 
@@ -308,7 +369,28 @@ export function navigatePublic(view: string, slug?: string): void {
   if (typeof window === 'undefined') return;
 
   const base = getAppBasePath();
-  const cleanPath = `${base}/${view === 'home' ? '' : view}${slug ? `/${slug}` : ''}`.replace(/\/+/g, '/');
+  let cleanPath = '';
+
+  // Handle specialized Shop URLs
+  if (view === 'shop') {
+    cleanPath = `${base}/shop`;
+  } else if (view === 'shop-products') {
+    cleanPath = `${base}/shop/products`;
+  } else if (view === 'shop-categories') {
+    cleanPath = `${base}/shop/categories`;
+  } else if (view === 'shop-product') {
+    cleanPath = `${base}/shop/product${slug ? `/${slug}` : ''}`;
+  } else if (view === 'shop-cart') {
+    cleanPath = `${base}/shop/cart`;
+  } else if (view === 'shop-checkout') {
+    cleanPath = `${base}/shop/checkout`;
+  } else if (view === 'shop-order-confirmation') {
+    cleanPath = `${base}/shop/order-confirmation${slug ? `/${slug}` : ''}`;
+  } else if (view === 'shop-track-order') {
+    cleanPath = `${base}/shop/track-order`;
+  } else {
+    cleanPath = `${base}/${view === 'home' ? '' : view}${slug ? `/${slug}` : ''}`.replace(/\/+/g, '/');
+  }
 
   // Push clean path and clear hash
   window.history.pushState(null, '', cleanPath || '/');

@@ -1,0 +1,23 @@
+{
+  "shopName": "Hamza Autos – Online Motorcycle Spare Parts & Accessories Pakistan",
+  "tagline": "Genuine Commuter Bike Parts, Direct From Badami Bagh Lahore to Your Doorstep Nationwide",
+  "bannerTitle": "Pakistan’s Trusted Motorcycle Spare Parts Store",
+  "bannerSubtitle": "Genuine Engine, Brake, Clutch, Electrical Parts & Accessories for Honda, Yamaha, Suzuki, United & Road Prince. Fast Delivery & Cash on Delivery Across Pakistan.",
+  "supportPhone": "+92 325 1814548",
+  "whatsappNumber": "923251814548",
+  "supportEmail": "orders@hamzaautos.com",
+  "currency": "PKR",
+  "bankDetails": {
+    "bankName": "Meezan Bank Limited (Islamic Banking)",
+    "accountTitle": "Hamza Autos Spare Parts Trading",
+    "accountNumber": "02130105829101",
+    "iban": "PK78MEZN0002130105829101",
+    "branchName": "Badami Bagh Branch, Lahore",
+    "easypaisaNumber": "0325-1814548 (Title: Hamza Autos)",
+    "jazzcashNumber": "0325-1814548 (Title: Hamza Autos)"
+  },
+  "returnPolicy": "7-day inspection return policy. Parts must be uninstalled and in original packaging with proof of purchase.",
+  "shippingPolicy": "Same-day parcel dispatch for orders confirmed before 3:00 PM. Full courier tracking provided via SMS and WhatsApp.",
+  "lowStockThresholdDefault": 5,
+  "isShopActive": true
+}

@@ -25,8 +25,12 @@ import {
   checkImageBufferForDuplicates,
   checkImageUrlForAssignment
 } from './duplicatePrevention';
+import { shopRouter } from './shopRoutes';
 
 export const apiRouter = Router();
+
+// Mount Online Shop & Spare Parts E-Commerce Subsystem
+apiRouter.use('/shop', shopRouter);
 
 // Middleware: Authenticate Session Token
 export async function requireAuth(req: Request, res: Response, next: NextFunction) {

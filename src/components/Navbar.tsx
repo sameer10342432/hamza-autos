@@ -31,12 +31,14 @@ import {
   Sliders,
   ClipboardCheck,
   ArrowRight,
-  Navigation
+  Navigation,
+  ShoppingCart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { BUSINESS_INFO, SERVICES_LIST, BRANDS_LIST, AREAS_LIST } from '../data/businessData';
 import { trackEvent, buildWhatsAppLink } from '../utils/businessLogic';
 import { BrandLogo } from './BrandLogo';
+import { useCart } from '../context/CartContext';
 
 interface NavbarProps {
   currentView: string;
@@ -120,6 +122,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenBooking, 
   onOpenSearch 
 }) => {
+  const { itemCount } = useCart();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   
@@ -278,7 +281,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           isScrolled ? 'shadow-md shadow-slate-950/5' : 'shadow-2xs'
         }`}
       >
-        <div className="w-full max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="w-full max-w-[1440px] 2xl:max-w-[1536px] mx-auto px-3 sm:px-6 xl:px-4 2xl:px-8">
           <div 
             className={`flex items-center justify-between transition-all duration-300 ${
               isScrolled ? 'h-16' : 'h-18 lg:h-20'
@@ -287,7 +290,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             {/* LEFT SIDE: Brand Logo & Wordmark */}
             <button
               onClick={() => handleNavClick('home')}
-              className="flex items-center text-left group cursor-pointer shrink-0 select-none py-1 focus-automotive rounded-lg"
+              className="flex items-center text-left group cursor-pointer shrink-0 select-none py-1 focus-automotive rounded-lg min-w-0"
               aria-label="Hamza Autos - Return to Home"
             >
               <BrandLogo variant={isScrolled ? 'compact' : 'horizontal'} />
@@ -295,13 +298,13 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* CENTER: Main Desktop Navigation (Simplified, Zero Overflow, Pure Focus) */}
             <nav 
-              className="hidden xl:flex items-center gap-1 xl:gap-2 text-[13px] xl:text-[13.5px] font-semibold text-slate-700"
+              className="hidden xl:flex items-center gap-0.5 2xl:gap-1.5 text-xs 2xl:text-[13px] font-semibold text-slate-700"
               aria-label="Main Navigation"
             >
               {/* Home */}
               <button
                 onClick={() => handleNavClick('home')}
-                className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
+                className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
                   currentView === 'home'
                     ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                     : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -311,7 +314,29 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {currentView === 'home' && (
                   <motion.span
                     layoutId="activeNavIndicator"
-                    className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                    className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
+                    transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+                  />
+                )}
+              </button>
+
+              {/* SHOP */}
+              <button
+                onClick={() => handleNavClick('shop')}
+                className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none flex items-center gap-1.5 ${
+                  currentView.startsWith('shop') && currentView !== 'shop-cart'
+                    ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
+                    : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
+                }`}
+              >
+                <span>Shop</span>
+                <span className="px-1.5 py-0.5 bg-red-100 text-[#E50914] rounded-full text-[9.5px] 2xl:text-[10px] font-extrabold uppercase tracking-wider">
+                  Parts
+                </span>
+                {currentView.startsWith('shop') && currentView !== 'shop-cart' && (
+                  <motion.span
+                    layoutId="activeNavIndicator"
+                    className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -325,7 +350,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <button
                   onClick={() => handleNavClick('services')}
-                  className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none flex items-center gap-1.5 ${
+                  className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none flex items-center gap-1 ${
                     currentView === 'services' || currentView === 'service-detail' || activeDropdown === 'services'
                       ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                       : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -340,7 +365,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {(currentView === 'services' || currentView === 'service-detail') && (
                     <motion.span
                       layoutId="activeNavIndicator"
-                      className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                      className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -433,7 +458,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <button
                   onClick={() => handleNavClick('brands')}
-                  className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none flex items-center gap-1.5 ${
+                  className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none flex items-center gap-1 ${
                     currentView === 'brands' || currentView === 'brand-detail' || activeDropdown === 'brands'
                       ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                       : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -448,7 +473,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {(currentView === 'brands' || currentView === 'brand-detail') && (
                     <motion.span
                       layoutId="activeNavIndicator"
-                      className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                      className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -509,7 +534,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Track Repair */}
               <button
                 onClick={() => handleNavClick('track-repair')}
-                className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
+                className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
                   currentView === 'track-repair'
                     ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                     : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -519,7 +544,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {currentView === 'track-repair' && (
                   <motion.span
                     layoutId="activeNavIndicator"
-                    className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                    className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -533,7 +558,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               >
                 <button
                   onClick={() => handleNavClick('areas')}
-                  className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none flex items-center gap-1.5 ${
+                  className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none flex items-center gap-1 ${
                     currentView === 'areas' || currentView === 'area-detail' || activeDropdown === 'areas'
                       ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                       : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -548,7 +573,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                   {(currentView === 'areas' || currentView === 'area-detail') && (
                     <motion.span
                       layoutId="activeNavIndicator"
-                      className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                      className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                       transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                     />
                   )}
@@ -613,7 +638,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Workshop Gallery */}
               <button
                 onClick={() => handleNavClick('gallery')}
-                className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
+                className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
                   currentView === 'gallery'
                     ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                     : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -623,7 +648,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {currentView === 'gallery' && (
                   <motion.span
                     layoutId="activeNavIndicator"
-                    className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                    className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -632,7 +657,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Reviews */}
               <button
                 onClick={() => handleNavClick('reviews')}
-                className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
+                className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
                   currentView === 'reviews'
                     ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                     : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -642,7 +667,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {currentView === 'reviews' && (
                   <motion.span
                     layoutId="activeNavIndicator"
-                    className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                    className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -651,7 +676,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Blog */}
               <button
                 onClick={() => handleNavClick('blog')}
-                className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
+                className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
                   currentView === 'blog'
                     ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                     : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -661,7 +686,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {currentView === 'blog' && (
                   <motion.span
                     layoutId="activeNavIndicator"
-                    className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                    className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
@@ -670,7 +695,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               {/* Contact */}
               <button
                 onClick={() => handleNavClick('contact')}
-                className={`relative px-3 py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
+                className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none ${
                   currentView === 'contact'
                     ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
                     : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
@@ -680,41 +705,74 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {currentView === 'contact' && (
                   <motion.span
                     layoutId="activeNavIndicator"
-                    className="absolute bottom-0 left-3 right-3 h-[2px] bg-[#E50914] rounded-full"
+                    className="absolute bottom-0 left-2 right-2 2xl:left-3 2xl:right-3 h-[2px] bg-[#E50914] rounded-full"
                     transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                   />
                 )}
               </button>
+
+              {/* Shopping Cart Nav Button */}
+              <button
+                onClick={() => handleNavClick('shop-cart')}
+                className={`relative px-2 py-1.5 2xl:px-3 2xl:py-2 rounded-xl whitespace-nowrap transition-all duration-200 cursor-pointer select-none flex items-center gap-1.5 ${
+                  currentView === 'shop-cart'
+                    ? 'text-[#E50914] font-bold bg-red-50/80 shadow-2xs'
+                    : 'text-slate-700 hover:text-[#E50914] hover:bg-slate-50'
+                }`}
+                title="Shopping Cart"
+              >
+                <ShoppingCart className="w-3.5 h-3.5 2xl:w-4 2xl:h-4 text-slate-700 group-hover:text-[#E50914]" />
+                <span>Cart</span>
+                {itemCount > 0 && (
+                  <span className="w-4 h-4 2xl:w-5 2xl:h-5 bg-[#E50914] text-white rounded-full text-[10px] 2xl:text-[11px] font-bold flex items-center justify-center shadow">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
             </nav>
 
-            {/* MOBILE & TABLET HAMBURGER BUTTON (< 1280px) */}
-            <div className="flex xl:hidden items-center gap-2">
+            {/* MOBILE & TABLET ACTION BUTTONS (< 1280px) */}
+            <div className="flex xl:hidden items-center gap-1 sm:gap-2">
+              <button
+                onClick={() => handleNavClick('shop-cart')}
+                className="relative p-1.5 sm:p-2 text-slate-700 hover:text-[#E50914] hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                aria-label="Shopping Cart"
+                title="Cart"
+              >
+                <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5" />
+                {itemCount > 0 && (
+                  <span className="absolute -top-1 -right-1 w-3.5 h-3.5 sm:w-4 sm:h-4 bg-[#E50914] text-white rounded-full text-[8px] sm:text-[9px] font-extrabold flex items-center justify-center shadow">
+                    {itemCount}
+                  </span>
+                )}
+              </button>
+
               <button
                 onClick={onOpenSearch}
-                className="p-2 text-slate-700 hover:text-[#E50914] hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                className="p-1.5 sm:p-2 text-slate-700 hover:text-[#E50914] hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
                 aria-label="Search website"
                 title="Search"
               >
-                <Search className="w-5 h-5" />
+                <Search className="w-4 h-4 sm:w-5 sm:h-5" />
               </button>
 
               <a
                 href={`tel:${BUSINESS_INFO.phoneRaw}`}
                 onClick={() => trackEvent('phoneCallClicks')}
-                className="p-2 text-white bg-[#E50914] hover:bg-red-700 rounded-xl shadow-2xs transition-colors"
+                className="p-1.5 sm:p-2 text-white bg-[#E50914] hover:bg-red-700 rounded-xl shadow-2xs transition-colors"
                 aria-label="Call Hamza Autos directly"
                 title="Call Now"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               </a>
 
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="p-2 text-slate-800 hover:text-[#E50914] hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
+                className="p-1.5 sm:p-2 text-slate-800 hover:text-[#E50914] hover:bg-slate-100 rounded-xl transition-colors cursor-pointer"
                 aria-label={mobileMenuOpen ? 'Close Navigation Menu' : 'Open Navigation Menu'}
                 aria-expanded={mobileMenuOpen}
               >
-                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+                {mobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
               </button>
             </div>
           </div>
@@ -784,6 +842,25 @@ export const Navbar: React.FC<NavbarProps> = ({
                     }`}
                   >
                     <span>Home</span>
+                    <ChevronRight className="w-4 h-4 text-slate-400" />
+                  </button>
+
+                  {/* SHOP */}
+                  <button
+                    onClick={() => handleNavClick('shop')}
+                    className={`w-full text-left px-3.5 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between transition-colors cursor-pointer min-h-[44px] ${
+                      currentView.startsWith('shop') && currentView !== 'shop-cart'
+                        ? 'bg-red-50 text-[#E50914] font-bold border-l-4 border-[#E50914]'
+                        : 'text-slate-800 hover:bg-slate-100/80 hover:text-[#E50914]'
+                    }`}
+                  >
+                    <div className="flex items-center gap-2">
+                      <ShoppingCart className="w-4 h-4 text-[#E50914]" />
+                      <span>Online Spare Parts Shop</span>
+                      <span className="px-1.5 py-0.5 bg-red-100 text-red-700 rounded text-[10px] font-extrabold uppercase">
+                        All Pakistan
+                      </span>
+                    </div>
                     <ChevronRight className="w-4 h-4 text-slate-400" />
                   </button>
 

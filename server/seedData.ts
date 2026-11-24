@@ -3,6 +3,7 @@
  * Location: Abu Bakar Road, Badami Bagh, Lahore
  */
 import { readJsonFile, writeJsonFileAtomic } from './fileStore';
+import { ensureInitialShopStorageFiles } from './shopSeedData';
 
 export async function ensureInitialSeedFiles(): Promise<void> {
   // 1. Categories
@@ -1039,6 +1040,9 @@ export async function ensureInitialSeedFiles(): Promise<void> {
       lastRestocked: '2026-11-17'
     }
   ]);
+
+  // 29. Initial Spare Parts Online Shop & E-Commerce Storage
+  await ensureInitialShopStorageFiles();
 
   console.log('[FileStore] All initial JSON storage files verified and seeded.');
 }

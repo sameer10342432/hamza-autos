@@ -1,0 +1,202 @@
+[
+  {
+    "id": "bm-honda-cd70",
+    "brand": "Honda",
+    "modelName": "CD 70",
+    "engineCc": "70cc",
+    "popularYears": "1995 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-honda-cg125",
+    "brand": "Honda",
+    "modelName": "CG 125",
+    "engineCc": "125cc",
+    "popularYears": "1990 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-honda-cg125se",
+    "brand": "Honda",
+    "modelName": "CG 125 Special Edition (Self Start)",
+    "engineCc": "125cc",
+    "popularYears": "2019 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-honda-pridor",
+    "brand": "Honda",
+    "modelName": "Pridor",
+    "engineCc": "100cc",
+    "popularYears": "2012 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-honda-cb125f",
+    "brand": "Honda",
+    "modelName": "CB 125F",
+    "engineCc": "125cc",
+    "popularYears": "2019 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-honda-cb150f",
+    "brand": "Honda",
+    "modelName": "CB 150F",
+    "engineCc": "150cc",
+    "popularYears": "2017 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-honda-cd70dream",
+    "brand": "Honda",
+    "modelName": "CD 70 Dream",
+    "engineCc": "70cc",
+    "popularYears": "2014 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-yamaha-ybr125",
+    "brand": "Yamaha",
+    "modelName": "YBR 125",
+    "engineCc": "125cc",
+    "popularYears": "2015 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-yamaha-ybr125g",
+    "brand": "Yamaha",
+    "modelName": "YBR 125G",
+    "engineCc": "125cc",
+    "popularYears": "2016 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-yamaha-yb125z",
+    "brand": "Yamaha",
+    "modelName": "YB 125Z",
+    "engineCc": "125cc",
+    "popularYears": "2017 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-yamaha-yb125zdx",
+    "brand": "Yamaha",
+    "modelName": "YB 125Z-DX",
+    "engineCc": "125cc",
+    "popularYears": "2020 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-suzuki-gd110",
+    "brand": "Suzuki",
+    "modelName": "GD 110 / GD 110S",
+    "engineCc": "110cc",
+    "popularYears": "2013 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-suzuki-gs150",
+    "brand": "Suzuki",
+    "modelName": "GS 150 / GS 150SE",
+    "engineCc": "150cc",
+    "popularYears": "2005 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-suzuki-gr150",
+    "brand": "Suzuki",
+    "modelName": "GR 150",
+    "engineCc": "150cc",
+    "popularYears": "2018 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-united-us70",
+    "brand": "United",
+    "modelName": "US 70",
+    "engineCc": "70cc",
+    "popularYears": "2005 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-united-us100",
+    "brand": "United",
+    "modelName": "US 100",
+    "engineCc": "100cc",
+    "popularYears": "2010 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-united-us125",
+    "brand": "United",
+    "modelName": "US 125",
+    "engineCc": "125cc",
+    "popularYears": "2012 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-rp-classic70",
+    "brand": "Road Prince",
+    "modelName": "Classic 70",
+    "engineCc": "70cc",
+    "popularYears": "2007 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-rp-passion70",
+    "brand": "Road Prince",
+    "modelName": "Passion 70",
+    "engineCc": "70cc",
+    "popularYears": "2012 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-rp-weego150",
+    "brand": "Road Prince",
+    "modelName": "Wego 150",
+    "engineCc": "150cc",
+    "popularYears": "2016 - 2026",
+    "isPopularInPakistan": false
+  },
+  {
+    "id": "bm-sp-deluxe70",
+    "brand": "Super Power",
+    "modelName": "SP 70 Deluxe",
+    "engineCc": "70cc",
+    "popularYears": "2008 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-sp-aroma100",
+    "brand": "Super Power",
+    "modelName": "SP 100",
+    "engineCc": "100cc",
+    "popularYears": "2010 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-sp-sp125",
+    "brand": "Super Power",
+    "modelName": "SP 125",
+    "engineCc": "125cc",
+    "popularYears": "2011 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-hispeed-alpha70",
+    "brand": "Hi-Speed",
+    "modelName": "Alpha 70",
+    "engineCc": "70cc",
+    "popularYears": "2012 - 2026",
+    "isPopularInPakistan": true
+  },
+  {
+    "id": "bm-chin-generic70",
+    "brand": "Other Chinese Motorcycle Brands",
+    "modelName": "Standard 70cc Commuter Replica",
+    "engineCc": "70cc",
+    "popularYears": "2000 - 2026",
+    "isPopularInPakistan": true
+  }
+]

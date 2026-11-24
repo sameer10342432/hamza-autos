@@ -39,7 +39,9 @@ import {
   ShoppingCart,
   PackageCheck,
   ShieldAlert,
-  HardDrive
+  HardDrive,
+  Store,
+  Bike
 } from 'lucide-react';
 import { AdminTab } from '../../views/AdminView';
 
@@ -155,6 +157,20 @@ export const AdminSidebar: React.FC<AdminSidebarProps> = ({
         { id: 'brands', label: 'Brands', icon: ShieldCheck },
         { id: 'media-library', label: 'Media Library', icon: ImageIcon },
         { id: 'seo', label: 'SEO Management', icon: Globe }
+      ]
+    },
+    {
+      title: 'SHOP MANAGEMENT',
+      items: [
+        { id: 'shop-dashboard', label: 'Shop Dashboard', icon: Store },
+        { id: 'shop-products', label: 'Products & Parts', icon: Package },
+        { id: 'shop-categories', label: 'Categories', icon: Tag },
+        { id: 'shop-brands', label: 'Bike Models', icon: Bike },
+        { id: 'shop-inventory', label: 'Stock & Inventory', icon: Sliders },
+        { id: 'shop-orders', label: 'Customer Orders', icon: ShoppingCart },
+        { id: 'shop-payments', label: 'Payment Audit', icon: CreditCard },
+        { id: 'shop-shipping', label: 'Shipping & Delivery', icon: Truck },
+        { id: 'shop-settings', label: 'Store Settings', icon: SettingsIcon }
       ]
     },
     {

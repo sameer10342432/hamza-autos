@@ -1,0 +1,178 @@
+[
+  {
+    "id": "scat-engine-parts",
+    "name": "Engine Parts",
+    "slug": "engine-parts",
+    "description": "Pistons, cylinder kits, valves, rings, rocker arms, and gaskets for 70cc to 150cc commuter motorcycles.",
+    "image": "/assets/images/services/motorcycle-engine-repair.webp",
+    "iconName": "Settings2",
+    "sortOrder": 1,
+    "isActive": true,
+    "productCount": 3
+  },
+  {
+    "id": "scat-clutch-parts",
+    "name": "Clutch Parts",
+    "slug": "clutch-parts",
+    "description": "Heavy-duty clutch friction plates, steel pressure plates, springs, and clutch hub assemblies.",
+    "image": "/assets/images/services/bike-clutch-repair.webp",
+    "iconName": "Cog",
+    "sortOrder": 2,
+    "isActive": true,
+    "productCount": 2
+  },
+  {
+    "id": "scat-brake-parts",
+    "name": "Brake Parts",
+    "slug": "brake-parts",
+    "description": "High-friction asbestos-free brake shoes, disc brake pads, return springs, and brake rods.",
+    "image": "/assets/images/services/motorcycle-brake-repair.webp",
+    "iconName": "ShieldAlert",
+    "sortOrder": 3,
+    "isActive": true,
+    "productCount": 2
+  },
+  {
+    "id": "scat-electrical-parts",
+    "name": "Electrical Parts",
+    "slug": "electrical-parts",
+    "description": "CDI units, stator coils, rectifiers, ignition coils, spark plugs, and wiring harnesses.",
+    "image": "/assets/images/services/motorcycle-electrical-repair.webp",
+    "iconName": "Zap",
+    "sortOrder": 4,
+    "isActive": true,
+    "productCount": 3
+  },
+  {
+    "id": "scat-carburetor-fuel",
+    "name": "Carburettor & Fuel System",
+    "slug": "carburettor-fuel-system",
+    "description": "Standard carburetors, rebuild jet kits, fuel petcock taps, filters, and throttle slides.",
+    "image": "/assets/images/services/bike-tuning.webp",
+    "iconName": "Gauge",
+    "sortOrder": 5,
+    "isActive": true,
+    "productCount": 2
+  },
+  {
+    "id": "scat-chain-sprocket",
+    "name": "Chain & Sprocket",
+    "slug": "chain-sprocket",
+    "description": "Heavy duty 428H roller chains, front countershaft sprockets, and rear drive sprockets.",
+    "image": "/assets/images/gallery/gallery-chain-sprocket.webp",
+    "iconName": "CircleDot",
+    "sortOrder": 6,
+    "isActive": true,
+    "productCount": 2
+  },
+  {
+    "id": "scat-tyres-tubes",
+    "name": "Tyres & Tubes",
+    "slug": "tyres-tubes",
+    "description": "Durable Pakistani road-rated tyres, puncture-resistant tubes, and rim tape for daily commuting.",
+    "image": "/assets/images/services/motorcycle-tyre-repair.webp",
+    "iconName": "LifeBuoy",
+    "sortOrder": 7,
+    "isActive": true,
+    "productCount": 1
+  },
+  {
+    "id": "scat-filters",
+    "name": "Filters",
+    "slug": "filters",
+    "description": "Foam and paper air filter elements, in-line petrol filters, and magnetic oil strainers.",
+    "image": "/assets/images/about/engine-overhaul-workbench.webp",
+    "iconName": "Sliders",
+    "sortOrder": 8,
+    "isActive": true,
+    "productCount": 2
+  },
+  {
+    "id": "scat-cables-controls",
+    "name": "Cables & Controls",
+    "slug": "cables-controls",
+    "description": "Smooth teflon-lined clutch cables, front brake cables, throttle cables, and speedometer cables.",
+    "image": "/assets/images/services/bike-wiring-repair.webp",
+    "iconName": "Cable",
+    "sortOrder": 9,
+    "isActive": true,
+    "productCount": 2
+  },
+  {
+    "id": "scat-body-parts",
+    "name": "Body Parts",
+    "slug": "body-parts",
+    "description": "Fuel tank caps, side covers, mudguards, chain covers, footrests, and frame brackets.",
+    "image": "/assets/images/services/general-bike-repair.webp",
+    "iconName": "Wrench",
+    "sortOrder": 10,
+    "isActive": true,
+    "productCount": 1
+  },
+  {
+    "id": "scat-lights-indicators",
+    "name": "Lights & Indicators",
+    "slug": "lights-indicators",
+    "description": "Crystal headlamps, tail lights, flexible stem indicators, LED bulbs, and flasher relays.",
+    "image": "/assets/images/brands/honda-motorcycle.webp",
+    "iconName": "Sparkles",
+    "sortOrder": 11,
+    "isActive": true,
+    "productCount": 1
+  },
+  {
+    "id": "scat-mirrors",
+    "name": "Mirrors",
+    "slug": "mirrors",
+    "description": "Vibration-resistant chrome and black rear-view side mirrors in 8mm and 10mm thread sizes.",
+    "image": "/assets/images/brands/yamaha-motorcycle.webp",
+    "iconName": "Navigation",
+    "sortOrder": 12,
+    "isActive": true,
+    "productCount": 1
+  },
+  {
+    "id": "scat-batteries",
+    "name": "Batteries",
+    "slug": "batteries",
+    "description": "Maintenance-free 12V dry and lead-acid batteries with high cold cranking amperes.",
+    "image": "/assets/images/services/motorcycle-general-maintenance.webp",
+    "iconName": "Zap",
+    "sortOrder": 13,
+    "isActive": true,
+    "productCount": 2
+  },
+  {
+    "id": "scat-bike-accessories",
+    "name": "Bike Accessories",
+    "slug": "bike-accessories",
+    "description": "Leg guard safety bars, seat covers, grip covers, waterproof mobile holders, and helmet locks.",
+    "image": "/assets/images/services/bike-modification.webp",
+    "iconName": "PackageCheck",
+    "sortOrder": 14,
+    "isActive": true,
+    "productCount": 1
+  },
+  {
+    "id": "scat-oils-lubricants",
+    "name": "Oils & Lubricants",
+    "slug": "oils-lubricants",
+    "description": "Genuine 20W-50 4T mineral and semi-synthetic engine oils, chain lubes, and fork oils.",
+    "image": "/assets/images/services/motorcycle-oil-change.webp",
+    "iconName": "Droplets",
+    "sortOrder": 15,
+    "isActive": true,
+    "productCount": 2
+  },
+  {
+    "id": "scat-other-spare-parts",
+    "name": "Other Spare Parts",
+    "slug": "other-spare-parts",
+    "description": "Wheel hub rubber dampers, wheel bearings, axle bolts, silencer packing, and miscellaneous hardware.",
+    "image": "/assets/images/services/motorcycle-spare-parts.webp",
+    "iconName": "Cog",
+    "sortOrder": 16,
+    "isActive": true,
+    "productCount": 1
+  }
+]
