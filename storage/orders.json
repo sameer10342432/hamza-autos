@@ -1,0 +1,95 @@
+[
+  {
+    "customer": {
+      "fullName": "Test Rider Bilal",
+      "phoneNumber": "0300 9876543",
+      "whatsappNumber": "0300 9876543",
+      "email": "bilal.rider@test.com",
+      "province": "Punjab",
+      "city": "Lahore",
+      "streetAddress": "House 55, Badami Bagh Road, Lahore",
+      "postalCode": "54000"
+    },
+    "items": [
+      {
+        "partId": "sp-mwuxj8q6-v1jjq",
+        "sku": "TEST-QA-1795538955203",
+        "name": "QA Test Carburetor Float Needle Valve",
+        "unitPrice": 380,
+        "quantity": 2,
+        "totalPrice": 760
+      }
+    ],
+    "subtotal": 760,
+    "shippingFee": 150,
+    "totalAmount": 910,
+    "paymentMethod": "Cash on Delivery (COD)",
+    "status": "New",
+    "id": "ord-mwuxj8r7-3udjs",
+    "orderNumber": "HA-ORD-2026-998",
+    "createdAt": "2026-11-24T16:49:15.283Z",
+    "updatedAt": "2026-11-24T16:49:15.283Z"
+  },
+  {
+    "customer": {
+      "fullName": "Test Rider Bilal",
+      "phoneNumber": "0300 9876543",
+      "whatsappNumber": "0300 9876543",
+      "email": "bilal.rider@test.com",
+      "province": "Punjab",
+      "city": "Lahore",
+      "streetAddress": "House 55, Badami Bagh Road, Lahore",
+      "postalCode": "54000"
+    },
+    "items": [
+      {
+        "partId": "sp-mwuvh79f-evb1e",
+        "sku": "TEST-QA-1795535500771",
+        "name": "QA Test Carburetor Float Needle Valve",
+        "unitPrice": 380,
+        "quantity": 2,
+        "totalPrice": 760
+      }
+    ],
+    "subtotal": 760,
+    "shippingFee": 150,
+    "totalAmount": 910,
+    "paymentMethod": "Cash on Delivery (COD)",
+    "status": "New",
+    "id": "ord-mwuvh7aa-wddw4",
+    "orderNumber": "HA-ORD-2026-531",
+    "createdAt": "2026-11-24T15:51:40.834Z",
+    "updatedAt": "2026-11-24T15:51:40.834Z"
+  },
+  {
+    "customer": {
+      "fullName": "Test Rider Bilal",
+      "phoneNumber": "0300 9876543",
+      "whatsappNumber": "0300 9876543",
+      "email": "bilal.rider@test.com",
+      "province": "Punjab",
+      "city": "Lahore",
+      "streetAddress": "House 55, Badami Bagh Road, Lahore",
+      "postalCode": "54000"
+    },
+    "items": [
+      {
+        "partId": "sp-mwuvbpb5-ydsg2",
+        "sku": "TEST-QA-1795535244200",
+        "name": "QA Test Carburetor Float Needle Valve",
+        "unitPrice": 380,
+        "quantity": 2,
+        "totalPrice": 760
+      }
+    ],
+    "subtotal": 760,
+    "shippingFee": 150,
+    "totalAmount": 910,
+    "paymentMethod": "Cash on Delivery (COD)",
+    "status": "New",
+    "id": "ord-mwuvbpc3-k1h3f",
+    "orderNumber": "HA-ORD-2026-847",
+    "createdAt": "2026-11-24T15:47:24.291Z",
+    "updatedAt": "2026-11-24T15:47:24.291Z"
+  }
+]

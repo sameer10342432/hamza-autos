@@ -186,6 +186,7 @@ export default function CheckoutScreen() {
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         {/* Guest vs User Notice */}
         {!customer && (

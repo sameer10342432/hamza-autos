@@ -107,6 +107,7 @@ export default function OrderTrackingScreen() {
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         {/* Lookup Card */}
         <Card style={styles.lookupCard}>

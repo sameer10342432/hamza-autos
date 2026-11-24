@@ -143,6 +143,7 @@ export default function RepairBookingScreen() {
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         {/* Badami Bagh Workshop Notice Card */}
         <Card style={styles.locationNoticeCard}>

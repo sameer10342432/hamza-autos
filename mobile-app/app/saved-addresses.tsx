@@ -60,6 +60,7 @@ export default function SavedAddressesScreen() {
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         <View style={styles.headerRow}>
           <Text style={styles.headerTitle}>Delivery Addresses ({addresses.length})</Text>

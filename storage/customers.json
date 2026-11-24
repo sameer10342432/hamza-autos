@@ -49,5 +49,22 @@
     "totalBookings": 1,
     "totalSpent": 8500,
     "notes": "CG 125 enthusiast. Piston replacement completed in Bay 2."
+  },
+  {
+    "id": "cust-mwuvbpcx-l1nsl",
+    "name": "Test Rider Bilal",
+    "phoneNumber": "0300 9876543",
+    "whatsapp": "0300 9876543",
+    "email": "bilal.rider@test.com",
+    "address": "Lahore, Punjab",
+    "bikeBrand": "Spare Parts Order",
+    "bikeModel": "QA Test Carburetor Float Needle Valve (Qty: 2)",
+    "registrationNumber": "",
+    "firstContactDate": "2026-11-24",
+    "lastContactDate": "2026-11-24",
+    "totalInquiries": 3,
+    "totalBookings": 0,
+    "totalSpent": 0,
+    "notes": "Initial submission from Mobile App Checkout"
   }
 ]

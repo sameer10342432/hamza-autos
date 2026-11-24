@@ -99,6 +99,7 @@ export default function RepairTrackingScreen() {
         style={styles.scroll}
         contentContainerStyle={styles.scrollContent}
         showsVerticalScrollIndicator={false}
+        keyboardShouldPersistTaps="handled"
       >
         {/* Security Lookup Card */}
         <Card style={styles.lookupCard}>
